@@ -1,0 +1,23 @@
+{
+  "name": "logar",
+  "module": "auth",
+  "action": "provider",
+  "options": {
+    "secret": "s1lYlf3zy5tCIV1",
+    "provider": "Database",
+    "connection": "db",
+    "users": {
+      "table": "colaboradores",
+      "identity": "id_colaborador",
+      "username": "cpf_colaborador",
+      "password": "cpf_colaborador"
+    },
+    "permissions": {}
+  },
+  "meta": [
+    {
+      "name": "identity",
+      "type": "text"
+    }
+  ]
+}
