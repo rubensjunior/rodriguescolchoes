@@ -1,0 +1,198 @@
+<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="criarconta" appConnect="local" components="{dmxValidator:{}}" -->
+<meta name="ac:route" content="/f/criar-conta">
+
+<div class="container-fluid py-4">
+    <!-- Header Section -->
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+            <div class="text-center mb-4">
+                <h1 class="h2 mb-3">Crie sua conta</h1>
+                <p class="text-muted">Preencha os dados abaixo para criar sua conta</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Section -->
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4 p-md-5">
+                    <form is="dmx-serverconnect-form" id="criar_conta_form" class="needs-validation" method="post" action="/api/usuarios/criar">
+
+                        <!-- Dados Pessoais -->
+                        <fieldset class="mb-4">
+                            <legend class="h5 border-bottom pb-2 mb-4">Dados Pessoais</legend>
+
+                            <div class="row g-3">
+                                <!-- Nome Completo -->
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="nome_completo" class="form-label">Nome completo</label>
+                                        <input type="text" class="form-control" id="nome_completo" name="nome_completo" required data-msg-required="Por favor, digite seu nome completo" data-rule-lettersonly="true" data-msg-lettersonly="Digite apenas letras">
+                                    </div>
+                                </div>
+
+                                <!-- CPF -->
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="cpf" class="form-label">CPF</label>
+                                        <input type="text" class="form-control" id="cpf" name="cpf" required data-msg-required="Por favor, digite seu CPF" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" data-msg-pattern="Digite um CPF válido (000.000.000-00)" placeholder="000.000.000-00">
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-12">
+                                    <div class="form-group mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" required data-msg-required="Por favor, digite seu email" data-rule-email="true" data-msg-email="Digite um email válido">
+                                    </div>
+                                </div>
+
+                                <!-- Telefone -->
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="telefone" class="form-label">Telefone</label>
+                                        <input type="tel" class="form-control" id="telefone" name="telefone" required data-msg-required="Por favor, digite seu telefone" pattern="\(\d{2}\)\s\d{4,5}-\d{4}" data-msg-pattern="Digite um telefone válido (00) 00000-0000" placeholder="(00) 00000-0000">
+                                    </div>
+                                </div>
+
+                                <!-- Data de Nascimento -->
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="data_nascimento" class="form-label">Data de nascimento</label>
+                                        <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" required data-msg-required="Por favor, selecione sua data de nascimento">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <!-- Dados do Veículo -->
+                        <fieldset class="mb-4">
+                            <legend class="h5 border-bottom pb-2 mb-4">Dados do Veículo</legend>
+
+                            <div class="row g-3">
+                                <!-- Tipo do Veículo -->
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="tipo_veiculo" class="form-label">Tipo do veículo</label>
+                                        <select id="tipo_veiculo" name="tipo_veiculo" class="form-select" required data-msg-required="Por favor, selecione o tipo do veículo">
+                                            <option value="" selected disabled>Selecione o tipo</option>
+                                            <option value="carro">Carro</option>
+                                            <option value="moto">Moto</option>
+                                            <option value="caminhao">Caminhão</option>
+                                            <option value="van">Van</option>
+                                            <option value="outros">Outros</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Placa -->
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="placa" class="form-label">Placa do veículo</label>
+                                        <input type="text" class="form-control" id="placa" name="placa" required data-msg-required="Por favor, digite a placa do veículo" pattern="[A-Z]{3}[0-9][A-Z0-9][0-9]{2}" data-msg-pattern="Digite uma placa válida (ABC1234 ou ABC1D23)" placeholder="ABC1234" style="text-transform: uppercase;">
+                                    </div>
+                                </div>
+
+                                <!-- Modelo do Veículo -->
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="modelo_veiculo" class="form-label">Modelo</label>
+                                        <input type="text" class="form-control" id="modelo_veiculo" name="modelo_veiculo" placeholder="Ex: Honda Civic, Yamaha Factor, etc.">
+                                    </div>
+                                </div>
+
+                                <!-- Ano do Veículo -->
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="ano_veiculo" class="form-label">Ano</label>
+                                        <input type="number" class="form-control" id="ano_veiculo" name="ano_veiculo" min="1980" max="2025" placeholder="2020">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <!-- Senha -->
+                        <fieldset class="mb-4">
+                            <legend class="h5 border-bottom pb-2 mb-4">Criar Senha</legend>
+
+                            <div class="row g-3">
+                                <!-- Senha -->
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="senha" class="form-label">Senha</label>
+                                        <input type="password" class="form-control" id="senha" name="senha" required data-msg-required="Por favor, crie uma senha" minlength="8" data-msg-minlength="A senha deve ter pelo menos 8 caracteres">
+                                        <div class="form-text">Mínimo 8 caracteres</div>
+                                    </div>
+                                </div>
+
+                                <!-- Confirmar Senha -->
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="confirmar_senha" class="form-label">Confirmar senha</label>
+                                        <input type="password" class="form-control" id="confirmar_senha" name="confirmar_senha" required data-msg-required="Por favor, confirme sua senha" data-rule-equalto="#senha" data-msg-equalto="As senhas não coincidem">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <!-- Termos de Uso -->
+                        <div class="form-group mb-4">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="aceitar_termos" name="aceitar_termos" value="1" required data-msg-required="Você deve concordar com os termos para continuar">
+                                <label class="form-check-label" for="aceitar_termos">
+                                    Concordo com os <a href="#" class="text-primary">Termos de Uso</a>
+                                    e <a href="#" class="text-primary">Política de Privacidade</a>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Botões de Ação -->
+                        <div class="form-group">
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6 order-md-2">
+                                    <button type="button" class="btn btn-primary w-100" dmx-on:click="criar_conta_form.submit()" dmx-bind:disabled="criar_conta_form.state.executing">
+                                        <span dmx-hide="criar_conta_form.state.executing">Criar conta</span>
+                                        <span dmx-show="criar_conta_form.state.executing">
+                                            <span class="spinner-border spinner-border-sm me-2"></span>
+                                            Criando conta...
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="col-12 col-md-6 order-md-1">
+                                    <button type="reset" class="btn btn-outline-secondary w-100">
+                                        Limpar formulário
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Link para Login -->
+                        <div class="text-center mt-4">
+                            <p class="mb-0">
+                                Já tem uma conta?
+                                <a href="/login" class="text-primary fw-semibold">Faça login aqui</a>
+                            </p>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <!-- Mensagens de Feedback -->
+            <div class="mt-4">
+                <!-- Sucesso -->
+                <div dmx-show="criar_conta_form.data.success" class="alert alert-success" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <span dmx-text="criar_conta_form.data.message || 'Conta criada com sucesso!'"></span>
+                </div>
+
+                <!-- Erro -->
+                <div dmx-show="criar_conta_form.lastError" class="alert alert-danger" role="alert">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    <span dmx-text="criar_conta_form.lastError.message || 'Erro ao criar conta. Tente novamente.'"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

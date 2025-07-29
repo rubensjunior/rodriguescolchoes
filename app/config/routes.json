@@ -5,6 +5,16 @@
       "page": "index",
       "routeType": "page",
       "layout": "main"
+    },
+    {
+      "path": "/f/criar-conta",
+      "page": "base/criar-conta",
+      "layout": "main"
+    },
+    {
+      "path": "/f/login",
+      "page": "base/login",
+      "layout": "main"
     }
   ]
 }

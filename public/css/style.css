@@ -82,7 +82,310 @@
 }
 
 /* ========================================
-   RESPONSIVIDADE
+   INPUTS BOOTSTRAP - ALTURA MÍNIMA 44PX
+   ======================================== */
+
+/* Inputs padrão do Bootstrap */
+.form-control {
+  min-height: 44px;
+  padding: 0.75rem 0.75rem;
+}
+
+/* Select dropdown */
+.form-select {
+  min-height: 44px;
+  padding: 0.75rem 0.75rem;
+}
+
+/* Textarea - altura mínima proporcional */
+.form-control[rows] {
+  min-height: 44px;
+}
+
+/* Inputs de tamanho grande */
+.form-control-lg,
+.form-select-lg {
+  min-height: 52px;
+  padding: 1rem 1rem;
+}
+
+/* Inputs de tamanho pequeno */
+.form-control-sm,
+.form-select-sm {
+  min-height: 36px;
+  padding: 0.5rem 0.75rem;
+}
+
+/* Input groups - altura mínima para textos e botões */
+.input-group .input-group-text {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.input-group .btn {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Range inputs - altura ajustada */
+.form-range {
+  height: 44px;
+  padding: 0;
+}
+
+/* Color inputs */
+.form-control-color {
+  min-height: 44px;
+  width: 44px;
+}
+
+/* File inputs */
+input[type="file"].form-control {
+  min-height: 44px;
+  padding: 0.625rem 0.75rem;
+}
+
+/* ========================================
+   FORMULÁRIOS RESPONSIVOS
+   ======================================== */
+
+/* Card do formulário */
+.card {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Fieldset e Legend */
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+fieldset legend {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 1rem;
+}
+
+/* Form groups responsivos */
+.form-group {
+  position: relative;
+}
+
+/* Labels com melhor espaçamento */
+.form-label {
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+/* Form text com melhor visibilidade */
+.form-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-top: 0.25rem;
+}
+
+/* Checkboxes e radios melhorados */
+.form-check {
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-check-input {
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-top: 0.125rem;
+  margin-left: -1.5rem;
+}
+
+.form-check-label {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+/* Botões responsivos */
+.btn.w-100 {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Alerts responsivos */
+.alert {
+  border-radius: 6px;
+  border: none;
+  padding: 1rem 1.25rem;
+  font-size: 0.95rem;
+}
+
+.alert i {
+  font-size: 1.1rem;
+}
+
+/* ========================================
+   RESPONSIVIDADE MOBILE-FIRST
+   ======================================== */
+
+/* Extra Small devices (phones, less than 576px) */
+@media (max-width: 575.98px) {
+  /* Container ajustado para mobile */
+  .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Card sem margin nas laterais */
+  .card {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  
+  .card-body {
+    padding: 1.5rem 1rem;
+  }
+  
+  /* Fieldset com espaçamento reduzido */
+  fieldset {
+    margin-bottom: 2rem;
+  }
+  
+  fieldset legend {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  /* Form groups com espaçamento otimizado */
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  /* Labels menores */
+  .form-label {
+    font-size: 0.9rem;
+    margin-bottom: 0.375rem;
+  }
+  
+  /* Inputs com padding ajustado */
+  .form-control,
+  .form-select {
+    font-size: 0.95rem;
+    padding: 0.75rem 0.5rem;
+  }
+  
+  /* Botões empilhados */
+  .btn {
+    font-size: 0.95rem;
+    padding: 0.875rem 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Checkbox/radio com espaçamento reduzido */
+  .form-check {
+    padding-left: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .form-check-input {
+    margin-left: -1.25rem;
+  }
+  
+  .form-check-label {
+    font-size: 0.9rem;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .card-body {
+    padding: 2rem 1.5rem;
+  }
+  
+  /* Grid com 1 coluna em landscape phones */
+  .row .col-md-6 {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  /* Card com shadow suave */
+  .card {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .card-body {
+    padding: 2.5rem 2rem;
+  }
+  
+  /* Fieldsets com mais espaçamento */
+  fieldset {
+    margin-bottom: 2.5rem;
+  }
+  
+  fieldset legend {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Form groups bem espaçados */
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Botões lado a lado */
+  .btn {
+    min-height: 48px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .card-body {
+    padding: 3rem 2.5rem;
+  }
+  
+  /* Máxima largura para melhor legibilidade */
+  .container-fluid {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Espaçamento generoso entre fieldsets */
+  fieldset {
+    margin-bottom: 3rem;
+  }
+  
+  fieldset legend {
+    font-size: 1.375rem;
+    margin-bottom: 2rem;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  /* Formulário centralizado com largura máxima */
+  .card {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .card-body {
+    padding: 3.5rem 3rem;
+  }
+}
+
+/* ========================================
+   RESPONSIVIDADE NAVBAR
    ======================================== */
 
 /* Tablets e acima */
@@ -120,12 +423,6 @@
   .navbar-nav .nav-item {
     margin: 0.5rem 0;
   }
-  
-  .btn {
-    width: 100%;
-    padding: 0.875rem 1rem;
-    font-size: 0.95rem;
-  }
 }
 
 /* Mobile pequeno */
@@ -136,11 +433,6 @@
   
   .navbar-logo {
     height: 35px;
-  }
-  
-  .container-fluid {
-    padding-left: 1rem;
-    padding-right: 1rem;
   }
 }
 
@@ -158,12 +450,6 @@ main {
   margin: 0;
   padding: 0;
   min-height: calc(100vh - 80px);
-}
-
-/* Remove espaçamentos padrão do Bootstrap */
-.container-fluid {
-  padding-top: 0;
-  padding-bottom: 0;
 }
 
 /* ========================================
