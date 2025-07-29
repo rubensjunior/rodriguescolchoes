@@ -38,6 +38,23 @@
       "db_user": "postgres.eqyafrpnfuwgessstuzc",
       "db_password": "@Baki025@",
       "db_database": "postgres"
+    },
+    {
+      "name": "Producao",
+      "remoteURL": "https://sgi.rubensbentes.com.br/",
+      "access": "ftp",
+      "targetType": "wappler",
+      "databaseConnectionType": "custom",
+      "databaseType": "postgres",
+      "db_host": "aws-0-sa-east-1.pooler.supabase.com",
+      "db_port": "5432",
+      "db_user": "postgres.eqyafrpnfuwgessstuzc",
+      "db_password": "@Baki025@",
+      "db_database": "postgres",
+      "usage": "production",
+      "ftpServer": "ftp.rubensbentes.com.br",
+      "ftpUser": "master@sgi.rubensbentes.com.br",
+      "ftpPassword": "v2:911d977dddd9ef354a4179cbd7d7a70acd9ebd733257f651"
     }
   ],
   "activeTarget": "Development",
