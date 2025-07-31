@@ -1,3 +1,33 @@
 {
-  "exec": {}
+  "meta": {
+    "options": {
+      "linkedFile": "/views/base/login.ejs",
+      "linkedForm": "login_form"
+    },
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "cpf",
+        "options": {
+          "rules": {}
+        },
+        "name": "cpf"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "identity",
+      "module": "auth",
+      "action": "login",
+      "options": {
+        "provider": "logar",
+        "username": "{{$_POST.cpf}}",
+        "password": "{{$_POST.cpf}}",
+        "remember": 1
+      },
+      "output": true,
+      "meta": []
+    }
+  }
 }

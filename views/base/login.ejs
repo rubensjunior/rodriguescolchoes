@@ -13,7 +13,7 @@
                         <p class="text-muted mb-0">Digite seu CPF para acessar</p>
                     </div>
 
-                    <form is="dmx-serverconnect-form" id="login_form" class="needs-validation" method="post" action="/api/auth/login">
+                    <form is="dmx-serverconnect-form" id="login_form" class="needs-validation" method="post" action="/api/colaborador/login" dmx-on:error="notificacoes.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response)" dmx-on:success="notificacoes.success('Login realizado com sucesso!')">
                         <!-- CPF -->
                         <div class="form-group mb-3">
                             <label for="cpf" class="form-label">CPF *</label>
@@ -32,7 +32,7 @@
 
                         <!-- Botão Entrar -->
                         <div class="d-grid mb-3">
-                            <button type="button" class="btn btn-primary" dmx-on:click="login_form.submit()" dmx-bind:disabled="login_form.state.executing">
+                            <button type="submit" class="btn btn-primary">
                                 <span dmx-hide="login_form.state.executing">
                                     <i class="fas fa-sign-in-alt me-2"></i>Entrar
                                 </span>
@@ -57,26 +57,22 @@
             <!-- Mensagens de Feedback -->
             <div class="mt-4">
                 <!-- Sucesso -->
-                <div dmx-show="login_form.data.success" class="alert alert-success" role="alert">
-                    <i class="fas fa-check-circle me-2"></i>
-                    <span dmx-text="login_form.data.message || 'Login realizado com sucesso!'"></span>
-                </div>
 
                 <!-- Erro -->
-                <div dmx-show="login_form.lastError" class="alert alert-danger" role="alert">
-                    <i class="fas fa-exclamation-circle me-2"></i>
-                    <span dmx-text="login_form.lastError.message || 'CPF não encontrado. Verifique os dados ou crie uma conta.'"></span>
-                </div>
             </div>
 
             <!-- Informação de Segurança -->
             <div class="mt-4">
-                <div class="alert alert-info border-0">
-                    <i class="fas fa-shield-alt me-2"></i>
-                    <strong>Acesso Simplificado:</strong> Use apenas seu CPF para acessar sua conta.
-                    Seus dados são protegidos e seguros em nosso sistema.
-                </div>
             </div>
         </div>
     </div>
 </div>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+
+<script>
+    $('#cep').mask('00000-000');
+        $('#cpf').mask('000.000.000-00');
+</script>
