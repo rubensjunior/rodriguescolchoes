@@ -13,7 +13,7 @@
                         <p class="text-muted mb-0">Digite seu CPF para acessar</p>
                     </div>
 
-                    <form is="dmx-serverconnect-form" id="login_form" class="needs-validation" method="post" action="/api/colaborador/login" dmx-on:error="notificacoes.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response)" dmx-on:success="notificacoes.success('Login realizado com sucesso!')">
+                    <form is="dmx-serverconnect-form" id="login_form" class="needs-validation" method="post" action="/api/colaborador/login" dmx-on:error="notificacoes.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response)" dmx-on:success="navegacao.goto('/d/qr-code')">
                         <!-- CPF -->
                         <div class="form-group mb-3">
                             <label for="cpf" class="form-label">CPF *</label>

@@ -518,243 +518,287 @@ input[type="file"].form-control {
 }
 
 /* ========================================
-   RESPONSIVIDADE MOBILE-FIRST
+   QR CODE & COLABORADOR - LAYOUT ALTURA TOTAL
    ======================================== */
 
-/* Tablets e acima */
-@media (min-width: 768px) {
-  .navbar-nav {
-    flex-direction: row;
-    align-items: center;
+/* Container principal com altura total */
+.vh-100.d-flex.flex-column {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Header com informações do colaborador */
+.bg-primary.text-white {
+  background: linear-gradient(135deg, #0056b3 0%, #004085 100%) !important;
+  flex-shrink: 0;
+}
+
+/* Cards de informações do colaborador */
+.bg-white.bg-opacity-10 {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.bg-white.bg-opacity-10:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* QR Code container centralizado */
+.qr-code-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Estilo do QR Code */
+.qr-code-image {
+  max-width: 280px;
+  max-height: 280px;
+  width: 100%;
+  height: auto;
+  border: 3px solid #e9ecef;
+  border-radius: 12px;
+  background-color: #ffffff;
+  padding: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  animation: qrFadeIn 0.5s ease-in-out;
+}
+
+.qr-code-image:hover {
+  border-color: #0056b3;
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 86, 179, 0.2);
+  transform: scale(1.02);
+}
+
+/* Animação do QR Code */
+@keyframes qrFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
   }
-  
-  .navbar-nav .nav-item {
-    margin-left: 0.5rem;
-  }
-  
-  /* Step indicators desktop */
-  .step-circle {
-    width: 48px;
-    height: 48px;
-    font-size: 1.1rem;
-  }
-  
-  .step-label {
-    font-size: 0.9rem;
-  }
-  
-  .step-line {
-    width: 80px;
-  }
-  
-  /* Step indicators com espaçamento reduzido em desktop */
-  .step-indicators {
-    margin-bottom: 2rem;
-    padding: 1.25rem 1rem;
-  }
-  
-  /* Card com padding aumentado */
-  .card-body {
-    padding: 2rem !important;
-  }
-  
-  /* Form navigation desktop */
-  .form-navigation {
-    padding-top: 2rem;
-    margin-top: 2.5rem;
-  }
-  
-  .form-navigation .btn {
-    min-height: 50px;
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }
 
-/* Mobile - Menu Colapsado */
+/* Estados de loading, erro e sucesso */
+.flex-fill.d-flex.align-items-center.justify-content-center {
+  min-height: 0;
+  flex: 1;
+}
+
+/* Loading spinner personalizado */
+.spinner-border.text-primary {
+  border-color: #0056b3;
+  border-right-color: transparent;
+  animation: spinner-border 0.75s linear infinite;
+}
+
+/* Footer fixo */
+.border-top.bg-light {
+  flex-shrink: 0;
+  background-color: #f8f9fa !important;
+  border-top: 2px solid #e9ecef !important;
+}
+
+/* Alerts personalizados */
+.alert-warning {
+  background-color: #fff3cd;
+  border-left: 4px solid #ffc107;
+  color: #856404;
+  font-weight: 500;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border-left: 4px solid #dc3545;
+  color: #721c24;
+  font-weight: 500;
+}
+
+/* Texto de instruções */
+.text-secondary.small {
+  font-size: 0.875rem;
+  color: #6c757d !important;
+  font-weight: 400;
+}
+
+/* ========================================
+   RESPONSIVIDADE PARA QR CODE & COLABORADOR
+   ======================================== */
+
+/* Desktop */
+@media (min-width: 992px) {
+  .qr-code-image {
+    max-width: 320px;
+    max-height: 320px;
+  }
+  
+  .bg-primary.text-white .h4 {
+    font-size: 1.75rem;
+  }
+  
+  .bg-white.bg-opacity-10 {
+    padding: 1.25rem !important;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .qr-code-image {
+    max-width: 300px;
+    max-height: 300px;
+  }
+  
+  .bg-primary.text-white .h4 {
+    font-size: 1.5rem;
+  }
+  
+  .bg-white.bg-opacity-10 {
+    padding: 1rem !important;
+  }
+}
+
+/* Mobile */
 @media (max-width: 767.98px) {
-  .top-bar {
-    padding: 0.375rem 0;
+  .qr-code-image {
+    max-width: 250px;
+    max-height: 250px;
+    padding: 0.75rem;
+    border-width: 2px;
   }
   
-  .top-bar .text-white {
-    font-size: 0.75rem;
+  .bg-primary.text-white {
+    padding: 1.5rem !important;
   }
   
-  .navbar {
-    padding: 0.75rem 0;
+  .bg-primary.text-white .h4 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem !important;
   }
   
-  .navbar-logo {
-    height: 40px;
+  .bg-white.bg-opacity-10 {
+    padding: 0.75rem !important;
   }
   
-  .navbar-collapse {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid #dee2e6;
-    background-color: #f8f9fa;
+  .row.g-3 {
+    --bs-gutter-x: 0.75rem;
+    --bs-gutter-y: 0.75rem;
   }
   
-  .navbar-nav {
-    text-align: center;
-  }
-  
-  .navbar-nav .nav-item {
-    margin: 0.5rem 0;
-  }
-  
-  .btn {
-    width: 100%;
-    padding: 0.875rem 1rem;
-    font-size: 0.95rem;
-  }
-  
-  /* Step indicators mobile com espaçamento reduzido */
-  .step-indicators {
-    gap: 0.5rem;
-    padding: 0.75rem 0.5rem;
-    margin-bottom: 1.25rem;
-  }
-  
-  .step-circle {
-    width: 36px;
-    height: 36px;
-    font-size: 0.9rem;
-  }
-  
-  .step-label {
-    font-size: 0.75rem;
-    margin-top: 0.375rem;
-  }
-  
-  .step-line {
-    width: 40px;
-    margin: 0 0.5rem;
-  }
-  
-  /* Form navigation mobile */
-  .form-navigation {
-    padding-top: 1.25rem;
-    margin-top: 1.5rem;
-  }
-  
-  .form-navigation .btn {
-    min-height: 46px;
-    font-size: 0.9rem;
-    padding: 0.75rem 0.5rem;
-  }
-  
-  /* Botão único mobile */
-  .form-navigation .d-grid .btn {
-    min-height: 48px;
-    font-size: 1rem;
-  }
-  
-  /* Espaçamento reduzido mobile */
-  .form-navigation .row.g-2 {
-    --bs-gutter-x: 0.25rem;
-  }
-  
-  /* Ícones menores mobile */
-  .form-navigation .btn i {
+  .text-start strong {
     font-size: 0.8rem;
   }
   
-  /* Texto responsivo - esconde texto longo em telas pequenas */
-  .form-navigation .btn .d-sm-none {
-    font-size: 0.85rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-  }
-  
-  /* Form groups mobile */
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  /* Card mobile */
-  .card {
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-  }
-  
-  .card-body {
-    padding: 1.5rem 1rem !important;
+  .text-start span {
+    font-size: 0.9rem;
   }
 }
 
 /* Mobile pequeno */
 @media (max-width: 575.98px) {
-  .top-bar {
-    padding: 0.25rem 0;
+  .qr-code-image {
+    max-width: 220px;
+    max-height: 220px;
+    padding: 0.5rem;
   }
   
-  .top-bar .text-white {
-    font-size: 0.7rem;
+  .bg-primary.text-white {
+    padding: 1rem !important;
   }
   
-  .navbar {
-    padding: 0.5rem 0;
+  .bg-primary.text-white .h4 {
+    font-size: 1.1rem;
   }
   
-  .navbar-logo {
-    height: 35px;
+  .bg-white.bg-opacity-10 {
+    padding: 0.5rem !important;
   }
   
-  /* Step indicators muito pequeno com espaçamento reduzido */
-  .step-indicators {
-    padding: 0.5rem 0.25rem;
-    margin-bottom: 1rem;
+  .row.g-3 {
+    --bs-gutter-x: 0.5rem;
+    --bs-gutter-y: 0.5rem;
   }
   
-  .step-circle {
-    width: 32px;
-    height: 32px;
-    font-size: 0.8rem;
+  .col-6 {
+    padding: 0 0.25rem;
   }
   
-  .step-label {
-    font-size: 0.7rem;
-  }
-  
-  .step-line {
-    width: 30px;
-    margin: 0 0.25rem;
-  }
-  
-  /* Botões extra pequenos */
-  .form-navigation .btn {
-    min-height: 44px;
-    font-size: 0.85rem;
-    padding: 0.625rem 0.375rem;
-  }
-  
-  .form-navigation .d-grid .btn {
-    min-height: 46px;
-    font-size: 0.95rem;
-  }
-  
-  /* Espaçamento mínimo */
-  .form-navigation .row.g-2 {
-    --bs-gutter-x: 0.125rem;
-  }
-  
-  /* Ícones e texto ainda menores */
-  .form-navigation .btn i {
+  .text-start strong {
     font-size: 0.75rem;
+    margin-bottom: 0.25rem !important;
   }
   
-  .form-navigation .spinner-border-sm {
-    width: 0.8rem;
-    height: 0.8rem;
+  .text-start span {
+    font-size: 0.85rem;
+    line-height: 1.2;
   }
   
-  .card-body {
-    padding: 1rem 0.75rem !important;
+  .btn {
+    font-size: 0.85rem;
+    padding: 0.625rem 1rem;
   }
+}
+
+/* ========================================
+   ESTILOS ESPECÍFICOS PARA DADOS DO COLABORADOR
+   ======================================== */
+
+/* Labels dos dados */
+.text-white-50 {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-weight: 500;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+/* Valores dos dados */
+.h5.mb-0 {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 1.1rem;
+  line-height: 1.3;
+}
+
+/* Responsividade dos valores */
+@media (max-width: 767.98px) {
+  .h5.mb-0 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .h5.mb-0 {
+    font-size: 0.9rem;
+  }
+}
+
+/* Ícones nos dados */
+.fas.fa-id-card,
+.fas.fa-qrcode {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Transições suaves */
+.bg-white.bg-opacity-10,
+.qr-code-image,
+.btn {
+  transition: all 0.3s ease;
+}
+
+/* Hover effects */
+.bg-white.bg-opacity-10:hover {
+  transform: translateY(-1px);
 }
 
 /* ========================================
@@ -854,7 +898,7 @@ header {
 main {
   margin: 0;
   padding: 0;
-  min-height: calc(100vh - 120px); /* Ajustado para incluir a barra superior */
+  min-height: 100vh;
 }
 
 /* Container fixed do Bootstrap */

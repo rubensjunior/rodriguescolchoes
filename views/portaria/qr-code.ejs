@@ -1,2 +1,90 @@
-<!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="qrcode" appConnect="local" -->
-<meta name="ac:route" content="/portaria/qr-code">
+<!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="qrcode" appConnect="local" components="{dmxBootstrap5Alert:{}}" -->
+<div class="container-fluid vh-100 d-flex flex-column p-0">
+    <!-- Loading state -->
+    <div dmx-show="usuario_logado.state.executing" class="flex-fill d-flex align-items-center justify-content-center">
+        <div class="text-center">
+            <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+                <span class="visually-hidden">Carregando dados...</span>
+            </div>
+            <p class="text-muted">Carregando informações do colaborador...</p>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div dmx-show="usuario_logado.data && !usuario_logado.state.executing" class="flex-fill d-flex flex-column">
+        <!-- Header com informações do colaborador -->
+        <div class="bg-primary text-white p-4 text-center">
+            <h4 class="mb-3">
+                <i class="fas fa-id-card me-2"></i>
+                Identificação do Colaborador
+            </h4>
+
+            <!-- Dados do colaborador -->
+            <div class="row g-3">
+                <div class="col-12">
+                    <div class="bg-white bg-opacity-10 rounded p-3">
+                        <div class="row g-2 text-start">
+                            <div class="col-12">
+                                <strong class="d-block text-white-50 mb-1">Nome:</strong>
+                                <span class="h5 mb-0">{{usuario_logado.data.query_colaborador.nome_colaborador}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="bg-white bg-opacity-10 rounded p-3">
+                        <div class="text-start">
+                            <strong class="d-block text-white-50 mb-1">Veículo:</strong>
+                            <span>{{usuario_logado.data.query_colaborador.veiculos_colaboradores[0].modelo_veiculo}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="bg-white bg-opacity-10 rounded p-3">
+                        <div class="text-start">
+                            <strong class="d-block text-white-50 mb-1">Placa:</strong>
+                            <span>{{usuario_logado.data.query_colaborador.veiculos_colaboradores[0].placa_veiculo}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QR Code Section -->
+        <div class="flex-fill d-flex align-items-center justify-content-center p-4">
+            <div class="text-center">
+                <!-- QR Code display -->
+                <div dmx-show="usuario_logado.data.query_colaborador.base64">
+                    <div class="mb-4">
+                        <h5 class="text-muted mb-3">
+                            QR Code de Acesso
+                        </h5>
+                        <p class="text-secondary small">Apresente este código na portaria</p>
+                    </div>
+
+                    <div class="qr-code-container">
+                        <img dmx-bind:src="'data:image/png;base64,' + usuario_logado.data.query_colaborador.base64" class="img-fluid qr-code-image" alt="QR Code de Acesso">
+                    </div>
+                </div>
+
+                <!-- No QR Code available -->
+                <div dmx-show="!usuario_logado.data.query_colaborador.base64" class="text-center">
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer com botão de atualização -->
+        <div class="p-3 border-top bg-light">
+            <div class="text-center">
+                <button class="btn btn-outline-primary" dmx-on:click="usuario_logado.load()">
+                    <i class="fas fa-sync-alt me-2"></i>Atualizar Dados
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error state -->
+</div>
+<meta name="ac:route" content="/d/qr-code">

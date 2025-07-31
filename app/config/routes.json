@@ -17,7 +17,7 @@
       "layout": "main"
     },
     {
-      "path": "/portaria/qr-code",
+      "path": "/d/qr-code",
       "page": "portaria/qr-code",
       "layout": "mobile-portaria"
     }
