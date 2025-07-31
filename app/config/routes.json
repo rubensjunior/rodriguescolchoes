@@ -15,6 +15,11 @@
       "path": "/f/login",
       "page": "base/login",
       "layout": "main"
+    },
+    {
+      "path": "/portaria/qr-code",
+      "page": "portaria/qr-code",
+      "layout": "mobile-portaria"
     }
   ]
 }
