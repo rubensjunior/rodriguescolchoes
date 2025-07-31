@@ -224,7 +224,7 @@
                 "table": "veiculos_colaboradores",
                 "column": "placa_veiculo",
                 "type": "text",
-                "value": "{{$_POST.placa}}"
+                "value": "{{$_POST.placa.uppercase()}}"
               },
               {
                 "table": "veiculos_colaboradores",
@@ -253,7 +253,7 @@
             ],
             "table": "veiculos_colaboradores",
             "returning": "id_veiculo_colaborador",
-            "query": "insert into \"veiculos_colaboradores\" (\"ano_veiculo\", \"colaborador\", \"cor_veiculo\", \"modelo_veiculo\", \"placa_veiculo\", \"tipo_veiculo\") values (?, ?, ?, ?, ?, ?)",
+            "query": "insert into \"veiculos_colaboradores\" (\"ano_veiculo\", \"colaborador\", \"cor_veiculo\", \"modelo_veiculo\", \"placa_veiculo\", \"tipo_veiculo\") values (?, ?, ?, ?, ?, ?) returning \"id_veiculo_colaborador\"",
             "params": [
               {
                 "name": ":P1",
@@ -264,7 +264,7 @@
               {
                 "name": ":P2",
                 "type": "expression",
-                "value": "{{$_POST.placa}}",
+                "value": "{{$_POST.placa.uppercase()}}",
                 "test": ""
               },
               {
@@ -304,6 +304,20 @@
             "type": "number"
           }
         ]
+      },
+      {
+        "name": "api",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "https://backend.spacefeed.app/api/qrcode",
+          "data": {
+            "usuario": "{{insert_colaborador.identity}}"
+          },
+          "dataType": "json"
+        },
+        "output": true,
+        "collapsed": true
       }
     ]
   },

@@ -45,7 +45,7 @@
         <div class="col-12 col-md-10 col-lg-8 col-xl-6">
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-4 p-md-5">
-                    <form is="dmx-serverconnect-form" id="criar_conta_form" class="needs-validation" method="post" action="/api/colaborador/criar-conta" dmx-on:error="console.log('Erro:', lastError)" dmx-on:success="console.log('Sucesso:', data)">
+                    <form is="dmx-serverconnect-form" id="criar_conta_form" class="needs-validation" method="post" action="/api/colaborador/criar-conta" dmx-on:error="notificacoes.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response)" dmx-on:success="navegacao.goto('/',true)">
 
                         <!-- STEP 1: Dados Pessoais -->
                         <div dmx-show="current_step.value == 1" class="step-content">
@@ -207,37 +207,53 @@
 
                         <!-- Navigation Buttons -->
                         <div class="form-navigation mt-4">
-                            <div class="row g-3">
-                                <!-- Botão Voltar -->
-                                <div dmx-show="current_step.value > 1" dmx-class="current_step.value == 3 ? 'col-6' : 'col-6'">
-                                    <button type="button" class="btn btn-outline-secondary w-100" dmx-on:click="current_step.setValue(current_step.value - 1)">
-                                        <i class="fas fa-arrow-left me-2"></i>Voltar
+                            <!-- Step 1: Apenas botão "Próximo" -->
+                            <div dmx-show="current_step.value == 1" class="d-grid">
+                                <button type="button" class="btn btn-primary btn-lg" dmx-on:click="current_step.setValue(2)">
+                                    Próximo<i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+
+                            <!-- Step 2: Botões "Voltar" e "Próximo" -->
+                            <div dmx-show="current_step.value == 2" class="row g-2 g-md-3">
+                                <div class="col-6">
+                                    <button type="button" class="btn btn-outline-secondary w-100" dmx-on:click="current_step.setValue(1)">
+                                        <i class="fas fa-arrow-left me-1 d-none d-sm-inline"></i>
+                                        <span class="d-none d-sm-inline">Voltar</span>
+                                        <span class="d-sm-none"><i class="fas fa-arrow-left"></i></span>
                                     </button>
                                 </div>
-
-                                <!-- Botão Próximo Step 1 -->
-                                <div class="col-6" dmx-show="current_step.value == 1">
-                                    <button type="button" class="btn btn-primary w-100" dmx-on:click="current_step.setValue(2)">
-                                        Próximo<i class="fas fa-arrow-right ms-2"></i>
-                                    </button>
-                                </div>
-
-                                <!-- Botão Próximo Step 2 -->
-                                <div class="col-6" dmx-show="current_step.value == 2">
+                                <div class="col-6">
                                     <button type="button" class="btn btn-primary w-100" dmx-on:click="current_step.setValue(3)">
-                                        Próximo<i class="fas fa-arrow-right ms-2"></i>
+                                        <span class="d-none d-sm-inline">Próximo</span>
+                                        <span class="d-sm-none">Avançar</span>
+                                        <i class="fas fa-arrow-right ms-1"></i>
                                     </button>
                                 </div>
+                            </div>
 
+                            <!-- Step 3: Botões "Voltar" e "Criar Conta" -->
+                            <div dmx-show="current_step.value == 3" class="row g-2 g-md-3">
+                                <!-- Botão Voltar -->
+                                <div class="col-6">
+                                    <button type="button" class="btn btn-outline-secondary w-100" dmx-on:click="current_step.setValue(2)">
+                                        <i class="fas fa-arrow-left me-1 d-none d-sm-inline"></i>
+                                        <span class="d-none d-sm-inline">Voltar</span>
+                                        <span class="d-sm-none"><i class="fas fa-arrow-left"></i></span>
+                                    </button>
+                                </div>
                                 <!-- Botão Finalizar -->
                                 <div class="col-6" dmx-show="current_step.value == 3">
-                                    <button type="submit" class="btn btn-success w-100" dmx-bind:disabled="criar_conta_form.state.executing">
+                                    <button type="submit" class="btn btn-success w-100">
                                         <span dmx-hide="criar_conta_form.state.executing">
-                                            <i class="fas fa-check me-2"></i>Criar Conta
+                                            <i class="fas fa-check me-1 d-none d-sm-inline"></i>
+                                            <span class="d-none d-sm-inline">Criar Conta</span>
+                                            <span class="d-sm-none">Criar</span>
                                         </span>
                                         <span dmx-show="criar_conta_form.state.executing">
                                             <span class="spinner-border spinner-border-sm me-2"></span>
-                                            Criando conta...
+                                            <span class="d-none d-sm-inline">Criando...</span>
+                                            <span class="d-sm-none">...</span>
                                         </span>
                                     </button>
                                 </div>
@@ -257,16 +273,8 @@
                     <!-- Mensagens de Status -->
                     <div class="mt-3">
                         <!-- Sucesso -->
-                        <div dmx-show="criar_conta_form.data && criar_conta_form.data.success" class="alert alert-success">
-                            <i class="fas fa-check-circle me-2"></i>
-                            Conta criada com sucesso!
-                        </div>
 
                         <!-- Erro -->
-                        <div dmx-show="criar_conta_form.lastError" class="alert alert-danger">
-                            <i class="fas fa-exclamation-triangle me-2"></i>
-                            <span dmx-text="criar_conta_form.lastError.message || 'Erro ao criar conta. Tente novamente.'"></span>
-                        </div>
                     </div>
                 </div>
             </div>
