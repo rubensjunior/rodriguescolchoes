@@ -45,7 +45,7 @@
         <div class="col-12 col-md-10 col-lg-8 col-xl-6">
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-4 p-md-5">
-                    <form is="dmx-serverconnect-form" id="criar_conta_form" class="needs-validation" method="post" action="/api/usuarios/criar">
+                    <form is="dmx-serverconnect-form" id="criar_conta_form" class="needs-validation" method="post" action="/api/colaborador/criar-conta" dmx-on:error="console.log('Erro:', lastError)" dmx-on:success="console.log('Sucesso:', data)">
 
                         <!-- STEP 1: Dados Pessoais -->
                         <div dmx-show="current_step.value == 1" class="step-content">
@@ -54,7 +54,7 @@
                                 <div class="col-12">
                                     <div class="form-group mb-3">
                                         <label for="nome_completo" class="form-label">Nome completo *</label>
-                                        <input type="text" class="form-control" id="nome_completo" name="nome_completo" required data-msg-required="Por favor, digite seu nome completo" data-rule-lettersonly="true" data-msg-lettersonly="Digite apenas letras" placeholder="Ex: João Silva Santos">
+                                        <input type="text" class="form-control" id="nome_completo" name="nome_completo" required data-msg-required="Por favor, digite seu nome completo" placeholder="Ex: João Silva Santos">
                                     </div>
                                 </div>
 
@@ -62,7 +62,7 @@
                                 <div class="col-12 col-md-6">
                                     <div class="form-group mb-3">
                                         <label for="cpf" class="form-label">CPF *</label>
-                                        <input type="text" class="form-control" id="cpf" name="cpf" required data-msg-required="Por favor, digite seu CPF" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" data-msg-pattern="Digite um CPF válido (000.000.000-00)" placeholder="000.000.000-00">
+                                        <input type="text" class="form-control" id="cpf" name="cpf" required data-msg-required="Por favor, digite seu CPF" placeholder="000.000.000-00">
                                     </div>
                                 </div>
 
@@ -86,7 +86,7 @@
                                 <div class="col-12">
                                     <div class="form-group mb-3">
                                         <label for="telefone" class="form-label">Telefone *</label>
-                                        <input type="tel" class="form-control" id="telefone" name="telefone" required data-msg-required="Por favor, digite seu telefone" pattern="\(\d{2}\)\s\d{4,5}-\d{4}" data-msg-pattern="Digite um telefone válido (00) 00000-0000" placeholder="(00) 00000-0000">
+                                        <input type="tel" class="form-control" id="telefone" name="telefone" required data-msg-required="Por favor, digite seu telefone" placeholder="(00) 00000-0000">
                                     </div>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@
                                 <div class="col-12 col-md-6">
                                     <div class="form-group mb-3">
                                         <label for="placa" class="form-label">Placa do veículo *</label>
-                                        <input type="text" class="form-control" id="placa" name="placa" required data-msg-required="Por favor, digite a placa do veículo" pattern="[A-Z]{3}[0-9][A-Z0-9][0-9]{2}" data-msg-pattern="Digite uma placa válida (ABC1234 ou ABC1D23)" placeholder="ABC1234" style="text-transform: uppercase;">
+                                        <input type="text" class="form-control" id="placa" name="placa" required data-msg-required="Por favor, digite a placa do veículo" placeholder="ABC1234" style="text-transform: uppercase;">
                                     </div>
                                 </div>
 
@@ -209,22 +209,29 @@
                         <div class="form-navigation mt-4">
                             <div class="row g-3">
                                 <!-- Botão Voltar -->
-                                <div class="col-6" dmx-show="current_step.value > 1">
+                                <div dmx-show="current_step.value > 1" dmx-class="current_step.value == 3 ? 'col-6' : 'col-6'">
                                     <button type="button" class="btn btn-outline-secondary w-100" dmx-on:click="current_step.setValue(current_step.value - 1)">
                                         <i class="fas fa-arrow-left me-2"></i>Voltar
                                     </button>
                                 </div>
 
-                                <!-- Botão Próximo -->
-                                <div class="col-6" dmx-show="current_step.value < 3">
-                                    <button type="button" class="btn btn-primary w-100" dmx-on:click="current_step.setValue(current_step.value + 1)">
+                                <!-- Botão Próximo Step 1 -->
+                                <div class="col-6" dmx-show="current_step.value == 1">
+                                    <button type="button" class="btn btn-primary w-100" dmx-on:click="current_step.setValue(2)">
+                                        Próximo<i class="fas fa-arrow-right ms-2"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Botão Próximo Step 2 -->
+                                <div class="col-6" dmx-show="current_step.value == 2">
+                                    <button type="button" class="btn btn-primary w-100" dmx-on:click="current_step.setValue(3)">
                                         Próximo<i class="fas fa-arrow-right ms-2"></i>
                                     </button>
                                 </div>
 
                                 <!-- Botão Finalizar -->
                                 <div class="col-6" dmx-show="current_step.value == 3">
-                                    <button type="button" class="btn btn-success w-100" dmx-on:click="criar_conta_form.submit()" dmx-bind:disabled="criar_conta_form.state.executing || !aceitar_termos.checked">
+                                    <button type="submit" class="btn btn-success w-100" dmx-bind:disabled="criar_conta_form.state.executing">
                                         <span dmx-hide="criar_conta_form.state.executing">
                                             <i class="fas fa-check me-2"></i>Criar Conta
                                         </span>
@@ -246,23 +253,43 @@
                         </div>
 
                     </form>
-                </div>
-            </div>
 
-            <!-- Mensagens de Feedback -->
-            <div class="mt-4">
-                <!-- Sucesso -->
-                <div dmx-show="criar_conta_form.data.success" class="alert alert-success" role="alert">
-                    <i class="fas fa-check-circle me-2"></i>
-                    <span dmx-text="criar_conta_form.data.message || 'Conta criada com sucesso!'"></span>
-                </div>
+                    <!-- Mensagens de Status -->
+                    <div class="mt-3">
+                        <!-- Sucesso -->
+                        <div dmx-show="criar_conta_form.data && criar_conta_form.data.success" class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>
+                            Conta criada com sucesso!
+                        </div>
 
-                <!-- Erro -->
-                <div dmx-show="criar_conta_form.lastError" class="alert alert-danger" role="alert">
-                    <i class="fas fa-exclamation-circle me-2"></i>
-                    <span dmx-text="criar_conta_form.lastError.message || 'Erro ao criar conta. Tente novamente.'"></span>
+                        <!-- Erro -->
+                        <div dmx-show="criar_conta_form.lastError" class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <span dmx-text="criar_conta_form.lastError.message || 'Erro ao criar conta. Tente novamente.'"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+
+<script>
+    // Máscaras de input
+    $(document).ready(function() {
+        $('#cpf').mask('000.000.000-00');
+        $('#telefone').mask('(00) 00000-0000');
+    });
+
+    // Debug
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Página carregada');
+        console.log('Formulário:', document.getElementById('criar_conta_form'));
+        console.log('App Connect:', typeof dmx !== 'undefined' ? 'Carregado' : 'Não carregado');
+    });
+</script>

@@ -10,9 +10,10 @@
       "table": "colaboradores",
       "identity": "id_colaborador",
       "username": "cpf_colaborador",
-      "password": "cpf_colaborador"
+      "password": "password"
     },
-    "permissions": {}
+    "permissions": {},
+    "passwordVerify": true
   },
   "meta": [
     {

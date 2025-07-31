@@ -1,0 +1,313 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/base/criar-conta.ejs",
+      "linkedForm": "criar_conta_form"
+    },
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "nome_completo",
+        "options": {
+          "rules": {}
+        },
+        "name": "nome_completo"
+      },
+      {
+        "type": "text",
+        "fieldName": "cpf",
+        "options": {
+          "rules": {}
+        },
+        "name": "cpf"
+      },
+      {
+        "type": "date",
+        "fieldName": "data_nascimento",
+        "options": {
+          "rules": {}
+        },
+        "name": "data_nascimento"
+      },
+      {
+        "type": "text",
+        "fieldName": "email",
+        "options": {
+          "rules": {}
+        },
+        "name": "email"
+      },
+      {
+        "type": "text",
+        "fieldName": "telefone",
+        "options": {
+          "rules": {}
+        },
+        "name": "telefone"
+      },
+      {
+        "type": "text",
+        "fieldName": "placa",
+        "options": {
+          "rules": {}
+        },
+        "name": "placa"
+      },
+      {
+        "type": "text",
+        "fieldName": "modelo_veiculo",
+        "name": "modelo_veiculo"
+      },
+      {
+        "type": "number",
+        "fieldName": "ano_veiculo",
+        "options": {
+          "rules": {}
+        },
+        "name": "ano_veiculo"
+      },
+      {
+        "type": "text",
+        "fieldName": "cor_veiculo",
+        "name": "cor_veiculo"
+      },
+      {
+        "type": "text",
+        "fieldName": "aceitar_termos",
+        "options": {
+          "rules": {}
+        },
+        "name": "aceitar_termos"
+      },
+      {
+        "type": "text",
+        "fieldName": "tipo_veiculo",
+        "options": {
+          "rules": {}
+        },
+        "name": "tipo_veiculo"
+      },
+      {
+        "type": "text",
+        "name": "password"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "hash",
+        "module": "crypto",
+        "action": "passwordHash",
+        "options": {
+          "password": "{{$_POST.cpf}}",
+          "algo": "argon2id"
+        },
+        "outputType": "text"
+      },
+      {
+        "name": "insert_colaborador",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "colaboradores",
+                "column": "nome_colaborador",
+                "type": "text",
+                "value": "{{$_POST.nome_completo}}"
+              },
+              {
+                "table": "colaboradores",
+                "column": "cpf_colaborador",
+                "type": "text",
+                "value": "{{$_POST.cpf}}"
+              },
+              {
+                "table": "colaboradores",
+                "column": "data_nascimento",
+                "type": "date",
+                "value": "{{$_POST.data_nascimento}}"
+              },
+              {
+                "table": "colaboradores",
+                "column": "email",
+                "type": "text",
+                "value": "{{$_POST.email}}"
+              },
+              {
+                "table": "colaboradores",
+                "column": "telefone",
+                "type": "text",
+                "value": "{{$_POST.telefone}}"
+              },
+              {
+                "table": "colaboradores",
+                "column": "password",
+                "type": "text",
+                "value": "{{hash}}"
+              }
+            ],
+            "table": "colaboradores",
+            "returning": "id_colaborador",
+            "query": "insert into \"colaboradores\" (\"cpf_colaborador\", \"data_nascimento\", \"email\", \"nome_colaborador\", \"password\", \"telefone\") values (?, ?, ?, ?, ?, ?) returning \"id_colaborador\"",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.nome_completo}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.cpf}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.data_nascimento}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{$_POST.email}}",
+                "test": ""
+              },
+              {
+                "name": ":P5",
+                "type": "expression",
+                "value": "{{$_POST.telefone}}",
+                "test": ""
+              },
+              {
+                "name": ":P6",
+                "type": "expression",
+                "value": "{{hash}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "name": "insert_veiculo",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "veiculos_colaboradores",
+                "column": "tipo_veiculo",
+                "type": "text",
+                "value": "{{$_POST.tipo_veiculo}}"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "placa_veiculo",
+                "type": "text",
+                "value": "{{$_POST.placa}}"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "colaborador",
+                "type": "text",
+                "value": "{{insert_colaborador.identity}}"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "modelo_veiculo",
+                "type": "text",
+                "value": "{{$_POST.modelo_veiculo}}"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "ano_veiculo",
+                "type": "text",
+                "value": "{{$_POST.ano_veiculo}}"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "cor_veiculo",
+                "type": "text",
+                "value": "{{$_POST.cor_veiculo}}"
+              }
+            ],
+            "table": "veiculos_colaboradores",
+            "returning": "id_veiculo_colaborador",
+            "query": "insert into \"veiculos_colaboradores\" (\"ano_veiculo\", \"colaborador\", \"cor_veiculo\", \"modelo_veiculo\", \"placa_veiculo\", \"tipo_veiculo\") values (?, ?, ?, ?, ?, ?)",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.tipo_veiculo}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.placa}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{insert_colaborador.identity}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{$_POST.modelo_veiculo}}",
+                "test": ""
+              },
+              {
+                "name": ":P5",
+                "type": "expression",
+                "value": "{{$_POST.ano_veiculo}}",
+                "test": ""
+              },
+              {
+                "name": ":P6",
+                "type": "expression",
+                "value": "{{$_POST.cor_veiculo}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  },
+  "usedModules": {
+    "argon2": "^0.30.2"
+  }
+}
