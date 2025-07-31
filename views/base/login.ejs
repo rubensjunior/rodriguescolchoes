@@ -1,16 +1,80 @@
-<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="login" appConnect="local" -->
+<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="login" appConnect="local" components="{dmxValidator:{}}" -->
 <meta name="ac:route" content="/f/login">
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <form id="form1">
-                        <div class="form-group mb-3"> <label for="input1" class="form-label">Some text</label>
-                            <input type="text" class="form-control" id="input1" name="input1" aria-describedby="input1_help" placeholder="Enter some text">
-                            <small id="input1_help" class="form-text text-muted">Your input is very valuable.</small>
+
+<div class="container-fluid py-4">
+    <!-- Form Section -->
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4 p-md-5">
+                    <!-- Header -->
+                    <div class="text-center mb-4">
+                        <h3 class="mb-2">Entrar na Conta</h3>
+                        <p class="text-muted mb-0">Digite seu CPF para acessar</p>
+                    </div>
+
+                    <form is="dmx-serverconnect-form" id="login_form" class="needs-validation" method="post" action="/api/auth/login">
+                        <!-- CPF -->
+                        <div class="form-group mb-3">
+                            <label for="cpf" class="form-label">CPF *</label>
+                            <input type="text" class="form-control" id="cpf" name="cpf" required data-msg-required="Por favor, digite seu CPF" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" data-msg-pattern="Digite um CPF válido (000.000.000-00)" placeholder="000.000.000-00" maxlength="14">
+                        </div>
+
+                        <!-- Lembrar de mim -->
+                        <div class="form-group mb-4">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="lembrar" name="lembrar" value="1">
+                                <label class="form-check-label" for="lembrar">
+                                    Lembrar de mim
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Botão Entrar -->
+                        <div class="d-grid mb-3">
+                            <button type="button" class="btn btn-primary" dmx-on:click="login_form.submit()" dmx-bind:disabled="login_form.state.executing">
+                                <span dmx-hide="login_form.state.executing">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Entrar
+                                </span>
+                                <span dmx-show="login_form.state.executing">
+                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                    Entrando...
+                                </span>
+                            </button>
+                        </div>
+
+                        <!-- Links auxiliares -->
+                        <div class="text-center">
+                            <p class="mb-0">
+                                Não tem uma conta?
+                                <a href="/criar-conta" class="text-primary fw-semibold">Criar conta</a>
+                            </p>
                         </div>
                     </form>
+                </div>
+            </div>
+
+            <!-- Mensagens de Feedback -->
+            <div class="mt-4">
+                <!-- Sucesso -->
+                <div dmx-show="login_form.data.success" class="alert alert-success" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <span dmx-text="login_form.data.message || 'Login realizado com sucesso!'"></span>
+                </div>
+
+                <!-- Erro -->
+                <div dmx-show="login_form.lastError" class="alert alert-danger" role="alert">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    <span dmx-text="login_form.lastError.message || 'CPF não encontrado. Verifique os dados ou crie uma conta.'"></span>
+                </div>
+            </div>
+
+            <!-- Informação de Segurança -->
+            <div class="mt-4">
+                <div class="alert alert-info border-0">
+                    <i class="fas fa-shield-alt me-2"></i>
+                    <strong>Acesso Simplificado:</strong> Use apenas seu CPF para acessar sua conta.
+                    Seus dados são protegidos e seguros em nosso sistema.
                 </div>
             </div>
         </div>
