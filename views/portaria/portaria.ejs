@@ -1,4 +1,5 @@
 <!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="portaria" appConnect="local" -->
+<dmx-value id="qrcode_id"></dmx-value>
 <meta name="ac:route" content="/portaria/portaria">
 <script src="https://unpkg.com/html5-qrcode"></script>
 <div id="reader"></div>
@@ -13,9 +14,13 @@ qrCode.start(
     // Apenas exibe o QR lido no console ou em um elemento da página (sem redirecionar)
     console.log("QR Code lido:", decodedText);
     document.getElementById("reader-result").innerText = decodedText;
+    
+    // Adiciona o ID lido na variável App Connect
+    dmx.app.find('qrcode_id').set('value', decodedText);
     // ❗Não pare a câmera, nem redirecione
   }
 );
 </script>
 
 <p id="reader-result" style="margin-top: 1rem; font-weight: bold;"></p>
+<h4>ID: {{qrcode_id.value}}</h4>
