@@ -2,5 +2,9 @@
   "qr-code.ejs": {
     "layoutPage": "mobile-portaria",
     "description": ""
+  },
+  "portaria.ejs": {
+    "layoutPage": "mobile-portaria",
+    "description": ""
   }
 }

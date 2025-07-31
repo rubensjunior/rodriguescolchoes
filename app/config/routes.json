@@ -20,6 +20,11 @@
       "path": "/d/qr-code",
       "page": "portaria/qr-code",
       "layout": "mobile-portaria"
+    },
+    {
+      "path": "/portaria/portaria",
+      "page": "portaria/portaria",
+      "layout": "mobile-portaria"
     }
   ]
 }

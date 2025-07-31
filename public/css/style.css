@@ -995,3 +995,214 @@ a:hover {
   background: var(--primary-color);
   color: white;
 }
+
+/* ========================================
+   LEITOR DE QR CODE - PORTARIA
+   ======================================== */
+
+/* Container do leitor QR */
+#reader {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #e9ecef;
+  background-color: #f8f9fa;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilo do video do leitor */
+#reader video {
+  border-radius: 6px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Canvas do QR scanner */
+#reader canvas {
+  border-radius: 6px;
+}
+
+/* Card de resultado do QR Code */
+#result-card {
+  animation: slideIn 0.3s ease-out;
+  border-radius: 8px;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Conteúdo do resultado QR */
+#reader-result {
+  font-family: 'Courier New', monospace;
+  background-color: #f8f9fa;
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #e9ecef;
+  word-break: break-all;
+  white-space: pre-wrap;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+/* Timestamp do scan */
+#scan-timestamp {
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Botões do resultado QR */
+#result-card .btn-sm {
+  font-size: 0.8rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+}
+
+/* Ícones dos botões */
+#result-card .btn i {
+  font-size: 0.9rem;
+}
+
+/* Card header de sucesso */
+#result-card .card-header.bg-success {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+  border-bottom: none;
+}
+
+/* Responsividade do leitor QR */
+@media (max-width: 768px) {
+  #reader {
+    min-height: 250px;
+    border-width: 1px;
+  }
+  
+  #reader-result {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+    max-height: 120px;
+  }
+  
+  #result-card .btn-sm {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+/* Animação de pulse para indicar atividade */
+.qr-scanning::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  animation: pulse 2s infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0% {
+    border-color: #007bff;
+    opacity: 1;
+  }
+  50% {
+    border-color: #0056b3;
+    opacity: 0.5;
+  }
+  100% {
+    border-color: #007bff;
+    opacity: 1;
+  }
+}
+
+/* Status indicators para o leitor */
+.qr-status {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.qr-status.active {
+  background-color: #28a745;
+  color: white;
+}
+
+.qr-status.error {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Overlay de loading no QR reader */
+.qr-loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(248, 249, 250, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  z-index: 5;
+}
+
+/* Histórico de QR codes lidos */
+.qr-history {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+}
+
+.qr-history-item {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 0.85rem;
+}
+
+.qr-history-item:last-child {
+  border-bottom: none;
+}
+
+.qr-history-item:hover {
+  background-color: #e9ecef;
+  cursor: pointer;
+}
+
+/* Customização do scroll para o histórico */
+.qr-history::-webkit-scrollbar {
+  width: 6px;
+}
+
+.qr-history::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.qr-history::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.qr-history::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}

@@ -1,0 +1,21 @@
+<!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="portaria" appConnect="local" -->
+<meta name="ac:route" content="/portaria/portaria">
+<script src="https://unpkg.com/html5-qrcode"></script>
+<div id="reader"></div>
+
+<script>
+  const qrCode = new Html5Qrcode("reader");
+
+qrCode.start(
+  { facingMode: "environment" },
+  { fps: 10, qrbox: 250 },
+  function onScanSuccess(decodedText, decodedResult) {
+    // Apenas exibe o QR lido no console ou em um elemento da página (sem redirecionar)
+    console.log("QR Code lido:", decodedText);
+    document.getElementById("reader-result").innerText = decodedText;
+    // ❗Não pare a câmera, nem redirecione
+  }
+);
+</script>
+
+<p id="reader-result" style="margin-top: 1rem; font-weight: bold;"></p>
