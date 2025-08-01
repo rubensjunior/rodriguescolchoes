@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "id_agente_portaria"
+      },
+      {
+        "type": "text",
+        "name": "id_colaborador"
+      },
+      {
+        "type": "text",
+        "name": "id_veiculo"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "insert_registro_saida",
+      "module": "dbupdater",
+      "action": "insert",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "insert",
+          "values": [
+            {
+              "table": "registro_portaria",
+              "column": "id_colaborador_registro",
+              "type": "text",
+              "value": "{{$_GET.id_colaborador}}"
+            },
+            {
+              "table": "registro_portaria",
+              "column": "tipo_registro",
+              "type": "text",
+              "value": "{{'Saída'}}"
+            },
+            {
+              "table": "registro_portaria",
+              "column": "data_hora",
+              "type": "datetime",
+              "value": "{{NOW_UTC}}"
+            },
+            {
+              "table": "registro_portaria",
+              "column": "id_agente_portaria",
+              "type": "text",
+              "value": "{{$_GET.id_agente_portaria}}"
+            },
+            {
+              "table": "registro_portaria",
+              "column": "id_veiculo_registrado",
+              "type": "number",
+              "value": "{{$_GET.id_veiculo}}"
+            }
+          ],
+          "table": "registro_portaria",
+          "returning": "id_registro_portaria",
+          "query": "insert into \"registro_portaria\" (\"data_hora\", \"id_agente_portaria\", \"id_colaborador_registro\", \"id_veiculo_registrado\", \"tipo_registro\") values (?, ?, ?, ?, ?) returning \"id_registro_portaria\"",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_GET.id_colaborador}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{'Saída'}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{NOW_UTC}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_GET.id_agente_portaria}}",
+              "test": ""
+            },
+            {
+              "name": ":P5",
+              "type": "expression",
+              "value": "{{$_GET.id_veiculo}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "identity",
+          "type": "text"
+        },
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}
