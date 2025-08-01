@@ -30,42 +30,32 @@
   <!-- Área Principal de Conteúdo -->
   <div class="flex-fill p-3">
 
-    <!-- Scanner QR Code -->
-    <div class="card mb-3">
-      <div class="card-header bg-info text-white">
-        <h5 class="mb-0">
-          <i class="fas fa-qrcode me-2"></i>
-          Scanner QR Code
-        </h5>
-      </div>
-      <div class="card-body p-2">
-        <div id="reader" class="mb-3"></div>
+    <!-- Scanner QR Code Full Width -->
+    <div id="reader" class="w-100 mb-3"></div>
 
-        <!-- Resultado do Scan -->
-        <div class="alert alert-light border" dmx-show="qrcode_id.value">
-          <div class="d-flex align-items-center">
-            <i class="fas fa-check-circle text-success me-2"></i>
-            <div class="flex-grow-1">
-              <small class="text-muted d-block">QR Code Lido:</small>
-              <span id="reader-result" class="fw-bold" dmx-text="qrcode_id.value"></span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Botão Validar -->
-        <div class="d-grid">
-          <button class="btn btn-primary btn-lg" dmx-bind:disabled="!qrcode_id.value || colaborador_veiculo.state.executing" dmx-on:click="colaborador_veiculo.load({id_colaborador_buscado: qrcode_id.value})">
-            <span dmx-hide="colaborador_veiculo.state.executing">
-              <i class="fas fa-search me-2"></i>
-              Validar Colaborador
-            </span>
-            <span dmx-show="colaborador_veiculo.state.executing">
-              <span class="spinner-border spinner-border-sm me-2"></span>
-              Validando...
-            </span>
-          </button>
+    <!-- Resultado do Scan -->
+    <div class="alert alert-light border mb-3" dmx-show="qrcode_id.value">
+      <div class="d-flex align-items-center">
+        <i class="fas fa-check-circle text-success me-2"></i>
+        <div class="flex-grow-1">
+          <small class="text-muted d-block">QR Code Lido:</small>
+          <span id="reader-result" class="fw-bold" dmx-text="qrcode_id.value"></span>
         </div>
       </div>
+    </div>
+
+    <!-- Botão Validar -->
+    <div class="d-grid mb-3">
+      <button class="btn btn-primary btn-lg" dmx-bind:disabled="!qrcode_id.value || colaborador_veiculo.state.executing" dmx-on:click="colaborador_veiculo.load({id_colaborador_buscado: qrcode_id.value})">
+        <span dmx-hide="colaborador_veiculo.state.executing">
+          <i class="fas fa-search me-2"></i>
+          Validar Colaborador
+        </span>
+        <span dmx-show="colaborador_veiculo.state.executing">
+          <span class="spinner-border spinner-border-sm me-2"></span>
+          Validando...
+        </span>
+      </button>
     </div>
 
     <!-- Card de Informações do Colaborador -->
@@ -156,30 +146,9 @@
     </div>
 
     <!-- Alertas de Sucesso/Erro -->
-    <div dmx-show="registro_entrada.data.success" class="alert alert-success border-0 rounded">
-      <i class="fas fa-check-circle me-2"></i>
-      <strong>Entrada registrada com sucesso!</strong>
-    </div>
 
-    <div dmx-show="registro_saida.data.success" class="alert alert-warning border-0 rounded">
-      <i class="fas fa-check-circle me-2"></i>
-      <strong>Saída registrada com sucesso!</strong>
-    </div>
 
-    <div dmx-show="colaborador_veiculo.lastError" class="alert alert-danger border-0 rounded">
-      <i class="fas fa-exclamation-triangle me-2"></i>
-      <strong>Erro:</strong> <span dmx-text="colaborador_veiculo.lastError.message"></span>
-    </div>
 
-    <div dmx-show="registro_entrada.lastError" class="alert alert-danger border-0 rounded">
-      <i class="fas fa-exclamation-triangle me-2"></i>
-      <strong>Erro na entrada:</strong> <span dmx-text="registro_entrada.lastError.message"></span>
-    </div>
-
-    <div dmx-show="registro_saida.lastError" class="alert alert-danger border-0 rounded">
-      <i class="fas fa-exclamation-triangle me-2"></i>
-      <strong>Erro na saída:</strong> <span dmx-text="registro_saida.lastError.message"></span>
-    </div>
 
   </div>
 
