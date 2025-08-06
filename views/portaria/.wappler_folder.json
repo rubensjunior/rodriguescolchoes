@@ -6,5 +6,9 @@
   "portaria.ejs": {
     "layoutPage": "mobile-portaria",
     "description": ""
+  },
+  "escolha-registro.ejs": {
+    "layoutPage": "mobile-portaria",
+    "description": ""
   }
 }

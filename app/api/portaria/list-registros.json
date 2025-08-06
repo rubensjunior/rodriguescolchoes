@@ -1,0 +1,205 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      },
+      {
+        "type": "text",
+        "name": "offset"
+      },
+      {
+        "type": "text",
+        "name": "limit"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "paged",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "registro_portaria",
+              "column": "data_hora"
+            },
+            {
+              "table": "colaboradores",
+              "column": "nome_colaborador"
+            },
+            {
+              "table": "colaboradores",
+              "column": "cpf_colaborador"
+            },
+            {
+              "table": "colaboradores",
+              "column": "cpf_colaborador"
+            },
+            {
+              "table": "veiculos_colaboradores",
+              "column": "modelo_veiculo"
+            },
+            {
+              "table": "veiculos_colaboradores",
+              "column": "placa_veiculo"
+            },
+            {
+              "table": "registro_portaria",
+              "column": "tipo_registro"
+            }
+          ],
+          "params": [],
+          "table": {
+            "name": "registro_portaria"
+          },
+          "primary": "id_registro_portaria",
+          "joins": [
+            {
+              "table": "colaboradores",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "colaboradores",
+                    "column": "id_colaborador",
+                    "operator": "equal",
+                    "operation": "=",
+                    "value": {
+                      "table": "registro_portaria",
+                      "column": "id_colaborador_registro"
+                    }
+                  }
+                ]
+              },
+              "primary": "id_colaborador"
+            },
+            {
+              "table": "veiculos_colaboradores",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "veiculos_colaboradores",
+                    "column": "id_veiculo_colaborador",
+                    "operation": "=",
+                    "operator": "equal",
+                    "value": {
+                      "table": "registro_portaria",
+                      "column": "id_veiculo_registrado",
+                      "type": "number"
+                    }
+                  }
+                ]
+              },
+              "primary": "id_veiculo_colaborador"
+            }
+          ],
+          "query": "select \"registro_portaria\".\"data_hora\", \"colaboradores\".\"nome_colaborador\", \"colaboradores\".\"cpf_colaborador\", \"colaboradores\".\"cpf_colaborador\", \"veiculos_colaboradores\".\"modelo_veiculo\", \"veiculos_colaboradores\".\"placa_veiculo\", \"registro_portaria\".\"tipo_registro\" from \"registro_portaria\" inner join \"colaboradores\" on \"colaboradores\".\"id_colaborador\" = \"registro_portaria\".\"id_colaborador_registro\" inner join \"veiculos_colaboradores\" on \"veiculos_colaboradores\".\"id_veiculo_colaborador\" = \"registro_portaria\".\"id_veiculo_registrado\" order by \"registro_portaria\".\"data_hora\" DESC",
+          "orders": [
+            {
+              "table": "registro_portaria",
+              "column": "data_hora",
+              "direction": "DESC"
+            }
+          ]
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "name": "offset",
+          "type": "number"
+        },
+        {
+          "name": "limit",
+          "type": "number"
+        },
+        {
+          "name": "total",
+          "type": "number"
+        },
+        {
+          "name": "page",
+          "type": "object",
+          "sub": [
+            {
+              "name": "offset",
+              "type": "object",
+              "sub": [
+                {
+                  "name": "first",
+                  "type": "number"
+                },
+                {
+                  "name": "prev",
+                  "type": "number"
+                },
+                {
+                  "name": "next",
+                  "type": "number"
+                },
+                {
+                  "name": "last",
+                  "type": "number"
+                }
+              ]
+            },
+            {
+              "name": "current",
+              "type": "number"
+            },
+            {
+              "name": "total",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "name": "data",
+          "type": "array",
+          "sub": [
+            {
+              "type": "datetime",
+              "name": "data_hora"
+            },
+            {
+              "type": "text",
+              "name": "nome_colaborador"
+            },
+            {
+              "type": "text",
+              "name": "cpf_colaborador"
+            },
+            {
+              "type": "text",
+              "name": "modelo_veiculo"
+            },
+            {
+              "type": "text",
+              "name": "placa_veiculo"
+            },
+            {
+              "type": "text",
+              "name": "tipo_registro"
+            }
+          ]
+        }
+      ],
+      "outputType": "object"
+    }
+  }
+}

@@ -1,7 +1,63 @@
-<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="registrosportaria" appConnect="local" -->
-<div class="container-fluid">
+<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="registrosportaria" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxBootstrap5Navigation:{},dmxBootstrap5PagingGenerator:{}}" -->
+
+<dmx-serverconnect id="listagem_registros" url="/api/portaria/list-registros" dmx-param:limit="8"></dmx-serverconnect>
+<div class="container my-4 p-0">
+    <div class="row align-items-center">
+        <div class="col align-self-center">
+            <h4 class="m-0">Gestão de acesso de veículos</h4>
+        </div>
+        <div class="col align-self-center">
+            <input id="text1" name="text1" type="text" class="form-control border-light-subtle">
+        </div>
+    </div>
+</div>
+<div class="container bg-white p-3 rounded-3 border border-light-subtle">
     <div class="row">
-        <div class="col"></div>
+        <div class="col">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="titulo-tabela py-3">Data</th>
+                        <th class="titulo-tabela py-3">Colaborador</th>
+                        <th class="titulo-tabela py-3">CPF</th>
+                        <th class="titulo-tabela py-3">Veículo</th>
+                        <th class="titulo-tabela py-3">Placa</th>
+                        <th class="titulo-tabela py-3">Registro</th>
+                    </tr>
+                </thead>
+                <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="listagem_registros.data.query.data" id="tableRepeat2">
+                    <tr>
+                        <td dmx-text="data_hora.formatDate('dd/MM/yyyy HH:mm')" class="titulo-tabela py-3"></td>
+                        <td dmx-text="nome_colaborador" class="titulo-tabela py-3"></td>
+                        <td dmx-text="cpf_colaborador" class="titulo-tabela py-3"></td>
+                        <td dmx-text="modelo_veiculo" class="titulo-tabela py-3"></td>
+                        <td dmx-text="placa_veiculo" class="titulo-tabela py-3"></td>
+                        <td class="titulo-tabela py-3 fw-bold" dmx-class:text-danger="tipo_registro == 'Saída'" dmx-class:text-primary="tipo_registro != 'Saída'">
+                            <i class="fas fa-arrow-up me-1" dmx-show="tipo_registro == 'Entrada'"></i>
+                            <i class="fas fa-arrow-down me-1" dmx-show="tipo_registro == 'Saída'"></i>
+                            <span dmx-text="tipo_registro"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="pagination pagination-sm" dmx-populate="listagem_registros.data.query" dmx-generator="bs5paging">
+                <li class="page-item" dmx-class:disabled="listagem_registros.data.query.page.current == 1" aria-label="First">
+                    <a href="javascript:void(0)" class="page-link" dmx-on:click="listagem_registros.load({offset: listagem_registros.data.query.page.offset.first})"><span aria-hidden="true">&lsaquo;&lsaquo;</span></a>
+                </li>
+                <li class="page-item" dmx-class:disabled="listagem_registros.data.query.page.current == 1" aria-label="Previous">
+                    <a href="javascript:void(0)" class="page-link" dmx-on:click="listagem_registros.load({offset: listagem_registros.data.query.page.offset.prev})"><span aria-hidden="true">&lsaquo;</span></a>
+                </li>
+                <li class="page-item" dmx-class:active="title == listagem_registros.data.query.page.current" dmx-class:disabled="!active" dmx-repeat="listagem_registros.data.query.getServerConnectPagination(2,1,'...')">
+                    <a href="javascript:void(0)" class="page-link" dmx-on:click="listagem_registros.load({offset: (page-1)*listagem_registros.data.query.limit})">{{title}}</a>
+                </li>
+                <li class="page-item" dmx-class:disabled="listagem_registros.data.query.page.current == listagem_registros.data.query.page.total" aria-label="Next">
+                    <a href="javascript:void(0)" class="page-link" dmx-on:click="listagem_registros.load({offset: listagem_registros.data.query.page.offset.next})"><span aria-hidden="true">&rsaquo;</span></a>
+                </li>
+                <li class="page-item" dmx-class:disabled="listagem_registros.data.query.page.current == listagem_registros.data.query.page.total" aria-label="Last">
+                    <a href="javascript:void(0)" class="page-link" dmx-on:click="listagem_registros.load({offset: listagem_registros.data.query.page.offset.last})"><span aria-hidden="true">&rsaquo;&rsaquo;</span></a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 <meta name="ac:route" content="/backoffice/f/registros-portaria">

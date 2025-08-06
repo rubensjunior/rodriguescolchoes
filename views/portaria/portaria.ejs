@@ -5,7 +5,7 @@
 <dmx-serverconnect id="registro_entrada" noload="true" url="/api/portaria/entrada" dmx-on:error="notificacao.danger('Ocorreu um erro, entre em contato com o DTI.')" dmx-on:success="run([{run:{outputType:'text',action:`notificacao.success(\'Entrada registrada com sucesso!\')`}},{wait:{delay:2000}},{run:{outputType:'text',action:`navegacao.reload()`}}])"></dmx-serverconnect>
 <dmx-serverconnect id="registro_saida" noload="true" url="/api/portaria/saida" dmx-on:error="notificacao.danger('Ocorreu um erro, entre em contato com o DTI.')" dmx-on:success="run([{run:{outputType:'text',action:`notificacao.success(\'Saída registrada com sucesso!\')`}},{wait:{delay:2000}},{run:{outputType:'text',action:`navegacao.reload()`}}])"></dmx-serverconnect>
 
-<meta name="ac:route" content="/portaria/portaria">
+<meta name="ac:route" content="/d/portaria">
 <script src="https://unpkg.com/html5-qrcode"></script>
 
 <!-- Layout Principal -->
