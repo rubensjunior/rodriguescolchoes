@@ -22,7 +22,7 @@
       "layout": "mobile-portaria"
     },
     {
-      "path": "/portaria/portaria",
+      "path": "/d/portaria",
       "page": "portaria/portaria",
       "layout": "mobile-portaria"
     }
