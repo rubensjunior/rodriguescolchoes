@@ -24,7 +24,7 @@
 <body is="dmx-app" id="main">
   <dmx-notifications id="notificacoes"></dmx-notifications>
   <div is="dmx-browser" id="navegacao"></div>
-  <header>
+  <header class="bg-nav">
     <!-- Barra superior azul -->
     <div class="top-bar">
       <div class="container">
@@ -40,7 +40,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-light">
       <div class="container">
         <!-- Logo/Brand -->
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="/" internal="true">
           <img src="/assets/images/LOGO COLORIDO.png" alt="Rodrigues Colchões" class="navbar-logo">
         </a>
 
@@ -54,10 +54,10 @@
           <!-- Action Buttons -->
           <div class="navbar-nav ms-auto">
             <div class="nav-item me-2">
-              <a href="/f/criar-conta" class="btn btn-outline-primary">Cadastrar</a>
+              <a href="/f/criar-conta" class="btn btn-outline-primary" internal="true">Cadastrar</a>
             </div>
             <div class="nav-item">
-              <a href="/f/login" class="btn btn-primary">Entrar</a>
+              <a href="/f/login" class="btn btn-primary" internal="true">Entrar</a>
             </div>
           </div>
         </div>

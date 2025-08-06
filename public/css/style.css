@@ -1,7 +1,9 @@
 /* ========================================
    HEADER COM BARRA SUPERIOR - RODRIGUES COLCHÕES
    ======================================== */
-
+.bg-nav, .bg-backoffice{
+  background-color: #f8f9fa !important;
+}
 /* Barra superior azul */
 .top-bar {
   background-color: #007bff;
@@ -19,7 +21,8 @@
 .navbar {
   background-color: #f8f9fa;
   padding: 1rem 0;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   margin-bottom: 0;
   border-bottom: 1px solid #e9ecef;
 }
@@ -41,12 +44,14 @@
   padding: 0.5rem;
   font-size: 1.25rem;
   border: none !important;
-  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
   background: transparent;
 }
 
 .navbar-toggler:focus {
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   outline: none;
 }
 
@@ -63,8 +68,10 @@
   border-radius: 6px;
   border-width: 2px;
   text-decoration: none;
+  -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .btn-outline-primary {
@@ -78,7 +85,8 @@
   color: #ffffff;
   background-color: #0056b3;
   border-color: #0056b3;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .btn-primary {
@@ -92,7 +100,8 @@
   color: #ffffff;
   background-color: #004085;
   border-color: #004085;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 /* ========================================
@@ -105,12 +114,16 @@
   padding: 0.75rem 0.75rem;
   border-radius: 4px;
   border: 1px solid #ced4da;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
 
 .form-control:focus {
   border-color: #0056b3;
-  box-shadow: 0 0 0 0.2rem rgba(0, 86, 179, 0.25);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 86, 179, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(0, 86, 179, 0.25);
 }
 
 /* Select dropdown */
@@ -119,12 +132,16 @@
   padding: 0.75rem 0.75rem;
   border-radius: 4px;
   border: 1px solid #ced4da;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
 
 .form-select:focus {
   border-color: #0056b3;
-  box-shadow: 0 0 0 0.2rem rgba(0, 86, 179, 0.25);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 86, 179, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(0, 86, 179, 0.25);
 }
 
 /* Textarea - altura mínima proporcional */
@@ -151,16 +168,26 @@
 /* Input groups - altura mínima para textos e botões */
 .input-group .input-group-text {
   min-height: 46px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-radius: 4px;
 }
 
 .input-group .btn {
   min-height: 46px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 /* Range inputs - altura ajustada */
@@ -188,19 +215,33 @@ input[type="file"].form-control {
 
 /* Step Indicators - Clean com espaçamento reduzido */
 .step-indicators {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 1.5rem;
   padding: 1rem;
 }
 
 .step-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   text-align: center;
 }
 
@@ -208,13 +249,20 @@ input[type="file"].form-control {
   width: 44px;
   height: 44px;
   border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   background-color: #f8f9fa;
   color: #6c757d;
   font-weight: 600;
   font-size: 1rem;
+  -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
   border: 2px solid #e9ecef;
 }
@@ -258,17 +306,33 @@ input[type="file"].form-control {
 
 /* Step Content - Clean */
 .step-content {
-  animation: fadeIn 0.3s ease-in-out;
+  -webkit-animation: fadeIn 0.3s ease-in-out;
+          animation: fadeIn 0.3s ease-in-out;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(10px);
+            transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    -webkit-transform: translateY(10px);
+            transform: translateY(10px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
   }
 }
 
@@ -301,16 +365,22 @@ input[type="file"].form-control {
 }
 
 .form-navigation .row {
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .form-navigation .col-6 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
 /* Garantir que botões ocupem o espaço disponível */
 .form-navigation .btn {
-  flex: 1;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   min-height: 48px;
   font-weight: 500;
   font-size: 1rem;
@@ -326,10 +396,17 @@ input[type="file"].form-control {
   min-height: 48px;
   font-weight: 600;
   font-size: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   gap: 0.5rem;
+  -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
 
@@ -410,7 +487,8 @@ input[type="file"].form-control {
   color: #ffffff;
   background-color: #6c757d;
   border-color: #6c757d;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .btn-success {
@@ -424,7 +502,8 @@ input[type="file"].form-control {
   background-color: #218838;
   border-color: #1e7e34;
   color: white;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .btn-success:disabled {
@@ -439,6 +518,7 @@ input[type="file"].form-control {
 /* Card do formulário */
 .card {
   border-radius: 8px;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   border: 1px solid #e9ecef;
 }
@@ -493,9 +573,15 @@ input[type="file"].form-control {
 /* Botões responsivos */
 .btn.w-100 {
   min-height: 48px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 /* Alerts responsivos */
@@ -530,7 +616,8 @@ input[type="file"].form-control {
 /* Header com informações do colaborador */
 .bg-primary.text-white {
   background: linear-gradient(135deg, #0056b3 0%, #004085 100%) !important;
-  flex-shrink: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
 }
 
 /* Cards de informações do colaborador */
@@ -538,7 +625,9 @@ input[type="file"].form-control {
   background-color: rgba(255, 255, 255, 0.1) !important;
   border-radius: 8px !important;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -549,10 +638,19 @@ input[type="file"].form-control {
 
 /* QR Code container centralizado */
 .qr-code-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   position: relative;
 }
 
@@ -566,45 +664,68 @@ input[type="file"].form-control {
   border-radius: 12px;
   background-color: #ffffff;
   padding: 1rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+          box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  animation: qrFadeIn 0.5s ease-in-out;
+  -webkit-animation: qrFadeIn 0.5s ease-in-out;
+          animation: qrFadeIn 0.5s ease-in-out;
 }
 
 .qr-code-image:hover {
   border-color: #0056b3;
-  box-shadow: 0 0.75rem 1.5rem rgba(0, 86, 179, 0.2);
-  transform: scale(1.02);
+  -webkit-box-shadow: 0 0.75rem 1.5rem rgba(0, 86, 179, 0.2);
+          box-shadow: 0 0.75rem 1.5rem rgba(0, 86, 179, 0.2);
+  -webkit-transform: scale(1.02);
+          transform: scale(1.02);
 }
 
 /* Animação do QR Code */
-@keyframes qrFadeIn {
+@-webkit-keyframes qrFadeIn {
   from {
     opacity: 0;
-    transform: scale(0.9) translateY(20px);
+    -webkit-transform: scale(0.9) translateY(20px);
+            transform: scale(0.9) translateY(20px);
   }
   to {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    -webkit-transform: scale(1) translateY(0);
+            transform: scale(1) translateY(0);
+  }
+}
+@keyframes qrFadeIn {
+  from {
+    opacity: 0;
+    -webkit-transform: scale(0.9) translateY(20px);
+            transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: scale(1) translateY(0);
+            transform: scale(1) translateY(0);
   }
 }
 
 /* Estados de loading, erro e sucesso */
 .flex-fill.d-flex.align-items-center.justify-content-center {
   min-height: 0;
-  flex: 1;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 /* Loading spinner personalizado */
 .spinner-border.text-primary {
   border-color: #0056b3;
   border-right-color: transparent;
-  animation: spinner-border 0.75s linear infinite;
+  -webkit-animation: spinner-border 0.75s linear infinite;
+          animation: spinner-border 0.75s linear infinite;
 }
 
 /* Footer fixo */
 .border-top.bg-light {
-  flex-shrink: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   background-color: #f8f9fa !important;
   border-top: 2px solid #e9ecef !important;
 }
@@ -793,12 +914,14 @@ input[type="file"].form-control {
 .bg-white.bg-opacity-10,
 .qr-code-image,
 .btn {
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
 /* Hover effects */
 .bg-white.bg-opacity-10:hover {
-  transform: translateY(-1px);
+  -webkit-transform: translateY(-1px);
+          transform: translateY(-1px);
 }
 
 /* ========================================
@@ -915,7 +1038,8 @@ main {
 
 /* Reset para design flat */
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 html {
@@ -944,7 +1068,8 @@ a:hover {
 .shadow,
 .shadow-sm,
 .shadow-lg {
-  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
 }
 
 /* Variáveis CSS para design flat */
@@ -973,6 +1098,7 @@ a:hover {
   border: 2px solid var(--primary-color);
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
+  -webkit-transition: var(--transition);
   transition: var(--transition);
 }
 
@@ -988,6 +1114,7 @@ a:hover {
   border: 2px solid var(--primary-color);
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
+  -webkit-transition: var(--transition);
   transition: var(--transition);
 }
 
@@ -1007,9 +1134,15 @@ a:hover {
   border: 2px solid #e9ecef;
   background-color: #f8f9fa;
   min-height: 300px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   position: relative;
 }
 
@@ -1018,7 +1151,8 @@ a:hover {
   border-radius: 6px;
   max-width: 100%;
   height: auto;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 /* Canvas do QR scanner - Responsivo */
@@ -1038,9 +1172,25 @@ a:hover {
   bottom: 0;
   border: 3px solid #17a2b8;
   border-radius: 8px;
-  animation: scannerPulse 2s infinite;
+  -webkit-animation: scannerPulse 2s infinite;
+          animation: scannerPulse 2s infinite;
   pointer-events: none;
   z-index: 10;
+}
+
+@-webkit-keyframes scannerPulse {
+  0% {
+    border-color: #17a2b8;
+    opacity: 1;
+  }
+  50% {
+    border-color: #138496;
+    opacity: 0.5;
+  }
+  100% {
+    border-color: #17a2b8;
+    opacity: 1;
+  }
 }
 
 @keyframes scannerPulse {
@@ -1074,20 +1224,36 @@ a:hover {
 
 /* Card de resultado do QR Code - Animação melhorada */
 .alert.alert-light.border {
-  animation: slideInUp 0.4s ease-out;
+  -webkit-animation: slideInUp 0.4s ease-out;
+          animation: slideInUp 0.4s ease-out;
   border-radius: 8px;
   border-color: #28a745 !important;
   border-width: 2px !important;
 }
 
-@keyframes slideInUp {
+@-webkit-keyframes slideInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
   }
 }
 
@@ -1108,13 +1274,17 @@ a:hover {
 .card {
   border-radius: 12px;
   border: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  -webkit-transform: translateY(-2px);
+          transform: translateY(-2px);
+  -webkit-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 /* Card headers com gradientes */
@@ -1143,6 +1313,7 @@ a:hover {
   font-size: 1rem;
   font-weight: 600;
   border-radius: 8px;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -1155,7 +1326,9 @@ a:hover {
   left: -100%;
   width: 100%;
   height: 100%;
+  background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(rgba(255, 255, 255, 0.2)), to(transparent));
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  -webkit-transition: left 0.5s;
   transition: left 0.5s;
 }
 
@@ -1172,8 +1345,10 @@ a:hover {
 
 .btn-success:hover {
   background: linear-gradient(135deg, #218838 0%, #1c7a7a 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+  -webkit-transform: translateY(-1px);
+          transform: translateY(-1px);
+  -webkit-box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+          box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
 }
 
 /* Botão Warning customizado */
@@ -1186,8 +1361,10 @@ a:hover {
 
 .btn-warning:hover {
   background: linear-gradient(135deg, #e0a800 0%, #e8630a 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+  -webkit-transform: translateY(-1px);
+          transform: translateY(-1px);
+  -webkit-box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+          box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
   color: #212529;
 }
 
@@ -1197,17 +1374,33 @@ a:hover {
   border: none;
   padding: 1rem 1.25rem;
   font-weight: 500;
-  animation: fadeInScale 0.3s ease-out;
+  -webkit-animation: fadeInScale 0.3s ease-out;
+          animation: fadeInScale 0.3s ease-out;
+}
+
+@-webkit-keyframes fadeInScale {
+  from {
+    opacity: 0;
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
 }
 
 @keyframes fadeInScale {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
 }
 
@@ -1310,6 +1503,7 @@ a:hover {
 
 /* Transições suaves para todos os elementos */
 * {
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -1326,7 +1520,8 @@ a:hover {
 /* Footer mobile-friendly */
 .border-top.bg-white {
   border-top: 2px solid #e9ecef !important;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* Melhorias gerais de UX */
@@ -1369,13 +1564,15 @@ a:hover {
 
 /* Ícones melhorados */
 .fas {
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  -webkit-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+          filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
 }
 
 /* Melhorias de performance */
 .card, .btn, .alert {
   will-change: transform;
-  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
 }
 
 /* Melhor contraste para textos */
@@ -1391,7 +1588,9 @@ a:hover {
   }
   
   .flex-fill {
-    flex: 1 1 auto;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
   }
   
   .p-3 {
@@ -1417,4 +1616,7 @@ a:hover {
 .border-danger {
   border-color: #dc3545 !important;
   border-width: 2px !important;
+}
+.backoffice-bg{
+  background-color: ;
 }

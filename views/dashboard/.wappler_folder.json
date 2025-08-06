@@ -1,0 +1,10 @@
+{
+  "inicial.ejs": {
+    "layoutPage": "backoffice",
+    "description": ""
+  },
+  "registros-portaria.ejs": {
+    "layoutPage": "backoffice",
+    "description": ""
+  }
+}

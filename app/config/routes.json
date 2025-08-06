@@ -25,6 +25,16 @@
       "path": "/d/portaria",
       "page": "portaria/portaria",
       "layout": "mobile-portaria"
+    },
+    {
+      "path": "/backoffice/f/",
+      "page": "dashboard/inicial",
+      "layout": "backoffice"
+    },
+    {
+      "path": "/backoffice/f/registros-portaria",
+      "page": "dashboard/registros-portaria",
+      "layout": "backoffice"
     }
   ]
 }
