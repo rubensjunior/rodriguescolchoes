@@ -251,6 +251,189 @@ input[type="file"].form-control {
 }
 
 /* ========================================
+   STEP INDICATORS - BARRA DE PROGRESSO
+   ======================================== */
+
+/* Container dos indicadores de step */
+.step-indicators {
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Item individual do step - Layout vertical (círculo em cima, texto embaixo) */
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  flex: none;
+}
+
+/* Círculo do step */
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e9ecef;
+  border: 2px solid #e9ecef;
+  color: #6c757d;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 3;
+  margin-bottom: 0.5rem;
+}
+
+/* Estado ativo do círculo */
+.step-circle.active {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  color: white;
+}
+
+/* Estado completo do círculo */
+.step-circle.completed {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white;
+}
+
+/* Linha conectora entre steps */
+.step-line {
+  flex: 1;
+  height: 2px;
+  background-color: #e9ecef;
+  margin: 0 1rem;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  margin-top: 20px; /* Alinha com o meio do círculo */
+}
+
+/* Linha ativa */
+.step-line.active {
+  background-color: #0056b3;
+}
+
+/* Linha completa */
+.step-line.completed {
+  background-color: #28a745;
+}
+
+/* Label do step - Agora fica abaixo do círculo */
+.step-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6c757d;
+  text-align: center;
+  white-space: nowrap;
+  margin-top: 0;
+}
+
+/* Label ativo */
+.step-item:has(.step-circle.active) .step-label {
+  color: #0056b3;
+  font-weight: 600;
+}
+
+/* Label completo */
+.step-item:has(.step-circle.completed) .step-label {
+  color: #28a745;
+  font-weight: 600;
+}
+
+/* Fallback para navegadores que não suportam :has() */
+.step-item .step-circle.active ~ .step-label,
+.step-item .step-circle.active + .step-label {
+  color: #0056b3;
+  font-weight: 600;
+}
+
+.step-item .step-circle.completed ~ .step-label,
+.step-item .step-circle.completed + .step-label {
+  color: #28a745;
+  font-weight: 600;
+}
+
+/* Responsividade dos step indicators */
+@media (max-width: 767.98px) {
+  .step-circle {
+    width: 35px;
+    height: 35px;
+    font-size: 0.8rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .step-line {
+    margin: 0 0.5rem;
+    margin-top: 17px; /* Ajusta para o círculo menor */
+  }
+
+  .step-label {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .step-circle {
+    width: 30px;
+    height: 30px;
+    font-size: 0.75rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .step-line {
+    margin: 0 0.25rem;
+    margin-top: 15px; /* Ajusta para o círculo menor */
+  }
+
+  .step-indicators {
+    margin-bottom: 1.5rem;
+    padding: 0.75rem 0;
+  }
+
+  .step-label {
+    font-size: 0.75rem;
+  }
+}
+
+/* Animações dos steps */
+.step-circle {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.step-circle.active {
+  transform: scale(1.1);
+}
+
+.step-circle.completed {
+  transform: scale(1);
+  animation: stepComplete 0.5s ease-in-out;
+}
+
+@keyframes stepComplete {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ========================================
    FORMULÁRIOS RESPONSIVOS - CLEAN
    ======================================== */
 
