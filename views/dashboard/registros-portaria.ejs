@@ -1,44 +1,59 @@
 <!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="registrosportaria" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxBootstrap5Navigation:{},dmxBootstrap5PagingGenerator:{}}" -->
 
 <dmx-serverconnect id="listagem_registros" url="/api/portaria/list-registros" dmx-param:limit="8"></dmx-serverconnect>
-<div class="container-lg my-4 p-0">
-    <div class="row align-items-center">
-        <div class="col align-self-center">
-            <h4 class="m-0">Gestão de acesso de veículos</h4>
+<div class="container-lg my-4 px-2 px-md-0">
+    <div class="row g-2 flex-column flex-md-row align-items-md-center">
+        <div class="col-12 col-md-6 mt-2 mt-md-0 order-1 order-md-1 d-flex align-items-center justify-content-md-start justify-content-center">
+            <h4 class="mb-2 mb-md-0">Gestão de acesso de veículos</h4>
         </div>
-        <div class="col align-self-center">
+        <div class="col-12 col-md-6 mb-3 mb-md-0 order-2 order-md-2 d-flex align-items-center justify-content-md-end justify-content-center">
+            <div class="d-flex">
+                <div class="dropdown w-100 w-md-auto">
+                    <button id="dropdown1" class="btn dropdown-toggle btn-sm btn-primary" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown button
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdown1">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
-<div class="container-lg bg-white p-3 rounded-3 border border-light-subtle">
-    <div class="row">
-        <div class="col">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th class="titulo-tabela py-3">Data</th>
-                        <th class="titulo-tabela py-3">Colaborador</th>
-                        <th class="titulo-tabela py-3">CPF</th>
-                        <th class="titulo-tabela py-3">Veículo</th>
-                        <th class="titulo-tabela py-3">Placa</th>
-                        <th class="titulo-tabela py-3">Registro</th>
-                    </tr>
-                </thead>
-                <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="listagem_registros.data.query.data" id="tableRepeat2">
-                    <tr>
-                        <td dmx-text="data_hora.formatDate('dd/MM/yyyy HH:mm')" class="titulo-tabela py-3"></td>
-                        <td dmx-text="nome_colaborador" class="titulo-tabela py-3"></td>
-                        <td dmx-text="cpf_colaborador" class="titulo-tabela py-3"></td>
-                        <td dmx-text="modelo_veiculo" class="titulo-tabela py-3"></td>
-                        <td dmx-text="placa_veiculo" class="titulo-tabela py-3"></td>
-                        <td class="titulo-tabela py-3 fw-bold" dmx-class:text-danger="tipo_registro == 'Saída'" dmx-class:text-primary="tipo_registro != 'Saída'">
-                            <i class="fas fa-arrow-up me-1" dmx-show="tipo_registro == 'Entrada'"></i>
-                            <i class="fas fa-arrow-down me-1" dmx-show="tipo_registro == 'Saída'"></i>
-                            <span dmx-text="tipo_registro"></span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+<div class="container-lg bg-white px-2 px-sm-3 py-2 py-sm-3 rounded-3 border border-light-subtle custom-mobile-padding">
+    <div class="row align-items-center">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th class="titulo-tabela py-3">Data</th>
+                            <th class="titulo-tabela py-3">Colaborador</th>
+                            <th class="titulo-tabela py-3">CPF</th>
+                            <th class="titulo-tabela py-3">Veículo</th>
+                            <th class="titulo-tabela py-3">Placa</th>
+                            <th class="titulo-tabela py-3">Registro</th>
+                        </tr>
+                    </thead>
+                    <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="listagem_registros.data.query.data" id="tableRepeat2">
+                        <tr>
+                            <td dmx-text="data_hora.formatDate('dd/MM/yyyy HH:mm')" class="titulo-tabela py-3"></td>
+                            <td dmx-text="nome_colaborador" class="titulo-tabela py-3"></td>
+                            <td dmx-text="cpf_colaborador" class="titulo-tabela py-3"></td>
+                            <td dmx-text="modelo_veiculo" class="titulo-tabela py-3"></td>
+                            <td dmx-text="placa_veiculo" class="titulo-tabela py-3"></td>
+                            <td class="titulo-tabela py-3 fw-bold" dmx-class:text-danger="tipo_registro == 'Saída'" dmx-class:text-primary="tipo_registro != 'Saída'">
+                                <i class="fas fa-arrow-up me-1" dmx-show="tipo_registro == 'Entrada'"></i>
+                                <i class="fas fa-arrow-down me-1" dmx-show="tipo_registro == 'Saída'"></i>
+                                <span dmx-text="tipo_registro"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <ul class="pagination pagination-sm" dmx-populate="listagem_registros.data.query" dmx-generator="bs5paging">
                 <li class="page-item" dmx-class:disabled="listagem_registros.data.query.page.current == 1" aria-label="First">
                     <a href="javascript:void(0)" class="page-link" dmx-on:click="listagem_registros.load({offset: listagem_registros.data.query.page.offset.first})"><span aria-hidden="true">&lsaquo;&lsaquo;</span></a>
