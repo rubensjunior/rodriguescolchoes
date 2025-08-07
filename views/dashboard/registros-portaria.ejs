@@ -3,15 +3,13 @@
 <dmx-serverconnect id="listagem_registros" url="/api/portaria/list-registros" dmx-param:limit="8"></dmx-serverconnect>
 <div class="container-lg my-4 px-2 px-md-0">
     <div class="row g-2 flex-column flex-md-row align-items-md-center">
-        <div class="col-12 col-md-6 mt-2 mt-md-0 order-1 order-md-1 d-flex align-items-center justify-content-md-start justify-content-center">
+        <div class="col-12 col-md-6 mt-2 mt-md-0 order-1 order-md-1 d-flex align-items-center justify-content-between justify-content-md-start">
             <h4 class="mb-2 mb-md-0">Gestão de acesso de veículos</h4>
         </div>
-        <div class="col-12 col-md-6 mb-3 mb-md-0 order-2 order-md-2 d-flex align-items-center justify-content-md-end justify-content-center">
+        <div class="col-12 col-md-6 mb-3 mb-md-0 order-2 order-md-2 d-flex align-items-center justify-content-md-end">
             <div class="d-flex">
-                <div class="dropdown w-100 w-md-auto">
-                    <button id="dropdown1" class="btn dropdown-toggle btn-sm btn-primary" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown button
-                    </button>
+                <div class="dropdown w-100 w-md-auto" style="max-width:340px;">
+                    <button id="dropdown1" class="btn dropdown-toggle w-100 w-md-auto btn-sm btn-primary" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars me-2"></i>Filtros</button>
                     <div class="dropdown-menu" aria-labelledby="dropdown1">
                         <a class="dropdown-item" href="#">Action</a>
                         <a class="dropdown-item" href="#">Another action</a>
@@ -27,7 +25,7 @@
     <div class="row align-items-center">
         <div class="col-12">
             <div class="table-responsive">
-                <table class="table table-striped align-middle mb-0">
+                <table class="table table-striped align-middle mb-0 w-100">
                     <thead>
                         <tr>
                             <th class="titulo-tabela py-3">Data</th>
