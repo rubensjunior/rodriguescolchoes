@@ -21,23 +21,10 @@
       "storage"
     ],
     "tables": {
-      "realtime.schema_migrations": {
-        "db": {
-          "schema": "realtime"
-        }
-      },
-      "realtime.subscription": {
-        "db": {
-          "schema": "realtime"
-        }
-      },
-      "realtime.messages": {
-        "db": {
-          "schema": "realtime"
-        }
-      },
       "colaboradores": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_colaborador": {
             "db": {
@@ -122,11 +109,14 @@
         },
         "refs": {
           "veiculos_colaboradores": "colaborador",
-          "registro_portaria": "id_agente_portaria"
+          "registro_portaria": "id_agente_portaria",
+          "veiculos_motoristas": "id_motorista"
         }
       },
       "veiculos_colaboradores": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_veiculo_colaborador": {
             "db": {
@@ -206,7 +196,23 @@
           }
         },
         "refs": {
-          "registro_portaria": "id_veiculo_registrado"
+          "registro_portaria": "id_veiculo_registrado",
+          "veiculos_motoristas": "id_veiculo"
+        }
+      },
+      "realtime.schema_migrations": {
+        "db": {
+          "schema": "realtime"
+        }
+      },
+      "realtime.subscription": {
+        "db": {
+          "schema": "realtime"
+        }
+      },
+      "realtime.messages": {
+        "db": {
+          "schema": "realtime"
         }
       },
       "registro_portaria": {
@@ -291,45 +297,16 @@
           }
         }
       },
+      "veiculos_motoristas": {
+        "db": {
+          "schema": "public"
+        }
+      },
       "vault.secrets": {
         "db": {
           "schema": "vault",
           "comment": "Table with encrypted `secret` column for storing sensitive information on disk."
         }
-      },
-      "storage.migrations": {
-        "db": {
-          "schema": "storage"
-        }
-      },
-      "storage.buckets": {
-        "db": {
-          "schema": "storage"
-        },
-        "refs": {
-          "storage.objects": "bucket_id",
-          "storage.s3_multipart_uploads": "bucket_id",
-          "storage.s3_multipart_uploads_parts": "bucket_id"
-        }
-      },
-      "storage.objects": {
-        "db": {
-          "schema": "storage"
-        }
-      },
-      "storage.s3_multipart_uploads": {
-        "db": {
-          "schema": "storage"
-        },
-        "sub": {
-          "storage.s3_multipart_uploads_parts": "upload_id"
-        }
-      },
-      "storage.s3_multipart_uploads_parts": {
-        "db": {
-          "schema": "storage"
-        },
-        "parent": "s3_multipart_uploads"
       },
       "auth.sso_domains": {
         "db": {
@@ -446,6 +423,40 @@
         "refs": {
           "auth.mfa_challenges": "factor_id"
         }
+      },
+      "storage.migrations": {
+        "db": {
+          "schema": "storage"
+        }
+      },
+      "storage.buckets": {
+        "db": {
+          "schema": "storage"
+        },
+        "refs": {
+          "storage.objects": "bucket_id",
+          "storage.s3_multipart_uploads": "bucket_id",
+          "storage.s3_multipart_uploads_parts": "bucket_id"
+        }
+      },
+      "storage.objects": {
+        "db": {
+          "schema": "storage"
+        }
+      },
+      "storage.s3_multipart_uploads": {
+        "db": {
+          "schema": "storage"
+        },
+        "sub": {
+          "storage.s3_multipart_uploads_parts": "upload_id"
+        }
+      },
+      "storage.s3_multipart_uploads_parts": {
+        "db": {
+          "schema": "storage"
+        },
+        "parent": "s3_multipart_uploads"
       }
     },
     "views": {
