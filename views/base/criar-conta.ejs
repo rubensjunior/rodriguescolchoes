@@ -1,4 +1,5 @@
-<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="criarconta" appConnect="local" components="{dmxValidator:{}}" -->
+<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="criarconta" appConnect="local" components="{dmxValidator:{},dmxPreloader:{}}" -->
+<dmx-preloader id="carregando" color="#0930ff" spinner="wave"></dmx-preloader>
 <meta name="ac:route" content="/f/criar-conta">
 
 <!-- Controle de Step -->
@@ -9,7 +10,7 @@
     <!-- Step Indicators -->
     <div class="row justify-content-center">
         <div class="col-12 col-md-5 col-lg-5 col-xl-5">
-            <div class="step-indicators d-flex justify-content-center align-items-center mb-4">
+            <div class="step-indicators d-flex justify-content-center align-items-center">
                 <div class="step-item d-flex align-items-center">
                     <div class="step-circle" dmx-class:active="current_step.value >= 1" dmx-class:completed="current_step.value > 1">
                         <span dmx-show="current_step.value <= 1">1</span>
@@ -44,15 +45,15 @@
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8 col-xl-6">
             <div class="card border-0 shadow-sm">
-                <div class="card-body p-4 p-md-5">
-                    <form is="dmx-serverconnect-form" id="criar_conta_form" class="needs-validation" method="post" action="/api/colaborador/criar-conta" dmx-on:error="notificacoes.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response)" dmx-on:success="navegacao.goto('/',true)">
+                <div class="card-body p-2 p-md-2">
+                    <form is="dmx-serverconnect-form" id="criar_conta_form" class="needs-validation" method="post" action="/api/colaborador/criar-conta" dmx-on:error="notificacoes.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response)" dmx-on:success="navegacao.goto('/f/login',true)">
 
                         <!-- STEP 1: Dados Pessoais -->
                         <div dmx-show="current_step.value == 1" class="step-content">
                             <div class="row g-3">
                                 <!-- Nome Completo -->
                                 <div class="col-12">
-                                    <div class="form-group mb-3">
+                                    <div class="form-group mb-2">
                                         <label for="nome_completo" class="form-label">Nome completo *</label>
                                         <input type="text" class="form-control" id="nome_completo" name="nome_completo" required data-msg-required="Por favor, digite seu nome completo" placeholder="Ex: João Silva Santos">
                                     </div>
@@ -60,7 +61,7 @@
 
                                 <!-- CPF -->
                                 <div class="col-12 col-md-6">
-                                    <div class="form-group mb-3">
+                                    <div class="form-group mb-2">
                                         <label for="cpf" class="form-label">CPF *</label>
                                         <input type="text" class="form-control" id="cpf" name="cpf" required data-msg-required="Por favor, digite seu CPF" placeholder="000.000.000-00">
                                     </div>
@@ -68,7 +69,7 @@
 
                                 <!-- Data de Nascimento -->
                                 <div class="col-12 col-md-6">
-                                    <div class="form-group mb-3">
+                                    <div class="form-group mb-2">
                                         <label for="data_nascimento" class="form-label">Data de nascimento *</label>
                                         <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" required data-msg-required="Por favor, selecione sua data de nascimento">
                                     </div>
@@ -76,7 +77,7 @@
 
                                 <!-- Email -->
                                 <div class="col-12">
-                                    <div class="form-group mb-3">
+                                    <div class="form-group mb-2">
                                         <label for="email" class="form-label">Email *</label>
                                         <input type="email" class="form-control" id="email" name="email" required data-msg-required="Por favor, digite seu email" data-rule-email="true" data-msg-email="Digite um email válido" placeholder="seuemail@exemplo.com">
                                     </div>
@@ -84,7 +85,7 @@
 
                                 <!-- Telefone -->
                                 <div class="col-12">
-                                    <div class="form-group mb-3">
+                                    <div class="form-group mb-2">
                                         <label for="telefone" class="form-label">Telefone *</label>
                                         <input type="tel" class="form-control" id="telefone" name="telefone" required data-msg-required="Por favor, digite seu telefone" placeholder="(00) 00000-0000">
                                     </div>
@@ -97,9 +98,9 @@
                             <div class="row g-3">
                                 <!-- Tipo do Veículo -->
                                 <div class="col-12 col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label for="tipo_veiculo" class="form-label">Tipo do veículo *</label>
-                                        <select id="tipo_veiculo" name="tipo_veiculo" class="form-select" required data-msg-required="Por favor, selecione o tipo do veículo">
+                                    <div class="form-group mb-2">
+                                        <label for="tipo_veiculo" class="form-label">Tipo do veículo</label>
+                                        <select id="tipo_veiculo" name="tipo_veiculo" class="form-select">
                                             <option value="" selected disabled>Selecione o tipo</option>
                                             <option value="carro">Carro</option>
                                             <option value="moto">Moto</option>
@@ -112,15 +113,15 @@
 
                                 <!-- Placa -->
                                 <div class="col-12 col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label for="placa" class="form-label">Placa do veículo *</label>
-                                        <input type="text" class="form-control" id="placa" name="placa" required data-msg-required="Por favor, digite a placa do veículo" placeholder="ABC1234" style="text-transform: uppercase;">
+                                    <div class="form-group mb-2">
+                                        <label for="placa" class="form-label">Placa do veículo</label>
+                                        <input type="text" class="form-control" id="placa" name="placa" placeholder="ABC1234" style="text-transform: uppercase;">
                                     </div>
                                 </div>
 
                                 <!-- Modelo do Veículo -->
                                 <div class="col-12 col-md-6">
-                                    <div class="form-group mb-3">
+                                    <div class="form-group mb-2">
                                         <label for="modelo_veiculo" class="form-label">Modelo</label>
                                         <input type="text" class="form-control" id="modelo_veiculo" name="modelo_veiculo" placeholder="Ex: Honda Civic, Yamaha Factor, etc.">
                                         <div class="form-text">Campo opcional</div>
@@ -129,16 +130,16 @@
 
                                 <!-- Ano do Veículo -->
                                 <div class="col-12 col-md-6">
-                                    <div class="form-group mb-3">
+                                    <div class="form-group mb-2">
                                         <label for="ano_veiculo" class="form-label">Ano</label>
-                                        <input type="number" class="form-control" id="ano_veiculo" name="ano_veiculo" min="1980" max="2025" placeholder="2020">
+                                        <input type="number" class="form-control" id="ano_veiculo" name="ano_veiculo" placeholder="2020">
                                         <div class="form-text">Campo opcional</div>
                                     </div>
                                 </div>
 
                                 <!-- Cor do Veículo -->
                                 <div class="col-12">
-                                    <div class="form-group mb-3">
+                                    <div class="form-group mb-2">
                                         <label for="cor_veiculo" class="form-label">Cor do veículo</label>
                                         <input type="text" class="form-control" id="cor_veiculo" name="cor_veiculo" placeholder="Ex: Branco, Prata, Azul">
                                         <div class="form-text">Campo opcional - ajuda na identificação</div>
