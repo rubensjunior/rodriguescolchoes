@@ -1,6 +1,11 @@
-<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="registrosportaria" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxBootstrap5Navigation:{},dmxBootstrap5PagingGenerator:{}}" -->
+<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="registrosportaria" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxBootstrap5Navigation:{},dmxBootstrap5PagingGenerator:{},dmxDataTraversal:{}}" -->
 
-<dmx-serverconnect id="listagem_registros" url="/api/portaria/list-registros" dmx-param:limit="8"></dmx-serverconnect>
+<dmx-serverconnect id="listagem_registros" url="/api/portaria/list-registros" dmx-param:limit="100"></dmx-serverconnect>
+
+<dmx-value id="filtros_aplicados" dmx-bind:value="{data_inicio: '', data_fim: '', nome: '', cpf: '', placa: ''}"></dmx-value>
+
+<dmx-data-view id="registros_filtrados" dmx-bind:data="listagem_registros.data.query.data" filter="(filtros_aplicados.value.data_inicio == '' || data_hora >= filtros_aplicados.value.data_inicio.toDate()) &amp;&amp; (filtros_aplicados.value.data_fim == '' || data_hora <= filtros_aplicados.value.data_fim.toDate().addDays(1)) &amp;&amp; (filtros_aplicados.value.nome == '' || nome_colaborador.lowercase().contains(filtros_aplicados.value.nome.lowercase())) &amp;&amp; (filtros_aplicados.value.cpf == '' || cpf_colaborador.contains(filtros_aplicados.value.cpf)) &amp;&amp; (filtros_aplicados.value.placa == '' || placa_veiculo.lowercase().contains(filtros_aplicados.value.placa.lowercase()))" page="1" pageSize="8"></dmx-data-view>
+
 <div class="container-lg my-4 px-2 px-md-0">
     <div class="row g-2 flex-column flex-md-row align-items-md-center">
         <div class="col-12 col-md-6 mt-2 mt-md-0 order-1 order-md-1 d-flex align-items-center justify-content-between justify-content-md-start">
@@ -9,15 +14,44 @@
         <div class="col-12 col-md-6 mb-3 mb-md-0 order-2 order-md-2 d-flex align-items-center justify-content-md-end">
             <div class="d-flex">
                 <div class="dropdown w-100 w-md-auto" style="max-width:340px;">
-                    <button id="dropdown1" class="btn dropdown-toggle w-100 w-md-auto btn-sm btn-primary" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars me-2"></i>Filtros</button>
+                    <button id="dropdown_filtro" class="btn dropdown-toggle w-100 w-md-auto btn-sm btn-primary" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars me-2"></i>Filtros</button>
                     <div class="dropdown-menu" aria-labelledby="dropdown1">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="px-3 py-2" style="min-width: 300px;">
+                            <div class="form-group mb-3">
+                                <label class="form-label">Período</label>
+                                <div class="row g-2">
+                                    <div class="col-6">
+                                        <input type="date" class="form-control form-control-sm" id="filtro_data_inicio" name="filtro_data_inicio" placeholder="Data início">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="date" class="form-control form-control-sm" id="filtro_data_fim" name="filtro_data_fim" placeholder="Data fim">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="filtro_nome" class="form-label">Nome do Colaborador</label>
+                                <input type="text" class="form-control form-control-sm" id="filtro_nome" name="filtro_nome" placeholder="Digite o nome...">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="filtro_cpf" class="form-label">CPF</label>
+                                <input type="text" class="form-control form-control-sm" id="filtro_cpf" name="filtro_cpf" placeholder="Digite o CPF...">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="filtro_placa" class="form-label">Placa do Veículo</label>
+                                <input type="text" class="form-control form-control-sm" id="filtro_placa" name="filtro_placa" placeholder="Digite a placa...">
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-primary btn-sm flex-fill" dmx-on:click="filtros_aplicados.setValue({data_inicio: filtro_data_inicio.value, data_fim: filtro_data_fim.value, nome: filtro_nome.value, cpf: filtro_cpf.value, placa: filtro_placa.value})">
+                                    <i class="fas fa-search me-1"></i>Filtrar
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm flex-fill" dmx-on:click="filtro_data_inicio.setValue(''); filtro_data_fim.setValue(''); filtro_nome.setValue(''); filtro_cpf.setValue(''); filtro_placa.setValue(''); filtros_aplicados.setValue({data_inicio: '', data_fim: '', nome: '', cpf: '', placa: ''})">
+                                    <i class="fas fa-times me-1"></i>Limpar
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -36,7 +70,7 @@
                             <th class="titulo-tabela py-3">Registro</th>
                         </tr>
                     </thead>
-                    <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="listagem_registros.data.query.data" id="tableRepeat2">
+                    <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="registros_filtrados.data" id="tableRepeat2">
                         <tr>
                             <td dmx-text="data_hora.formatDate('dd/MM/yyyy HH:mm')" class="titulo-tabela py-3"></td>
                             <td dmx-text="nome_colaborador" class="titulo-tabela py-3"></td>
@@ -52,21 +86,21 @@
                     </tbody>
                 </table>
             </div>
-            <ul class="pagination pagination-sm" dmx-populate="listagem_registros.data.query" dmx-generator="bs5paging">
-                <li class="page-item" dmx-class:disabled="listagem_registros.data.query.page.current == 1" aria-label="First">
-                    <a href="javascript:void(0)" class="page-link" dmx-on:click="listagem_registros.load({offset: listagem_registros.data.query.page.offset.first})"><span aria-hidden="true">&lsaquo;&lsaquo;</span></a>
+            <ul class="pagination pagination-sm" dmx-populate="registros_filtrados" dmx-generator="bs5paging">
+                <li class="page-item" dmx-class:disabled="registros_filtrados.page == 1" aria-label="First">
+                    <a href="javascript:void(0)" class="page-link" dmx-on:click="registros_filtrados.first()"><span aria-hidden="true">&lsaquo;&lsaquo;</span></a>
                 </li>
-                <li class="page-item" dmx-class:disabled="listagem_registros.data.query.page.current == 1" aria-label="Previous">
-                    <a href="javascript:void(0)" class="page-link" dmx-on:click="listagem_registros.load({offset: listagem_registros.data.query.page.offset.prev})"><span aria-hidden="true">&lsaquo;</span></a>
+                <li class="page-item" dmx-class:disabled="!registros_filtrados.has.prev" aria-label="Previous">
+                    <a href="javascript:void(0)" class="page-link" dmx-on:click="registros_filtrados.prev()"><span aria-hidden="true">&lsaquo;</span></a>
                 </li>
-                <li class="page-item" dmx-class:active="title == listagem_registros.data.query.page.current" dmx-class:disabled="!active" dmx-repeat="listagem_registros.data.query.getServerConnectPagination(2,1,'...')">
-                    <a href="javascript:void(0)" class="page-link" dmx-on:click="listagem_registros.load({offset: (page-1)*listagem_registros.data.query.limit})">{{title}}</a>
+                <li class="page-item" dmx-class:active="$index + 1 == registros_filtrados.page" dmx-repeat="registros_filtrados.pages">
+                    <a href="javascript:void(0)" class="page-link" dmx-on:click="registros_filtrados.select($index + 1)">{{$index + 1}}</a>
                 </li>
-                <li class="page-item" dmx-class:disabled="listagem_registros.data.query.page.current == listagem_registros.data.query.page.total" aria-label="Next">
-                    <a href="javascript:void(0)" class="page-link" dmx-on:click="listagem_registros.load({offset: listagem_registros.data.query.page.offset.next})"><span aria-hidden="true">&rsaquo;</span></a>
+                <li class="page-item" dmx-class:disabled="!registros_filtrados.has.next" aria-label="Next">
+                    <a href="javascript:void(0)" class="page-link" dmx-on:click="registros_filtrados.next()"><span aria-hidden="true">&rsaquo;</span></a>
                 </li>
-                <li class="page-item" dmx-class:disabled="listagem_registros.data.query.page.current == listagem_registros.data.query.page.total" aria-label="Last">
-                    <a href="javascript:void(0)" class="page-link" dmx-on:click="listagem_registros.load({offset: listagem_registros.data.query.page.offset.last})"><span aria-hidden="true">&rsaquo;&rsaquo;</span></a>
+                <li class="page-item" dmx-class:disabled="!registros_filtrados.has.last" aria-label="Last">
+                    <a href="javascript:void(0)" class="page-link" dmx-on:click="registros_filtrados.last()"><span aria-hidden="true">&rsaquo;&rsaquo;</span></a>
                 </li>
             </ul>
         </div>
