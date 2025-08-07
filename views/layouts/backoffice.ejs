@@ -14,26 +14,30 @@
   <script src="/dmxAppConnect/dmxRouting/dmxRouting.js" defer></script>
   <link rel="stylesheet" href="/dmxAppConnect/dmxBootstrap5TableGenerator/dmxBootstrap5TableGenerator.css" />
   <script src="/dmxAppConnect/dmxFormatter/dmxFormatter.js" defer></script>
-<script src="/dmxAppConnect/dmxBootstrap5Navigation/dmxBootstrap5Navigation.js" defer></script>
-<script src="/dmxAppConnect/dmxBootstrap5PagingGenerator/dmxBootstrap5PagingGenerator.js" defer></script>
+  <script src="/dmxAppConnect/dmxBootstrap5Navigation/dmxBootstrap5Navigation.js" defer></script>
+  <script src="/dmxAppConnect/dmxBootstrap5PagingGenerator/dmxBootstrap5PagingGenerator.js" defer></script>
 </head>
 
 <body is="dmx-app" id="backoffice" class="bg-backoffice">
-  <header class="bg-white py-2 border-bottom border-light-subtle">
-    <div class="container">
+  <header class="bg-white py-3 border-bottom border-light-subtle">
+    <div class="container-lg ">
       <div class="row align-items-center">
         <div class="col align-self-center">
           <div class="d-flex align-items-center">
-            <div class="dropdown me-2">
-              <button id="dropdown1" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars me-2"></i>Menu</button>
-              <div class="dropdown-menu" aria-labelledby="dropdown1">
-                <a class="dropdown-item" href="/backoffice/f/registros-portaria" internal="true">Registros portaria</a>
-              </div>
-            </div><a href="/backoffice/f/" internal="true"><img src="/assets/images/LOGO COLORIDO.png" width="96" class="img-fluid"></a>
+            <a href="/backoffice/f/" internal="true"><img src="/assets/images/LOGO COLORIDO.png" width="96" class="img-fluid"></a>
 
           </div>
         </div>
-        <div class="col align-self-center"></div>
+        <div class="col align-self-center">
+          <div class="d-flex justify-content-end">
+            <div class="dropdown me-2">
+              <button id="dropdown1" class="btn dropdown-toggle btn-outline-primary" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars me-2"></i>Menu</button>
+              <div class="dropdown-menu" aria-labelledby="dropdown1">
+                <a class="dropdown-item" href="/backoffice/f/registros-portaria" internal="true">Registros portaria</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </header>
