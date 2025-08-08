@@ -46,5 +46,10 @@
       "page": "colaborador/inicial-colaborador",
       "layout": "mobile-portaria"
     }
-  ]
+  ],
+  "layouts": {
+    "mobile-portaria": {
+      "exec": "/api/seguranca/restricao"
+    }
+  }
 }

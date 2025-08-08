@@ -1,16 +1,22 @@
 <!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="inicialcolaborador" appConnect="local" -->
+<dmx-serverconnect id="usuario_logado" url="/api/colaborador/identificar-colaborador"></dmx-serverconnect>
 <div class="container-fluid px-4">
     <div class="row align-items-center gy-3">
-        <div class="col-12 bg-light p-3 rounded-3 text-center">
+        <div class="col-12 p-3 rounded-3 text-center border">
             <i class="fas fa-qrcode text-dark fa-2x mb-3"></i>
-            <h1>Meu QR Code</h1>
-            <button id="btn1" class="btn w-100 btn-primary btn-sm">Button</button>
+            <h3 class="mb-3">Meu QR Code</h3>
+            <button id="btn1" class="btn w-100 btn-primary">Exibir QR Code</button>
 
         </div>
-        <div class="col-12 bg-light p-3 rounded-3 text-center">
+        <div class="col-12 p-3 rounded-3 text-center border">
             <i class="fas fa-car fa-2x mb-3"></i>
-            <h1>Meus veículos</h1>
-            <p>A nice paragraph</p>
+            <h3 class="mb-3">Meus veículos</h3>
+            <select id="select1" class="form-select" dmx-bind:options="usuario_logado.data.query_colaborador.veiculos_colaboradores" optiontext="content.usuario_logado.data.query_colaborador.veiculos_colaboradores[0].modelo_veiculo+content.usuario_logado.data.query_colaborador.veiculos_colaboradores[0].placa_veiculo" optionvalue="content.usuario_logado.data.query_colaborador.veiculos_colaboradores[0].id_veiculo_colaborador">
+                <option value="1">Option One</option>
+                <option value="2">Option Two</option>
+                <option value="3">Option Three</option>
+            </select>
+            <button id="btn2" class="btn w-100 btn-primary">Selecionar</button>
 
         </div>
     </div>
