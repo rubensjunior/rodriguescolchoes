@@ -1,159 +1,303 @@
-[
-  {
-    "name": "identity",
-    "module": "auth",
-    "action": "identify",
-    "options": {
-      "provider": "logar"
-    },
-    "output": true,
-    "meta": []
-  },
-  {
-    "name": "query_colaborador",
-    "module": "dbconnector",
-    "action": "single",
-    "options": {
-      "connection": "db",
-      "sql": {
-        "type": "SELECT",
-        "columns": [
-          {
-            "table": "colaboradores",
-            "column": "id_colaborador"
-          },
-          {
-            "table": "colaboradores",
-            "column": "nome_colaborador"
-          },
-          {
-            "table": "colaboradores",
-            "column": "cpf_colaborador"
-          },
-          {
-            "table": "colaboradores",
-            "column": "base64"
-          },
-          {
-            "table": "colaboradores",
-            "column": "data_nascimento"
-          },
-          {
-            "table": "colaboradores",
-            "column": "email"
-          },
-          {
-            "table": "colaboradores",
-            "column": "telefone"
-          }
-        ],
-        "params": [
-          {
-            "operator": "equal",
-            "type": "expression",
-            "name": ":P1",
-            "value": "{{identity}}",
-            "test": ""
-          }
-        ],
-        "table": {
-          "name": "colaboradores"
-        },
-        "primary": "id_colaborador",
-        "joins": [],
-        "wheres": {
-          "condition": "AND",
-          "rules": [
-            {
-              "id": "colaboradores.id_colaborador",
-              "field": "colaboradores.id_colaborador",
-              "type": "string",
-              "operator": "equal",
-              "value": "{{identity}}",
-              "data": {
-                "table": "colaboradores",
-                "column": "id_colaborador",
-                "type": "text",
-                "columnObj": {
-                  "type": "uuid",
-                  "default": "gen_random_uuid()",
-                  "primary": true,
-                  "unique": true,
-                  "nullable": false,
-                  "name": "id_colaborador"
-                }
-              },
-              "operation": "="
-            }
-          ],
-          "conditional": null,
-          "valid": true
-        },
-        "query": "select \"id_colaborador\", \"nome_colaborador\", \"cpf_colaborador\", \"base64\", \"data_nascimento\", \"email\", \"telefone\" from \"colaboradores\" where \"colaboradores\".\"id_colaborador\" = ?",
-        "sub": {
-          "veiculos_colaboradores": {
-            "table": {
-              "name": "veiculos_colaboradores",
-              "alias": "veiculos_colaboradores"
-            },
-            "key": "colaborador"
-          }
-        }
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
       }
-    },
-    "output": true,
-    "meta": [
+    ]
+  },
+  "exec": {
+    "steps": [
       {
-        "type": "text",
-        "name": "id_colaborador"
+        "name": "identity",
+        "module": "auth",
+        "action": "identify",
+        "options": {
+          "provider": "logar"
+        },
+        "output": true,
+        "meta": []
       },
       {
-        "type": "text",
-        "name": "nome_colaborador"
-      },
-      {
-        "type": "text",
-        "name": "cpf_colaborador"
-      },
-      {
-        "type": "text",
-        "name": "base64"
-      },
-      {
-        "type": "date",
-        "name": "data_nascimento"
-      },
-      {
-        "type": "text",
-        "name": "email"
-      },
-      {
-        "type": "text",
-        "name": "telefone"
-      },
-      {
-        "name": "veiculos_colaboradores",
-        "type": "array",
-        "sub": [
+        "name": "query_colaborador",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "colaboradores",
+                "column": "id_colaborador"
+              },
+              {
+                "table": "colaboradores",
+                "column": "nome_colaborador"
+              },
+              {
+                "table": "colaboradores",
+                "column": "cpf_colaborador"
+              },
+              {
+                "table": "colaboradores",
+                "column": "base64"
+              },
+              {
+                "table": "colaboradores",
+                "column": "data_nascimento"
+              },
+              {
+                "table": "colaboradores",
+                "column": "email"
+              },
+              {
+                "table": "colaboradores",
+                "column": "telefone"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{identity}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "colaboradores"
+            },
+            "primary": "id_colaborador",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "colaboradores.id_colaborador",
+                  "field": "colaboradores.id_colaborador",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{identity}}",
+                  "data": {
+                    "table": "colaboradores",
+                    "column": "id_colaborador",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "uuid",
+                      "default": "gen_random_uuid()",
+                      "primary": true,
+                      "unique": true,
+                      "nullable": false,
+                      "name": "id_colaborador"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select \"id_colaborador\", \"nome_colaborador\", \"cpf_colaborador\", \"base64\", \"data_nascimento\", \"email\", \"telefone\" from \"colaboradores\" where \"colaboradores\".\"id_colaborador\" = ?"
+          }
+        },
+        "output": true,
+        "meta": [
           {
             "type": "text",
-            "name": "id_veiculo_colaborador"
-          },
-          {
-            "type": "datetime",
-            "name": "created_at_veiculo"
+            "name": "id_colaborador"
           },
           {
             "type": "text",
-            "name": "tipo_veiculo"
+            "name": "nome_colaborador"
+          },
+          {
+            "type": "text",
+            "name": "cpf_colaborador"
+          },
+          {
+            "type": "text",
+            "name": "base64"
+          },
+          {
+            "type": "date",
+            "name": "data_nascimento"
+          },
+          {
+            "type": "text",
+            "name": "email"
+          },
+          {
+            "type": "text",
+            "name": "telefone"
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "query_acesso_veiculo",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "veiculos_motoristas",
+                "column": "id_motorista"
+              },
+              {
+                "table": "veiculos_motoristas",
+                "column": "id_veiculo"
+              },
+              {
+                "table": "veiculos_motoristas",
+                "column": "base64_placa"
+              },
+              {
+                "table": "colaboradores",
+                "column": "nome_colaborador"
+              },
+              {
+                "table": "colaboradores",
+                "column": "cpf_colaborador"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "placa_veiculo"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "modelo_veiculo"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "cor_veiculo"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{identity}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "veiculos_motoristas"
+            },
+            "primary": "id_veiculos_motoristas",
+            "joins": [
+              {
+                "table": "colaboradores",
+                "column": "*",
+                "type": "INNER",
+                "clauses": {
+                  "condition": "AND",
+                  "rules": [
+                    {
+                      "table": "colaboradores",
+                      "column": "id_colaborador",
+                      "operator": "equal",
+                      "operation": "=",
+                      "value": {
+                        "table": "veiculos_motoristas",
+                        "column": "id_motorista"
+                      }
+                    }
+                  ]
+                },
+                "primary": "id_colaborador"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "*",
+                "type": "INNER",
+                "clauses": {
+                  "condition": "AND",
+                  "rules": [
+                    {
+                      "table": "veiculos_colaboradores",
+                      "column": "id_veiculo_colaborador",
+                      "operator": "equal",
+                      "operation": "=",
+                      "value": {
+                        "table": "veiculos_motoristas",
+                        "column": "id_veiculo"
+                      }
+                    }
+                  ]
+                },
+                "primary": "id_veiculo_colaborador"
+              }
+            ],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "veiculos_motoristas.id_motorista",
+                  "field": "veiculos_motoristas.id_motorista",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{identity}}",
+                  "data": {
+                    "table": "veiculos_motoristas",
+                    "column": "id_motorista",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "reference",
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "references": "id_colaborador",
+                      "inTable": "colaboradores",
+                      "referenceType": "uuid",
+                      "onUpdate": "NO ACTION",
+                      "onDelete": "NO ACTION",
+                      "name": "id_motorista"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select \"veiculos_motoristas\".\"id_motorista\", \"veiculos_motoristas\".\"id_veiculo\", \"veiculos_motoristas\".\"base64_placa\", \"colaboradores\".\"nome_colaborador\", \"colaboradores\".\"cpf_colaborador\", \"veiculos_colaboradores\".\"placa_veiculo\", \"veiculos_colaboradores\".\"modelo_veiculo\", \"veiculos_colaboradores\".\"cor_veiculo\" from \"veiculos_motoristas\" inner join \"colaboradores\" on \"colaboradores\".\"id_colaborador\" = \"veiculos_motoristas\".\"id_motorista\" inner join \"veiculos_colaboradores\" on \"veiculos_colaboradores\".\"id_veiculo_colaborador\" = \"veiculos_motoristas\".\"id_veiculo\" where \"veiculos_motoristas\".\"id_motorista\" = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "id_motorista"
+          },
+          {
+            "type": "number",
+            "name": "id_veiculo"
+          },
+          {
+            "type": "text",
+            "name": "base64_placa"
+          },
+          {
+            "type": "text",
+            "name": "nome_colaborador"
+          },
+          {
+            "type": "text",
+            "name": "cpf_colaborador"
           },
           {
             "type": "text",
             "name": "placa_veiculo"
-          },
-          {
-            "type": "number",
-            "name": "colaborador"
           },
           {
             "type": "text",
@@ -161,15 +305,11 @@
           },
           {
             "type": "text",
-            "name": "ano_veiculo"
-          },
-          {
-            "type": "text",
             "name": "cor_veiculo"
           }
-        ]
+        ],
+        "outputType": "array"
       }
-    ],
-    "outputType": "object"
+    ]
   }
-]
+}
