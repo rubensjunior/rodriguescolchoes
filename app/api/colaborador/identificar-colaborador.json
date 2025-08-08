@@ -157,10 +157,6 @@
                 "column": "id_veiculo"
               },
               {
-                "table": "veiculos_motoristas",
-                "column": "base64_placa"
-              },
-              {
                 "table": "colaboradores",
                 "column": "nome_colaborador"
               },
@@ -179,6 +175,10 @@
               {
                 "table": "veiculos_colaboradores",
                 "column": "cor_veiculo"
+              },
+              {
+                "table": "colaboradores",
+                "column": "base64"
               }
             ],
             "params": [
@@ -270,7 +270,7 @@
               "conditional": null,
               "valid": true
             },
-            "query": "select \"veiculos_motoristas\".\"id_motorista\", \"veiculos_motoristas\".\"id_veiculo\", \"veiculos_motoristas\".\"base64_placa\", \"colaboradores\".\"nome_colaborador\", \"colaboradores\".\"cpf_colaborador\", \"veiculos_colaboradores\".\"placa_veiculo\", \"veiculos_colaboradores\".\"modelo_veiculo\", \"veiculos_colaboradores\".\"cor_veiculo\" from \"veiculos_motoristas\" inner join \"colaboradores\" on \"colaboradores\".\"id_colaborador\" = \"veiculos_motoristas\".\"id_motorista\" inner join \"veiculos_colaboradores\" on \"veiculos_colaboradores\".\"id_veiculo_colaborador\" = \"veiculos_motoristas\".\"id_veiculo\" where \"veiculos_motoristas\".\"id_motorista\" = ?"
+            "query": "select \"veiculos_motoristas\".\"id_motorista\", \"veiculos_motoristas\".\"id_veiculo\", \"colaboradores\".\"nome_colaborador\", \"colaboradores\".\"cpf_colaborador\", \"veiculos_colaboradores\".\"placa_veiculo\", \"veiculos_colaboradores\".\"modelo_veiculo\", \"veiculos_colaboradores\".\"cor_veiculo\", \"colaboradores\".\"base64\" from \"veiculos_motoristas\" inner join \"colaboradores\" on \"colaboradores\".\"id_colaborador\" = \"veiculos_motoristas\".\"id_motorista\" inner join \"veiculos_colaboradores\" on \"veiculos_colaboradores\".\"id_veiculo_colaborador\" = \"veiculos_motoristas\".\"id_veiculo\" where \"veiculos_motoristas\".\"id_motorista\" = ?"
           }
         },
         "output": true,
@@ -282,10 +282,6 @@
           {
             "type": "number",
             "name": "id_veiculo"
-          },
-          {
-            "type": "text",
-            "name": "base64_placa"
           },
           {
             "type": "text",
@@ -306,6 +302,10 @@
           {
             "type": "text",
             "name": "cor_veiculo"
+          },
+          {
+            "type": "text",
+            "name": "base64"
           }
         ],
         "outputType": "array"

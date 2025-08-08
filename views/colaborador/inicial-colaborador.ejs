@@ -1,14 +1,8 @@
 <!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="inicialcolaborador" appConnect="local" components="{dmxBootstrap5Offcanvas:{},dmxFormatter:{},dmxDataTraversal:{}}" -->
-<dmx-data-detail id="data_detail_veiculo" dmx-bind:data="usuario_logado.data.query_acesso_veiculo"></dmx-data-detail>
-<div class="offcanvas offcanvas-start" id="offcanvas_veiculo" is="dmx-bs5-offcanvas" tabindex="-1">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title">{{data_detail_veiculo.data.placa_veiculo}}</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body text-center">
-        <img dmx-bind:src="'data:image/png;base64,'+data_detail_veiculo.data.base64_placa" class="img-fluid qr-code-image" alt="QR Code de Acesso" id="qr_code_veiculo">
-    </div>
-</div>
+
+
+<dmx-serverconnect id="usuario_logado" url="/api/colaborador/identificar-colaborador"></dmx-serverconnect>
+<dmx-data-detail id="data_detail_veiculo" dmx-bind:data="usuario_logado.data.query_acesso_veiculo" key="id_veiculo"></dmx-data-detail>
 <div class="offcanvas offcanvas-start" id="offcanvas_qrcode" is="dmx-bs5-offcanvas" tabindex="-1">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title">Meu QR Code</h5>
@@ -18,39 +12,34 @@
         <img dmx-bind:src="'data:image/png;base64,' + usuario_logado.data.query_colaborador.base64" class="img-fluid qr-code-image" alt="QR Code de Acesso">
     </div>
 </div>
-<dmx-serverconnect id="usuario_logado" url="/api/colaborador/identificar-colaborador"></dmx-serverconnect>
+
+<div class="offcanvas offcanvas-start" id="offcanvas_veiculos" is="dmx-bs5-offcanvas" tabindex="-1">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Meu veículo</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <img dmx-bind:src="'data:image/png;base64,'+data_detail_veiculo.data.base64" class="img-fluid qr-code-image" alt="QR Code de Acesso">
+    </div>
+</div>
 <div class="container-fluid px-4">
     <div class="row align-items-center gy-3">
         <div class="col-12">
-            <h3 class="text-center" id="usuario">Bem-vindo(a) <span dmx-text="usuario_logado.data.query_colaborador.nome_colaborador.split(' ').first()"></span></h3>
+            <h3 class="text-start" id="usuario">Bem-vindo(a) {{usuario_logado.data.query_colaborador.nome_colaborador.split(' ').first()}}</h3>
         </div>
         <div class="col-12 p-3 rounded-3 text-center border">
             <i class="fas fa-qrcode text-dark fa-2x mb-3"></i>
             <h4 class="mb-3">Meu QR Code</h4>
             <button id="btn1" class="btn w-100 btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_qrcode">Exibir QR Code</button>
-
         </div>
         <div class="col-12 p-3 rounded-3 text-center border">
             <i class="fas fa-car fa-2x mb-3"></i>
             <h4 class="mb-3">Meus veículos</h4>
-
-            <!-- Debug: Mostrar dados brutos -->
-            <div class="alert alert-info small" dmx-show="usuario_logado.data.query_acesso_veiculo">
-                <div dmx-repeat:item="usuario_logado.data.query_acesso_veiculo">
-                    ID: {{id_veiculo}} | Placa: {{placa_veiculo}} | Modelo: {{modelo_veiculo}}<br>
-                </div>
-            </div>
+            <h4 class="mb-3">{{data_detail_veiculo.data.base64}}</h4>
             <select id="select1" class="form-select mb-3" dmx-bind:options="usuario_logado.data.query_acesso_veiculo" optionvalue="id_veiculo" optiontext="modelo_veiculo+' - '+placa_veiculo">
                 <option value="">Selecione</option>
             </select>
-
-            <div class="alert alert-warning small" dmx-show="select1.value">Valor selecionado: {{select1.value}}</div>
-            <button id="btn2" class="btn w-100 btn-primary" dmx-on:click="data_detail_veiculo.select(select1.value)" dmx-bind:disabled="!select1.value">Selecionar</button>
-            <button id="btn3" class="btn w-100 btn-success mt-2" dmx-on:click="offcanvas_veiculo.show()" dmx-show="data_detail_veiculo.data" dmx-bind:disabled="!data_detail_veiculo.data.base64_placa">Ver QR Code</button>
-
-            <!-- Debug: Mostrar dados selecionados -->
-            <div class="mt-2 small text-muted" dmx-show="data_detail_veiculo.data">ID: {{data_detail_veiculo.data.id_veiculo}} | Placa: {{data_detail_veiculo.data.placa_veiculo}}</div>
-
+            <button id="btn2" class="btn btn-primary w-100" dmx-on:click="data_detail_veiculo.select(select1.selectedValue)">Selecionar Veículo</button>
         </div>
     </div>
 </div>

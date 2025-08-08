@@ -12,10 +12,6 @@ dmx.config({
         },
         {
           "type": "text",
-          "name": "base64_placa"
-        },
-        {
-          "type": "text",
           "name": "nome_colaborador"
         },
         {
@@ -33,6 +29,10 @@ dmx.config({
         {
           "type": "text",
           "name": "cor_veiculo"
+        },
+        {
+          "type": "text",
+          "name": "base64"
         }
       ],
       "outputType": "array"

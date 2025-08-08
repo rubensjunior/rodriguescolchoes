@@ -20,7 +20,8 @@
         <div class="col-12 col-md-10 col-lg-8 col-xl-6">
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-3 p-md-4">
-                    <form is="dmx-serverconnect-form" id="adicionar_veiculo_form" class="needs-validation" method="post" action="/api/colaborador/adicionar-veiculo">
+                    <form is="dmx-serverconnect-form" id="adicionar_veiculo_form" class="needs-validation" method="post" action="/api/colaborador/cadastrar-veiculo" dmx-on:error="notificacao.danger('Ocorreu um erro!')" dmx-on:success="run([{run:{outputType:'text',action:`notificacao.success(\'Cadastrado com sucesso!\');adicionar_veiculo_form.reset()`}},{wait:{delay:2000}},{run:{outputType:'text',action:`navegacao.goto(\'/colaborador/f/\')`}}])">
+
 
                         <!-- Dados do Veículo -->
                         <div class="step-content">
@@ -130,7 +131,7 @@
                                             <span class="d-sm-none">...</span>
                                         </span>
                                     </button>
-                                </div>
+                                </div><input id="usuario" name="usuario" type="hidden" class="form-control" dmx-bind:value="usuario_logado.data.identity">
                             </div>
                         </div>
 
@@ -184,7 +185,7 @@
         }
         
         // Auto-capitalize para modelo do veículo (primeira letra de cada palavra)
-        if (modeloInput) {
+        /*if (modeloInput) {
             modeloInput.addEventListener('input', function() {
                 let valor = this.value;
                 valor = valor.toLowerCase().replace(/\b\w/g, function(l) {
@@ -192,7 +193,7 @@
                 });
                 this.value = valor;
             });
-        }
+        }*/
         
         // Auto-capitalize para cor do veículo
         if (corInput) {
