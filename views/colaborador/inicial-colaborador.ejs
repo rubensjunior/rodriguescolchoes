@@ -1,20 +1,27 @@
-<!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="inicialcolaborador" appConnect="local" -->
+<!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="inicialcolaborador" appConnect="local" components="{dmxBootstrap5Offcanvas:{}}" -->
+<div class="offcanvas offcanvas-start" id="offcanvas_qrcode" is="dmx-bs5-offcanvas" tabindex="-1">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Meu QR Code</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body text-center">
+        <img dmx-bind:src="'data:image/png;base64,' + usuario_logado.data.query_colaborador.base64" class="img-fluid qr-code-image" alt="QR Code de Acesso">
+    </div>
+</div>
 <dmx-serverconnect id="usuario_logado" url="/api/colaborador/identificar-colaborador"></dmx-serverconnect>
 <div class="container-fluid px-4">
     <div class="row align-items-center gy-3">
         <div class="col-12 p-3 rounded-3 text-center border">
             <i class="fas fa-qrcode text-dark fa-2x mb-3"></i>
             <h3 class="mb-3">Meu QR Code</h3>
-            <button id="btn1" class="btn w-100 btn-primary">Exibir QR Code</button>
+            <button id="btn1" class="btn w-100 btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_qrcode">Exibir QR Code</button>
 
         </div>
         <div class="col-12 p-3 rounded-3 text-center border">
             <i class="fas fa-car fa-2x mb-3"></i>
             <h3 class="mb-3">Meus veículos</h3>
-            <select id="select1" class="form-select" dmx-bind:options="usuario_logado.data.query_colaborador.veiculos_colaboradores" optiontext="content.usuario_logado.data.query_colaborador.veiculos_colaboradores[0].modelo_veiculo+content.usuario_logado.data.query_colaborador.veiculos_colaboradores[0].placa_veiculo" optionvalue="content.usuario_logado.data.query_colaborador.veiculos_colaboradores[0].id_veiculo_colaborador">
-                <option value="1">Option One</option>
-                <option value="2">Option Two</option>
-                <option value="3">Option Three</option>
+            <select id="select1" class="form-select mb-3" dmx-bind:options="usuario_logado.data.query_colaborador.veiculos_colaboradores" optiontext="content.usuario_logado.data.query_colaborador.veiculos_colaboradores[0].modelo_veiculo+' - '+content.usuario_logado.data.query_colaborador.veiculos_colaboradores[0].placa_veiculo" optionvalue="content.usuario_logado.data.query_colaborador.veiculos_colaboradores[0].id_veiculo_colaborador">
+                <option value="">Selecione</option>
             </select>
             <button id="btn2" class="btn w-100 btn-primary">Selecionar</button>
 
