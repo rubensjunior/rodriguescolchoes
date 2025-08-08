@@ -110,6 +110,20 @@
 }
 
 /* ========================================
+   DROPDOWN MOBILE - REMOVE ARROW DO MENU_MOBILE
+   ======================================== */
+
+/* Remove o ícone de arrow (seta) especificamente do dropdown menu_mobile */
+#menu_mobile.dropdown-toggle::after {
+  display: none !important;
+}
+
+/* Remove a seta em todas as variações do Bootstrap dropdown-toggle para o menu_mobile */
+#menu_mobile.dropdown-toggle::before {
+  display: none !important;
+}
+
+/* ========================================
    INPUTS BOOTSTRAP - ALTURA MÍNIMA 46PX
    ======================================== */
 

@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "id_veiculo"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "single",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "veiculos_colaboradores",
+              "column": "placa_veiculo"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.id_veiculo}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "veiculos_colaboradores"
+          },
+          "primary": "id_veiculo_colaborador",
+          "joins": [
+            {
+              "table": "veiculos_motoristas",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "veiculos_motoristas",
+                    "column": "id_veiculo",
+                    "operator": "equal",
+                    "operation": "=",
+                    "value": {
+                      "table": "veiculos_colaboradores",
+                      "column": "id_veiculo_colaborador"
+                    }
+                  }
+                ]
+              },
+              "primary": "id_veiculos_motoristas"
+            }
+          ],
+          "query": "select \"veiculos_colaboradores\".\"placa_veiculo\" from \"veiculos_colaboradores\" inner join \"veiculos_motoristas\" on \"veiculos_motoristas\".\"id_veiculo\" = \"veiculos_colaboradores\".\"id_veiculo_colaborador\" where \"veiculos_colaboradores\".\"id_veiculo_colaborador\" = ?",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "veiculos_colaboradores.id_veiculo_colaborador",
+                "field": "veiculos_colaboradores.id_veiculo_colaborador",
+                "type": "string",
+                "operator": "equal",
+                "value": "{{$_GET.id_veiculo}}",
+                "data": {
+                  "table": "veiculos_colaboradores",
+                  "column": "id_veiculo_colaborador",
+                  "type": "text",
+                  "columnObj": {
+                    "type": "bigIncrements",
+                    "primary": true,
+                    "unique": true,
+                    "nullable": false,
+                    "name": "id_veiculo_colaborador"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          }
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "placa_veiculo"
+        }
+      ],
+      "outputType": "object"
+    }
+  }
+}

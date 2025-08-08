@@ -10,5 +10,9 @@
   "escolha-registro.ejs": {
     "layoutPage": "mobile-portaria",
     "description": ""
+  },
+  "colaborador.ejs": {
+    "layoutPage": "backoffice",
+    "description": ""
   }
 }

@@ -40,6 +40,11 @@
       "path": "/portaria/escolha-registro",
       "page": "portaria/escolha-registro",
       "layout": "mobile-portaria"
+    },
+    {
+      "path": "/colaborador/f/",
+      "page": "colaborador/inicial-colaborador",
+      "layout": "mobile-portaria"
     }
   ]
 }

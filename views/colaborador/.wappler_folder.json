@@ -1,0 +1,10 @@
+{
+  "inicial.ejs": {
+    "layoutPage": "mobile-portaria",
+    "description": ""
+  },
+  "inicial-colaborador.ejs": {
+    "layoutPage": "mobile-portaria",
+    "description": ""
+  }
+}
