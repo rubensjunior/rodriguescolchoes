@@ -45,6 +45,11 @@
       "path": "/colaborador/f/",
       "page": "colaborador/inicial-colaborador",
       "layout": "mobile-portaria"
+    },
+    {
+      "path": "/colaborador/f/adicionar-veiculo",
+      "page": "colaborador/adicionar-veiculo",
+      "layout": "mobile-portaria"
     }
   ],
   "layouts": {

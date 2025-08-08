@@ -6,5 +6,9 @@
   "inicial-colaborador.ejs": {
     "layoutPage": "mobile-portaria",
     "description": ""
+  },
+  "adicionar-veiculo.ejs": {
+    "layoutPage": "mobile-portaria",
+    "description": ""
   }
 }
