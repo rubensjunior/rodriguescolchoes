@@ -1,9 +1,30 @@
-<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="adicionarmotoristaautorizado" appConnect="local" -->
+<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="adicionarmotoristaautorizado" appConnect="local" components="{dmxBootstrap5TableGenerator:{}}" -->
+<dmx-serverconnect id="lista_motoristas_autorizados" url="/api/colaborador/listar-motoristas-autorizados"></dmx-serverconnect>
 <div class="container-fluid">
     <div class="row">
-        <div class="col">
+        <div class="col-12 mb-3">
             <h3>Motoristas autorizados</h3>
+        </div>
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Motorista</th>
+                        <th>Veículo</th>
+                        <th>Placa</th>
+                        <th>Cor</th>
+                    </tr>
+                </thead>
+                <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="lista_motoristas_autorizados.data.query_motoristas_autorizados" id="tableRepeat1">
+                    <tr>
+                        <td dmx-text="nome_colaborador"></td>
+                        <td dmx-text="modelo_veiculo"></td>
+                        <td dmx-text="placa_veiculo"></td>
+                        <td dmx-text="cor_veiculo"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-<meta name="ac:route" content="/colaborador/adicionar-motorista-autorizado">
+<meta name="ac:route" content="/colaborador/f/adicionar-motorista-autorizado">
