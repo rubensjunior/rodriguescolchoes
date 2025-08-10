@@ -9,15 +9,7 @@
         "type": "text",
         "fieldName": "placa",
         "options": {
-          "rules": {
-            "core:required": {
-              "param": "",
-              "message": "Por favor, digite a placa do veículo"
-            },
-            "core:maxlength": {
-              "param": "8"
-            }
-          }
+          "rules": {}
         },
         "name": "placa"
       },
@@ -30,15 +22,7 @@
         "type": "number",
         "fieldName": "ano_veiculo",
         "options": {
-          "rules": {
-            "core:number": {},
-            "core:max": {
-              "param": "2030"
-            },
-            "core:min": {
-              "param": "1900"
-            }
-          }
+          "rules": {}
         },
         "name": "ano_veiculo"
       },
@@ -51,12 +35,7 @@
         "type": "text",
         "fieldName": "tipo_veiculo",
         "options": {
-          "rules": {
-            "core:required": {
-              "param": "",
-              "message": "Por favor, selecione o tipo do veículo"
-            }
-          }
+          "rules": {}
         },
         "name": "tipo_veiculo"
       },
@@ -204,82 +183,6 @@
         ]
       },
       {
-        "name": "insert_motorista_veiculo",
-        "module": "dbupdater",
-        "action": "insert",
-        "options": {
-          "connection": "db",
-          "sql": {
-            "type": "insert",
-            "values": [
-              {
-                "table": "veiculos_motoristas",
-                "column": "id_motorista",
-                "type": "text",
-                "value": "{{$_POST.usuario}}"
-              },
-              {
-                "table": "veiculos_motoristas",
-                "column": "id_veiculo",
-                "type": "number",
-                "value": "{{insert_veiculo.identity}}"
-              },
-              {
-                "table": "veiculos_motoristas",
-                "column": "base64_placa",
-                "type": "text",
-                "value": "{{$_POST.base64_placa}}"
-              },
-              {
-                "table": "veiculos_motoristas",
-                "column": "id_responsavel_motorista",
-                "type": "text",
-                "value": "{{$_POST.usuario}}"
-              }
-            ],
-            "table": "veiculos_motoristas",
-            "returning": "id_veiculos_motoristas",
-            "query": "insert into \"veiculos_motoristas\" (\"base64_placa\", \"id_motorista\", \"id_responsavel_motorista\", \"id_veiculo\") values (?, ?, ?, ?) returning \"id_veiculos_motoristas\"",
-            "params": [
-              {
-                "name": ":P1",
-                "type": "expression",
-                "value": "{{$_POST.usuario}}",
-                "test": ""
-              },
-              {
-                "name": ":P2",
-                "type": "expression",
-                "value": "{{insert_veiculo.identity}}",
-                "test": ""
-              },
-              {
-                "name": ":P3",
-                "type": "expression",
-                "value": "{{$_POST.base64_placa}}",
-                "test": ""
-              },
-              {
-                "name": ":P4",
-                "type": "expression",
-                "value": "{{$_POST.usuario}}",
-                "test": ""
-              }
-            ]
-          }
-        },
-        "meta": [
-          {
-            "name": "identity",
-            "type": "text"
-          },
-          {
-            "name": "affected",
-            "type": "number"
-          }
-        ]
-      },
-      {
         "name": "api",
         "module": "api",
         "action": "send",
@@ -394,6 +297,70 @@
           }
         ],
         "outputType": "object"
+      },
+      {
+        "name": "insert_motorista",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "veiculos_motoristas",
+                "column": "id_motorista",
+                "type": "text",
+                "value": "{{$_POST.usuario}}"
+              },
+              {
+                "table": "veiculos_motoristas",
+                "column": "id_veiculo",
+                "type": "number",
+                "value": "{{insert_veiculo.identity}}"
+              },
+              {
+                "table": "veiculos_motoristas",
+                "column": "id_responsavel_motorista",
+                "type": "text",
+                "value": "{{$_POST.usuario}}"
+              }
+            ],
+            "table": "veiculos_motoristas",
+            "returning": "id_veiculos_motoristas",
+            "query": "insert into \"veiculos_motoristas\" (\"id_motorista\", \"id_responsavel_motorista\", \"id_veiculo\") values (?, ?, ?)",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.usuario}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{insert_veiculo.identity}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.usuario}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
       }
     ]
   }

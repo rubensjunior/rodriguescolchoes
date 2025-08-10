@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "identity_usuario_atual",
+        "module": "auth",
+        "action": "identify",
+        "options": {
+          "provider": "logar"
+        },
+        "output": true,
+        "meta": []
+      },
+      {
+        "name": "query_motoristas_autorizados",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "colaboradores",
+                "column": "nome_colaborador"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "modelo_veiculo"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "placa_veiculo"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "cor_veiculo"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{identity_usuario_atual}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "veiculos_motoristas"
+            },
+            "primary": "id_veiculos_motoristas",
+            "joins": [
+              {
+                "table": "colaboradores",
+                "column": "*",
+                "type": "INNER",
+                "clauses": {
+                  "condition": "AND",
+                  "rules": [
+                    {
+                      "table": "colaboradores",
+                      "column": "id_colaborador",
+                      "operator": "equal",
+                      "operation": "=",
+                      "value": {
+                        "table": "veiculos_motoristas",
+                        "column": "id_motorista"
+                      }
+                    }
+                  ]
+                },
+                "primary": "id_colaborador"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "*",
+                "type": "INNER",
+                "clauses": {
+                  "condition": "AND",
+                  "rules": [
+                    {
+                      "table": "veiculos_colaboradores",
+                      "column": "id_veiculo_colaborador",
+                      "operator": "equal",
+                      "operation": "=",
+                      "value": {
+                        "table": "veiculos_motoristas",
+                        "column": "id_veiculo"
+                      }
+                    }
+                  ]
+                },
+                "primary": "id_veiculo_colaborador"
+              }
+            ],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "veiculos_motoristas.id_responsavel_motorista",
+                  "field": "veiculos_motoristas.id_responsavel_motorista",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{identity_usuario_atual}}",
+                  "data": {
+                    "table": "veiculos_motoristas",
+                    "column": "id_responsavel_motorista",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "reference",
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "references": "id_colaborador",
+                      "inTable": "colaboradores",
+                      "referenceType": "uuid",
+                      "onUpdate": "NO ACTION",
+                      "onDelete": "NO ACTION",
+                      "name": "id_responsavel_motorista"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select \"colaboradores\".\"nome_colaborador\", \"veiculos_colaboradores\".\"modelo_veiculo\", \"veiculos_colaboradores\".\"placa_veiculo\", \"veiculos_colaboradores\".\"cor_veiculo\" from \"veiculos_motoristas\" inner join \"colaboradores\" on \"colaboradores\".\"id_colaborador\" = \"veiculos_motoristas\".\"id_motorista\" inner join \"veiculos_colaboradores\" on \"veiculos_colaboradores\".\"id_veiculo_colaborador\" = \"veiculos_motoristas\".\"id_veiculo\" where \"veiculos_motoristas\".\"id_responsavel_motorista\" = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "text",
+            "name": "nome_colaborador"
+          },
+          {
+            "type": "text",
+            "name": "modelo_veiculo"
+          },
+          {
+            "type": "text",
+            "name": "placa_veiculo"
+          },
+          {
+            "type": "text",
+            "name": "cor_veiculo"
+          }
+        ],
+        "outputType": "array",
+        "collapsed": true
+      }
+    ]
+  }
+}

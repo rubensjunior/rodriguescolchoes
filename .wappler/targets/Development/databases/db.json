@@ -21,23 +21,10 @@
       "storage"
     ],
     "tables": {
-      "realtime.schema_migrations": {
-        "db": {
-          "schema": "realtime"
-        }
-      },
-      "realtime.subscription": {
-        "db": {
-          "schema": "realtime"
-        }
-      },
-      "realtime.messages": {
-        "db": {
-          "schema": "realtime"
-        }
-      },
       "colaboradores": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_colaborador": {
             "db": {
@@ -127,7 +114,9 @@
         }
       },
       "veiculos_colaboradores": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_veiculo_colaborador": {
             "db": {
@@ -219,7 +208,9 @@
         }
       },
       "registro_portaria": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_registro_portaria": {
             "db": {
@@ -299,7 +290,9 @@
         }
       },
       "veiculos_motoristas": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_veiculos_motoristas": {
             "db": {
@@ -354,6 +347,21 @@
               "onDelete": "NO ACTION"
             }
           }
+        }
+      },
+      "realtime.schema_migrations": {
+        "db": {
+          "schema": "realtime"
+        }
+      },
+      "realtime.subscription": {
+        "db": {
+          "schema": "realtime"
+        }
+      },
+      "realtime.messages": {
+        "db": {
+          "schema": "realtime"
         }
       },
       "vault.secrets": {

@@ -20,11 +20,11 @@
         <h5 class="offcanvas-title">Meu veículo</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body">
+    <div class="offcanvas-body text-center">
         <img dmx-bind:src="'data:image/png;base64,'+data_detail_veiculo.data.base64_veiculo" class="img-fluid qr-code-image mb-4" alt="QR Code de Acesso">
-        <h5>Veículo: {{data_detail_veiculo.data.modelo_veiculo}}</h5>
-        <h5>Placa: {{data_detail_veiculo.data.placa_veiculo}}</h5>
-        <h5>Cor: {{data_detail_veiculo.data.cor_veiculo}}</h5>
+        <h5 class="text-start">Veículo: {{data_detail_veiculo.data.modelo_veiculo}}</h5>
+        <h5 class="text-start">Placa: {{data_detail_veiculo.data.placa_veiculo}}</h5>
+        <h5 class="text-start">Cor: {{data_detail_veiculo.data.cor_veiculo}}</h5>
     </div>
 </div>
 <div class="container-fluid px-4">
