@@ -1,9 +1,13 @@
-<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="adicionarmotoristaautorizado" appConnect="local" components="{dmxBootstrap5TableGenerator:{}}" -->
+<!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="motoristaautorizado" appConnect="local" -->
+<meta name="ac:route" content="/colaborador/f/motorista-autorizado">
 <dmx-serverconnect id="lista_motoristas_autorizados" url="/api/colaborador/listar-motoristas-autorizados"></dmx-serverconnect>
-<div class="container-fluid">
+<div class="container-fluid px-4">
     <div class="row">
         <div class="col-12 mb-3">
             <h3>Motoristas autorizados</h3>
+        </div>
+        <div class="col-12 p-3 rounded-3 text-center border">
+            <button id="btn1" class="btn w-100 btn-primary" data-bs-target="undefined">Adicionar Motorista</button>
         </div>
         <div class="col-12">
             <table class="table">
@@ -27,4 +31,3 @@
         </div>
     </div>
 </div>
-<meta name="ac:route" content="/colaborador/f/adicionar-motorista-autorizado">

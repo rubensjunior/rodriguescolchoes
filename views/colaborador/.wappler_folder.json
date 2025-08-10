@@ -12,7 +12,11 @@
     "description": ""
   },
   "adicionar-motorista-autorizado.ejs": {
-    "layoutPage": "backoffice",
+    "layoutPage": "mobile-portaria",
+    "description": ""
+  },
+  "motorista-autorizado.ejs": {
+    "layoutPage": "mobile-portaria",
     "description": ""
   }
 }

@@ -52,9 +52,9 @@
       "layout": "mobile-portaria"
     },
     {
-      "path": "/colaborador/f/adicionar-motorista-autorizado",
-      "page": "colaborador/adicionar-motorista-autorizado",
-      "layout": "backoffice"
+      "path": "/colaborador/f/motorista-autorizado",
+      "page": "colaborador/motorista-autorizado",
+      "layout": "mobile-portaria"
     }
   ],
   "layouts": {
