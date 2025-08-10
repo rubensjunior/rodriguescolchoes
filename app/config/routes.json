@@ -17,11 +17,6 @@
       "layout": "main"
     },
     {
-      "path": "/d/qr-code",
-      "page": "portaria/qr-code",
-      "layout": "mobile-portaria"
-    },
-    {
       "path": "/d/portaria",
       "page": "portaria/portaria",
       "layout": "mobile-portaria"
@@ -35,11 +30,6 @@
       "path": "/backoffice/f/registros-portaria",
       "page": "dashboard/registros-portaria",
       "layout": "backoffice"
-    },
-    {
-      "path": "/portaria/escolha-registro",
-      "page": "portaria/escolha-registro",
-      "layout": "mobile-portaria"
     },
     {
       "path": "/colaborador/f/",
