@@ -10,5 +10,9 @@
   "adicionar-veiculo.ejs": {
     "layoutPage": "mobile-portaria",
     "description": ""
+  },
+  "adicionar-motorista-autorizado.ejs": {
+    "layoutPage": "backoffice",
+    "description": ""
   }
 }

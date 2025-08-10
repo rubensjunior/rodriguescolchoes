@@ -86,7 +86,7 @@
           "data": [
             {
               "name": "validate_1",
-              "value": "{{$_POST.placa}}",
+              "value": "{{$_POST.placa.uppercase()}}",
               "rules": {
                 "db:notexists": {
                   "param": {
@@ -122,7 +122,7 @@
                 "table": "veiculos_colaboradores",
                 "column": "placa_veiculo",
                 "type": "text",
-                "value": "{{$_POST.placa}}"
+                "value": "{{$_POST.placa.uppercase()}}"
               },
               {
                 "table": "veiculos_colaboradores",
@@ -151,7 +151,7 @@
             ],
             "table": "veiculos_colaboradores",
             "returning": "id_veiculo_colaborador",
-            "query": "insert into \"veiculos_colaboradores\" (\"ano_veiculo\", \"colaborador\", \"cor_veiculo\", \"modelo_veiculo\", \"placa_veiculo\", \"tipo_veiculo\") values (?, ?, ?, ?, ?, ?)",
+            "query": "insert into \"veiculos_colaboradores\" (\"ano_veiculo\", \"colaborador\", \"cor_veiculo\", \"modelo_veiculo\", \"placa_veiculo\", \"tipo_veiculo\") values (?, ?, ?, ?, ?, ?) returning \"id_veiculo_colaborador\"",
             "params": [
               {
                 "name": ":P1",
@@ -162,7 +162,7 @@
               {
                 "name": ":P2",
                 "type": "expression",
-                "value": "{{$_POST.placa}}",
+                "value": "{{$_POST.placa.uppercase()}}",
                 "test": ""
               },
               {
@@ -204,7 +204,7 @@
         ]
       },
       {
-        "name": "insert",
+        "name": "insert_motorista_veiculo",
         "module": "dbupdater",
         "action": "insert",
         "options": {
@@ -229,11 +229,17 @@
                 "column": "base64_placa",
                 "type": "text",
                 "value": "{{$_POST.base64_placa}}"
+              },
+              {
+                "table": "veiculos_motoristas",
+                "column": "id_responsavel_motorista",
+                "type": "text",
+                "value": "{{$_POST.usuario}}"
               }
             ],
             "table": "veiculos_motoristas",
             "returning": "id_veiculos_motoristas",
-            "query": "insert into \"veiculos_motoristas\" (\"base64_placa\", \"id_motorista\", \"id_veiculo\") values (?, ?, ?)",
+            "query": "insert into \"veiculos_motoristas\" (\"base64_placa\", \"id_motorista\", \"id_responsavel_motorista\", \"id_veiculo\") values (?, ?, ?, ?) returning \"id_veiculos_motoristas\"",
             "params": [
               {
                 "name": ":P1",
@@ -251,6 +257,12 @@
                 "name": ":P3",
                 "type": "expression",
                 "value": "{{$_POST.base64_placa}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{$_POST.usuario}}",
                 "test": ""
               }
             ]
@@ -274,10 +286,9 @@
         "options": {
           "url": "https://backend.spacefeed.app/api/qr-code-veiculo",
           "data": {
-            "placa": "AER123",
-            "id_veiculo": "36"
+            "placa": "{{$_POST.placa}}",
+            "id_veiculo": "{{insert_veiculo.identity}}"
           },
-          "dataType": "json",
           "method": "POST",
           "schema": [
             {

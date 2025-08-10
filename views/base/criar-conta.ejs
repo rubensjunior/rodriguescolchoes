@@ -63,7 +63,7 @@
                                 <div class="col-12 col-md-6">
                                     <div class="form-group mb-2">
                                         <label for="cpf" class="form-label">CPF *</label>
-                                        <input type="text" class="form-control" id="cpf" name="cpf" required data-msg-required="Por favor, digite seu CPF" placeholder="000.000.000-00">
+                                        <input type="text" class="form-control" id="cpf" name="cpf" required data-msg-required="Por favor, digite seu CPF" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" data-msg-pattern="CPF deve estar no formato 000.000.000-00" placeholder="000.000.000-00" maxlength="14" inputmode="numeric">
                                     </div>
                                 </div>
 
@@ -87,7 +87,7 @@
                                 <div class="col-12">
                                     <div class="form-group mb-2">
                                         <label for="telefone" class="form-label">Telefone *</label>
-                                        <input type="tel" class="form-control" id="telefone" name="telefone" required data-msg-required="Por favor, digite seu telefone" placeholder="(00) 00000-0000">
+                                        <input type="tel" class="form-control" id="telefone" name="telefone" required data-msg-required="Por favor, digite seu telefone" pattern="\(\d{2}\) \d{4,5}-\d{4}" data-msg-pattern="Telefone deve estar no formato (00) 00000-0000" placeholder="(00) 00000-0000" maxlength="15" inputmode="tel">
                                     </div>
                                 </div>
                             </div>
@@ -290,15 +290,148 @@
 
 <script>
     // Máscaras de input
-    $(document).ready(function() {
-        $('#cpf').mask('000.000.000-00');
-        $('#telefone').mask('(00) 00000-0000');
-    });
+    // Função para formatar CPF
+    function formatCPF(value) {
+        // Remove todos os caracteres não numéricos
+        const numbers = value.replace(/\D/g, '');
+        
+        // Aplica a formatação
+        if (numbers.length <= 11) {
+            return numbers
+                .replace(/(\d{3})(\d)/, '$1.$2')
+                .replace(/(\d{3})(\d)/, '$1.$2')
+                .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        }
+        return numbers.substring(0, 11)
+            .replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    }
 
-    // Debug
+    // Função para formatar telefone
+    function formatTelefone(value) {
+        // Remove todos os caracteres não numéricos
+        const numbers = value.replace(/\D/g, '');
+        
+        // Aplica a formatação
+        if (numbers.length <= 10) {
+            // Telefone fixo (10 dígitos)
+            return numbers
+                .replace(/(\d{2})(\d)/, '($1) $2')
+                .replace(/(\d{4})(\d)/, '$1-$2');
+        } else {
+            // Celular (11 dígitos)
+            return numbers.substring(0, 11)
+                .replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        }
+    }
+
+    // Validação de CPF
+    function validarCPF(cpf) {
+        cpf = cpf.replace(/\D/g, '');
+        if (cpf.length !== 11) return false;
+        
+        // Verifica se todos os dígitos são iguais
+        if (/^(\d)\1{10}$/.test(cpf)) return false;
+        
+        // Validação dos dígitos verificadores
+        let sum = 0;
+        for (let i = 0; i < 9; i++) {
+            sum += parseInt(cpf.charAt(i)) * (10 - i);
+        }
+        let firstDigit = (sum * 10) % 11;
+        if (firstDigit === 10) firstDigit = 0;
+        
+        if (firstDigit !== parseInt(cpf.charAt(9))) return false;
+        
+        sum = 0;
+        for (let i = 0; i < 10; i++) {
+            sum += parseInt(cpf.charAt(i)) * (11 - i);
+        }
+        let secondDigit = (sum * 10) % 11;
+        if (secondDigit === 10) secondDigit = 0;
+        
+        return secondDigit === parseInt(cpf.charAt(10));
+    }
+
+    // Aplicar máscaras imediatamente e em múltiplos eventos
+    function aplicarMascaras() {
+        const cpfInput = document.getElementById('cpf');
+        const telefoneInput = document.getElementById('telefone');
+        
+        if (cpfInput && !cpfInput.hasAttribute('data-mask-applied')) {
+            cpfInput.addEventListener('input', function(e) {
+                e.target.value = formatCPF(e.target.value);
+            });
+            cpfInput.setAttribute('data-mask-applied', 'true');
+        }
+        
+        if (telefoneInput && !telefoneInput.hasAttribute('data-mask-applied')) {
+            telefoneInput.addEventListener('input', function(e) {
+                e.target.value = formatTelefone(e.target.value);
+            });
+            telefoneInput.setAttribute('data-mask-applied', 'true');
+        }
+    }
+
+    // Aplicar máscaras o mais cedo possível
+    aplicarMascaras();
+    
+    // Fallback para jQuery Mask (manter compatibilidade)
+    if (typeof $ !== 'undefined') {
+        $(document).ready(function() {
+            // Só aplica jQuery mask se as máscaras nativas não foram aplicadas
+            if (!document.getElementById('cpf').hasAttribute('data-mask-applied')) {
+                $('#cpf').mask('000.000.000-00');
+            }
+            if (!document.getElementById('telefone').hasAttribute('data-mask-applied')) {
+                $('#telefone').mask('(00) 00000-0000');
+            }
+        });
+    }
+
+    // Validação antes do envio
     document.addEventListener('DOMContentLoaded', function() {
+        aplicarMascaras(); // Garantir aplicação
+        
+        const form = document.getElementById('criar_conta_form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                const cpfInput = document.getElementById('cpf');
+                const telefoneInput = document.getElementById('telefone');
+                
+                // Garantir formatação antes do envio
+                if (cpfInput && cpfInput.value) {
+                    cpfInput.value = formatCPF(cpfInput.value);
+                    
+                    // Validar CPF
+                    if (!validarCPF(cpfInput.value)) {
+                        e.preventDefault();
+                        alert('CPF inválido. Verifique os dados digitados.');
+                        return false;
+                    }
+                }
+                
+                if (telefoneInput && telefoneInput.value) {
+                    telefoneInput.value = formatTelefone(telefoneInput.value);
+                }
+            });
+        }
+        
         console.log('Página carregada');
-        console.log('Formulário:', document.getElementById('criar_conta_form'));
+        console.log('Formulário:', form);
         console.log('App Connect:', typeof dmx !== 'undefined' ? 'Carregado' : 'Não carregado');
+        console.log('Máscaras aplicadas:', {
+            cpf: document.getElementById('cpf').hasAttribute('data-mask-applied'),
+            telefone: document.getElementById('telefone').hasAttribute('data-mask-applied')
+        });
     });
+    
+    // Aplicar máscaras também quando App Connect carrega
+    if (typeof dmx !== 'undefined') {
+        dmx.ready(aplicarMascaras);
+    }
+    
+    // Timeout como último recurso
+    setTimeout(aplicarMascaras, 100);
+    setTimeout(aplicarMascaras, 500);
+    setTimeout(aplicarMascaras, 1000);
 </script>

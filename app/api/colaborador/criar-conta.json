@@ -374,11 +374,17 @@
                 "column": "id_veiculo",
                 "type": "number",
                 "value": "{{insert_veiculo.identity}}"
+              },
+              {
+                "table": "veiculos_motoristas",
+                "column": "id_responsavel_motorista",
+                "type": "text",
+                "value": "{{insert_colaborador.identity}}"
               }
             ],
             "table": "veiculos_motoristas",
             "returning": "id_veiculos_motoristas",
-            "query": "insert into \"veiculos_motoristas\" (\"id_motorista\", \"id_veiculo\") values (?, ?)",
+            "query": "insert into \"veiculos_motoristas\" (\"id_motorista\", \"id_responsavel_motorista\", \"id_veiculo\") values (?, ?, ?) returning \"id_veiculos_motoristas\"",
             "params": [
               {
                 "name": ":P1",
@@ -390,6 +396,12 @@
                 "name": ":P2",
                 "type": "expression",
                 "value": "{{insert_veiculo.identity}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{insert_colaborador.identity}}",
                 "test": ""
               }
             ]
@@ -413,8 +425,10 @@
         "options": {
           "url": "https://backend.spacefeed.app/api/qrcode",
           "data": {
-            "usuario": "{{insert_colaborador.identity}}",
-            "placa": "{{$_POST.placa}}"
+            "usuario": "{{$_POST.cpf}}",
+            "placa": "{{$_POST.placa}}",
+            "veiculo": "{{insert_veiculo.identity}}",
+            "id_usuario": "{{insert_colaborador.identity}}"
           },
           "dataType": "json"
         },

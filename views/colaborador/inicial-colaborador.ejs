@@ -9,7 +9,9 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body text-center">
-        <img dmx-bind:src="'data:image/png;base64,' + usuario_logado.data.query_colaborador.base64" class="img-fluid qr-code-image" alt="QR Code de Acesso">
+        <img dmx-bind:src="'data:image/png;base64,' + usuario_logado.data.query_colaborador.base64" class="img-fluid qr-code-image mb-3" alt="QR Code de Acesso">
+        <h5 class="text-start">Nome: {{usuario_logado.data.query_colaborador.nome_colaborador}}</h5>
+        <h5 class="text-start">CPF: {{data_detail_veiculo.data.cpf_colaborador}}</h5>
     </div>
 </div>
 
@@ -19,7 +21,10 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <img dmx-bind:src="'data:image/png;base64,'+data_detail_veiculo.data.base64" class="img-fluid qr-code-image" alt="QR Code de Acesso">
+        <img dmx-bind:src="'data:image/png;base64,'+data_detail_veiculo.data.base64_veiculo" class="img-fluid qr-code-image mb-4" alt="QR Code de Acesso">
+        <h5>Veículo: {{data_detail_veiculo.data.modelo_veiculo}}</h5>
+        <h5>Placa: {{data_detail_veiculo.data.placa_veiculo}}</h5>
+        <h5>Cor: {{data_detail_veiculo.data.cor_veiculo}}</h5>
     </div>
 </div>
 <div class="container-fluid px-4">
@@ -35,11 +40,10 @@
         <div class="col-12 p-3 rounded-3 text-center border">
             <i class="fas fa-car fa-2x mb-3"></i>
             <h4 class="mb-3">Meus veículos</h4>
-            <h4 class="mb-3">{{data_detail_veiculo.data.base64}}</h4>
             <select id="select1" class="form-select mb-3" dmx-bind:options="usuario_logado.data.query_acesso_veiculo" optionvalue="id_veiculo" optiontext="modelo_veiculo+' - '+placa_veiculo">
                 <option value="">Selecione</option>
             </select>
-            <button id="btn2" class="btn btn-primary w-100" dmx-on:click="data_detail_veiculo.select(select1.selectedValue)">Selecionar Veículo</button>
+            <button id="btn2" class="btn btn-primary w-100" dmx-on:click="data_detail_veiculo.select(select1.selectedValue);offcanvas_veiculos.show()">Selecionar Veículo</button>
         </div>
     </div>
 </div>

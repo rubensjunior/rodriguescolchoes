@@ -37,9 +37,7 @@
         }
       },
       "colaboradores": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_colaborador": {
             "db": {
@@ -129,9 +127,7 @@
         }
       },
       "veiculos_colaboradores": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_veiculo_colaborador": {
             "db": {
@@ -219,14 +215,11 @@
           }
         },
         "refs": {
-          "registro_portaria": "id_veiculo_registrado",
-          "veiculos_motoristas": "id_veiculo"
+          "registro_portaria": "id_veiculo_registrado"
         }
       },
       "registro_portaria": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_registro_portaria": {
             "db": {
@@ -306,9 +299,7 @@
         }
       },
       "veiculos_motoristas": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_veiculos_motoristas": {
             "db": {
@@ -343,26 +334,32 @@
           },
           "id_veiculo": {
             "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "referenceType": "bigInteger"
+            }
+          },
+          "id_responsavel_motorista": {
+            "db": {
               "type": "reference",
               "primary": false,
               "unique": false,
               "nullable": true,
-              "references": "id_veiculo_colaborador",
-              "inTable": "veiculos_colaboradores",
-              "referenceType": "bigInteger",
+              "references": "id_colaborador",
+              "inTable": "colaboradores",
+              "referenceType": "uuid",
               "onUpdate": "NO ACTION",
               "onDelete": "NO ACTION"
             }
-          },
-          "base64_placa": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
           }
+        }
+      },
+      "vault.secrets": {
+        "db": {
+          "schema": "vault",
+          "comment": "Table with encrypted `secret` column for storing sensitive information on disk."
         }
       },
       "auth.sso_domains": {
@@ -524,12 +521,6 @@
         },
         "refs": {
           "auth.mfa_challenges": "factor_id"
-        }
-      },
-      "vault.secrets": {
-        "db": {
-          "schema": "vault",
-          "comment": "Table with encrypted `secret` column for storing sensitive information on disk."
         }
       },
       "storage.migrations": {

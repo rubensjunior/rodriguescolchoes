@@ -50,6 +50,11 @@
       "path": "/colaborador/f/adicionar-veiculo",
       "page": "colaborador/adicionar-veiculo",
       "layout": "mobile-portaria"
+    },
+    {
+      "path": "/colaborador/adicionar-motorista-autorizado",
+      "page": "colaborador/adicionar-motorista-autorizado",
+      "layout": "backoffice"
     }
   ],
   "layouts": {

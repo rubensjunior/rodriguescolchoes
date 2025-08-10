@@ -177,6 +177,10 @@
                 "column": "cor_veiculo"
               },
               {
+                "table": "veiculos_colaboradores",
+                "column": "base64_veiculo"
+              },
+              {
                 "table": "colaboradores",
                 "column": "base64"
               }
@@ -270,7 +274,7 @@
               "conditional": null,
               "valid": true
             },
-            "query": "select \"veiculos_motoristas\".\"id_motorista\", \"veiculos_motoristas\".\"id_veiculo\", \"colaboradores\".\"nome_colaborador\", \"colaboradores\".\"cpf_colaborador\", \"veiculos_colaboradores\".\"placa_veiculo\", \"veiculos_colaboradores\".\"modelo_veiculo\", \"veiculos_colaboradores\".\"cor_veiculo\", \"colaboradores\".\"base64\" from \"veiculos_motoristas\" inner join \"colaboradores\" on \"colaboradores\".\"id_colaborador\" = \"veiculos_motoristas\".\"id_motorista\" inner join \"veiculos_colaboradores\" on \"veiculos_colaboradores\".\"id_veiculo_colaborador\" = \"veiculos_motoristas\".\"id_veiculo\" where \"veiculos_motoristas\".\"id_motorista\" = ?"
+            "query": "select \"veiculos_motoristas\".\"id_motorista\", \"veiculos_motoristas\".\"id_veiculo\", \"colaboradores\".\"nome_colaborador\", \"colaboradores\".\"cpf_colaborador\", \"veiculos_colaboradores\".\"placa_veiculo\", \"veiculos_colaboradores\".\"modelo_veiculo\", \"veiculos_colaboradores\".\"cor_veiculo\", \"veiculos_colaboradores\".\"base64_veiculo\", \"colaboradores\".\"base64\" from \"veiculos_motoristas\" inner join \"colaboradores\" on \"colaboradores\".\"id_colaborador\" = \"veiculos_motoristas\".\"id_motorista\" inner join \"veiculos_colaboradores\" on \"veiculos_colaboradores\".\"id_veiculo_colaborador\" = \"veiculos_motoristas\".\"id_veiculo\" where \"veiculos_motoristas\".\"id_motorista\" = ?"
           }
         },
         "output": true,
@@ -302,6 +306,10 @@
           {
             "type": "text",
             "name": "cor_veiculo"
+          },
+          {
+            "type": "text",
+            "name": "base64_veiculo"
           },
           {
             "type": "text",
