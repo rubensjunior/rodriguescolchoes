@@ -1,3 +1,84 @@
 {
-  "exec": {}
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "id_motorista"
+      },
+      {
+        "type": "text",
+        "name": "id_veiculo"
+      },
+      {
+        "type": "text",
+        "name": "id_responsavel"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "insert_motorista_autorizado",
+      "module": "dbupdater",
+      "action": "insert",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "insert",
+          "values": [
+            {
+              "table": "veiculos_motoristas",
+              "column": "id_motorista",
+              "type": "text",
+              "value": "{{$_GET.id_motorista}}"
+            },
+            {
+              "table": "veiculos_motoristas",
+              "column": "id_veiculo",
+              "type": "number",
+              "value": "{{$_GET.id_veiculo}}"
+            },
+            {
+              "table": "veiculos_motoristas",
+              "column": "id_responsavel_motorista",
+              "type": "text",
+              "value": "{{$_GET.id_responsavel}}"
+            }
+          ],
+          "table": "veiculos_motoristas",
+          "returning": "id_veiculos_motoristas",
+          "query": "insert into \"veiculos_motoristas\" (\"id_motorista\", \"id_responsavel_motorista\", \"id_veiculo\") values (?, ?, ?) returning \"id_veiculos_motoristas\"",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_GET.id_motorista}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_GET.id_veiculo}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_GET.id_responsavel}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "identity",
+          "type": "text"
+        },
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
 }

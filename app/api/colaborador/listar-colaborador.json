@@ -24,6 +24,10 @@
             {
               "table": "colaboradores",
               "column": "cpf_colaborador"
+            },
+            {
+              "table": "colaboradores",
+              "column": "id_colaborador"
             }
           ],
           "params": [
@@ -68,7 +72,7 @@
             "conditional": null,
             "valid": true
           },
-          "query": "select \"nome_colaborador\", \"cpf_colaborador\" from \"colaboradores\" where \"colaboradores\".\"cpf_colaborador\" = ?"
+          "query": "select \"nome_colaborador\", \"cpf_colaborador\", \"id_colaborador\" from \"colaboradores\" where \"colaboradores\".\"cpf_colaborador\" = ?"
         }
       },
       "meta": [
@@ -79,6 +83,10 @@
         {
           "type": "text",
           "name": "cpf_colaborador"
+        },
+        {
+          "type": "text",
+          "name": "id_colaborador"
         }
       ],
       "outputType": "object",

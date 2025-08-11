@@ -1,4 +1,5 @@
 <!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="motoristaautorizado" appConnect="local" components="{dmxBootstrap5Offcanvas:{},dmxBootstrap5Alert:{}}" -->
+<dmx-serverconnect id="add_motorista_autorizado" url="/api/colaborador/adicionar-motorista-autorizado" noload="true" dmx-on:success="add_motorista_autorizado.reset();lista_meus_veiculos.load({});pesquisar_colaborador.reset();lista_motoristas_autorizados.load({});offcanvas_novo_motorista.hide()"></dmx-serverconnect>
 <dmx-serverconnect id="lista_meus_veiculos" url="/api/colaborador/meus-veiculos"></dmx-serverconnect>
 <meta name="ac:route" content="/colaborador/f/motorista-autorizado">
 <dmx-serverconnect id="pesquisar_colaborador" url="/api/colaborador/listar-colaborador" noload="true"></dmx-serverconnect>
@@ -59,13 +60,13 @@
                                 <i class="fas fa-car text-primary me-2"></i>
                                 <strong>Selecionar Veículo:</strong>
                             </label>
-                            <select id="select1" class="form-select" dmx-bind:options="lista_meus_veiculos.data.query_meus_veiculos" optiontext="modelo_veiculo+' - '+placa_veiculo" optionvalue="id_veiculo_colaborador">
+                            <select id="select_veiculo" class="form-select" dmx-bind:options="lista_meus_veiculos.data.query_meus_veiculos" optiontext="modelo_veiculo+' - '+placa_veiculo" optionvalue="id_veiculo_colaborador" name="select_veiculo">
                                 <option value="">Selecione um veículo</option>
                             </select>
                         </div>
                     </div>
                     <div class="d-grid">
-                        <button class="btn btn-success">
+                        <button class="btn btn-success" dmx-on:click="add_motorista_autorizado.load({id_motorista: pesquisar_colaborador.data.query_colaborador_autorizado.id_colaborador, id_veiculo: select_veiculo.selectedValue, id_responsavel: usuario_logado.data.identity})">
                             <i class="fas fa-plus me-2"></i>Autorizar como Motorista
                         </button>
                     </div>
