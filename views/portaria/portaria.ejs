@@ -15,11 +15,7 @@
 
   <!-- Header com Informações da Sessão -->
   <div class="bg-primary text-white p-3 text-center">
-    <h4 class="mb-2">
-      <i class="fas fa-shield-alt me-2"></i>
-      Sistema de Portaria
-    </h4>
-    <div class="row g-2" dmx-show="usuario_logado.data">
+    <div class="row dmx-show=" usuario_logado.data">
       <div class="col-12">
         <div class="bg-white bg-opacity-10 p-2 rounded">
           <small class="text-white-50 d-block">Agente de Portaria</small>
@@ -219,11 +215,10 @@
 
   <!-- Footer -->
 
-</div>
 
-<!-- Script do Scanner QR -->
-<script>
-  const qrCode = new Html5Qrcode("reader");
+  <!-- Script do Scanner QR -->
+  <script>
+    const qrCode = new Html5Qrcode("reader");
 
   qrCode.start(
     { facingMode: "environment" },
@@ -243,4 +238,4 @@
   ).catch(err => {
     console.error("Erro ao iniciar scanner:", err);
   });
-</script>
+  </script>
