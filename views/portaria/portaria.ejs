@@ -2,6 +2,7 @@
 
 
 <dmx-value id="qrcode_id"></dmx-value>
+<dmx-value id="veiculo_selecionado"></dmx-value>
 <dmx-serverconnect id="veiculo" noload="true" url="/api/portaria/buscar-veiculo"></dmx-serverconnect><dmx-serverconnect id="colaborador_veiculo" noload="true" url="/api/portaria/buscar-colaborador"></dmx-serverconnect>
 <dmx-serverconnect id="registro_entrada" noload="true" url="/api/portaria/entrada" dmx-on:error="notificacao.danger('Ocorreu um erro, entre em contato com o DTI.')" dmx-on:success="run([{run:{outputType:'text',action:`notificacao.success(\\'Entrada registrada com sucesso!\\')`}},{wait:{delay:2000}},{run:{outputType:'text',action:`navegacao.reload()`}}])"></dmx-serverconnect>
 <dmx-serverconnect id="registro_saida" noload="true" url="/api/portaria/saida" dmx-on:error="notificacao.danger('Ocorreu um erro, entre em contato com o DTI.')" dmx-on:success="run([{run:{outputType:'text',action:`notificacao.success(\\'Saída registrada com sucesso!\\')`}},{wait:{delay:2000}},{run:{outputType:'text',action:`navegacao.reload()`}}])"></dmx-serverconnect>
@@ -51,7 +52,7 @@
       <div class="d-grid mb-3">
         <button class="btn btn-primary btn-lg" dmx-bind:disabled="!qrcode_id.value || colaborador_veiculo.state.executing" dmx-on:click="colaborador_veiculo.load({id_colaborador_buscado: qrcode_id.value})"><span dmx-hide="colaborador_veiculo.state.executing">
             <i class="fas fa-search me-2"></i>
-            Validar Veículo&nbsp;</span><span dmx-show="colaborador_veiculo.state.executing"><span class="spinner-border spinner-border-sm me-2"></span>
+            Validar Colaborador&nbsp;</span><span dmx-show="colaborador_veiculo.state.executing"><span class="spinner-border spinner-border-sm me-2"></span>
             Validando...
           </span></button>
       </div>
@@ -65,7 +66,7 @@
           Colaborador Identificado
         </h5>
         <!-- Botão para voltar ao scanner -->
-        <button class="btn btn-light btn-sm" dmx-on:click="colaborador_veiculo.reset(); qrcode_id.setValue('')">
+        <button class="btn btn-light btn-sm" dmx-on:click="colaborador_veiculo.reset(); qrcode_id.setValue(''); veiculo_selecionado.setValue('')">
           <i class="fas fa-arrow-left me-1"></i>
           Voltar
         </button>
@@ -87,22 +88,82 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Dropdown de Seleção de Veículo (aparece quando colaborador tem múltiplos veículos) -->
+    <div class="card mb-3" dmx-show="colaborador_veiculo.data.query_colaborador && colaborador_veiculo.data.query_colaborador.veiculos_colaboradores.length > 1 && !veiculo_selecionado.value">
+      <div class="card-header bg-warning text-white">
+        <h5 class="mb-0">
+          <i class="fas fa-cars me-2"></i>
+          Selecione o Veículo
+        </h5>
+      </div>
+      <div class="card-body">
+        <p class="text-muted mb-3">
+          <i class="fas fa-info-circle me-1"></i>
+          Este colaborador possui múltiplos veículos. Selecione o veículo desejado:
+        </p>
+
+        <div class="row g-2">
+          <div is="dmx-repeat" id="veiculo_list" dmx-bind:repeat="colaborador_veiculo.data.query_colaborador.veiculos_colaboradores">
+            <div class="col-12 mb-2">
+              <div class="card vehicle-card" dmx-on:click="veiculo_selecionado.setValue($value)" style="cursor: pointer; transition: all 0.2s ease;">
+                <div class="card-body p-3">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-2 text-center">
+                      <i class="fas fa-car text-primary" style="font-size: 1.5rem;"></i>
+                    </div>
+                    <div class="col-7">
+                      <div class="fw-bold" dmx-text="modelo_veiculo"></div>
+                      <small class="text-muted">Modelo</small>
+                    </div>
+                    <div class="col-3 text-end">
+                      <div class="fw-bold text-primary text-uppercase" dmx-text="placa_veiculo"></div>
+                      <small class="text-muted">Placa</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: Card de Detalhes do Veículo Selecionado e Botões de Ação -->
+    <div class="card mb-3" dmx-show="colaborador_veiculo.data.query_colaborador && (colaborador_veiculo.data.query_colaborador.veiculos_colaboradores.length == 1 || veiculo_selecionado.value)">
+      <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">
+          <i class="fas fa-car me-2"></i>
+          Veículo Selecionado
+        </h5>
+        <!-- Botão para voltar à seleção (só aparece quando há múltiplos veículos) -->
+        <button class="btn btn-light btn-sm" dmx-show="colaborador_veiculo.data.query_colaborador.veiculos_colaboradores.length > 1" dmx-on:click="veiculo_selecionado.setValue('')">
+          <i class="fas fa-exchange-alt me-1"></i>
+          Trocar
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
 
           <!-- Dados do Veículo -->
-          <div class="col-12" dmx-show="colaborador_veiculo.data.query_colaborador.veiculos_colaboradores.length > 0">
+          <div class="col-12">
             <div class="bg-light p-3 rounded">
               <div class="row g-2">
                 <div class="col-6">
                   <small class="text-muted d-block">
                     <i class="fas fa-car me-1"></i>Veículo:
                   </small>
-                  <span class="fw-bold" dmx-text="colaborador_veiculo.data.query_colaborador.veiculos_colaboradores[0].modelo_veiculo"></span>
+                  <!-- Mostra o veículo selecionado ou o primeiro se houver apenas um -->
+                  <span class="fw-bold" dmx-text="veiculo_selecionado.value ? veiculo_selecionado.value.modelo_veiculo : colaborador_veiculo.data.query_colaborador.veiculos_colaboradores[0].modelo_veiculo"></span>
                 </div>
                 <div class="col-6">
                   <small class="text-muted d-block">
                     <i class="fas fa-id-card me-1"></i>Placa:
                   </small>
-                  <span class="fw-bold text-uppercase" dmx-text="colaborador_veiculo.data.query_colaborador.veiculos_colaboradores[0].placa_veiculo"></span>
+                  <span class="fw-bold text-uppercase" dmx-text="veiculo_selecionado.value ? veiculo_selecionado.value.placa_veiculo : colaborador_veiculo.data.query_colaborador.veiculos_colaboradores[0].placa_veiculo"></span>
                 </div>
               </div>
             </div>
@@ -115,7 +176,7 @@
                 <button class="btn btn-success btn-lg w-100" dmx-bind:disabled="registro_entrada.state.executing || registro_saida.state.executing" dmx-on:click="registro_entrada.load({
                           id_agente_portaria: usuario_logado.data.query_colaborador.id_colaborador, 
                           id_colaborador: colaborador_veiculo.data.query_colaborador.id_colaborador, 
-                          id_veiculo: colaborador_veiculo.data.query_colaborador.veiculos_colaboradores[0].id_veiculo_colaborador
+                          id_veiculo: veiculo_selecionado.value ? veiculo_selecionado.value.id_veiculo_colaborador : colaborador_veiculo.data.query_colaborador.veiculos_colaboradores[0].id_veiculo_colaborador
                         })">
                   <span dmx-hide="registro_entrada.state.executing">
                     <i class="fas fa-sign-in-alt me-2"></i>
@@ -131,7 +192,7 @@
                 <button class="btn btn-warning btn-lg w-100" dmx-bind:disabled="registro_entrada.state.executing || registro_saida.state.executing" dmx-on:click="registro_saida.load({
                           id_agente_portaria: usuario_logado.data.query_colaborador.id_colaborador, 
                           id_colaborador: colaborador_veiculo.data.query_colaborador.id_colaborador, 
-                          id_veiculo: colaborador_veiculo.data.query_colaborador.veiculos_colaboradores[0].id_veiculo_colaborador
+                          id_veiculo: veiculo_selecionado.value ? veiculo_selecionado.value.id_veiculo_colaborador : colaborador_veiculo.data.query_colaborador.veiculos_colaboradores[0].id_veiculo_colaborador
                         })">
                   <span dmx-hide="registro_saida.state.executing">
                     <i class="fas fa-sign-out-alt me-2"></i>
@@ -157,12 +218,6 @@
   </div>
 
   <!-- Footer -->
-  <div class="border-top bg-white p-3 text-center">
-    <small class="text-muted">
-      <i class="fas fa-building me-1"></i>
-      Rodrigues Colchões - Sistema de Portaria
-    </small>
-  </div>
 
 </div>
 

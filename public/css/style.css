@@ -1399,3 +1399,134 @@ a:hover {
   padding: 0.5rem 0.75rem;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
+
+/* ========================================
+   SELEÇÃO DE VEÍCULOS - PORTARIA
+   ======================================== */
+
+/* Cards de seleção de veículos */
+.vehicle-card {
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+}
+
+.vehicle-card:hover {
+  border-color: #0056b3;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 86, 179, 0.15);
+  transform: translateY(-2px);
+  background-color: #f8f9ff;
+}
+
+.vehicle-card:active {
+  transform: translateY(0);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 86, 179, 0.2);
+}
+
+/* Estados do card de veículo */
+.vehicle-card.selected {
+  border-color: #28a745;
+  background-color: #f8fff8;
+  box-shadow: 0 0.25rem 0.5rem rgba(40, 167, 69, 0.2);
+}
+
+.vehicle-card .card-body {
+  padding: 1rem;
+}
+
+/* Responsividade dos cards de veículo */
+@media (max-width: 575.98px) {
+  .vehicle-card .card-body {
+    padding: 0.75rem;
+  }
+  
+  .vehicle-card .fw-bold {
+    font-size: 0.9rem;
+  }
+  
+  .vehicle-card small {
+    font-size: 0.75rem;
+  }
+  
+  .vehicle-card .fas.fa-car {
+    font-size: 1.25rem !important;
+  }
+}
+
+/* Animação de entrada para os cards de veículo */
+.vehicle-card {
+  animation: vehicleCardFadeIn 0.3s ease-out;
+}
+
+@keyframes vehicleCardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Indicador de seleção para cards de veículo */
+.vehicle-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 20px 20px 0;
+  border-color: transparent transparent #28a745 transparent;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.vehicle-card.selected::after {
+  opacity: 1;
+}
+
+.vehicle-card.selected::before {
+  content: '✓';
+  position: absolute;
+  top: 0;
+  right: 2px;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  z-index: 10;
+}
+
+/* Header do card de seleção de veículos */
+.card-header.bg-warning {
+  background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%) !important;
+  border-bottom: 1px solid #d39e00;
+}
+
+/* Ícone de carros no header */
+.fas.fa-cars {
+  font-size: 1.1rem;
+}
+
+/* Texto informativo na seleção */
+.text-muted .fas.fa-info-circle {
+  color: #17a2b8 !important;
+  font-size: 1rem;
+}
+
+/* Estilo para o header do card de veículo selecionado */
+.card-header.bg-info {
+  background: linear-gradient(135deg, #17a2b8 0%, #138496 100%) !important;
+  border-bottom: 1px solid #117a8b;
+}
+
+/* Botão de troca de veículo */
+.card-header .btn-light.btn-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
