@@ -1,4 +1,6 @@
 <!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="motoristaautorizado" appConnect="local" components="{dmxBootstrap5Offcanvas:{},dmxBootstrap5Alert:{}}" -->
+<dmx-serverconnect id="lista_meus_veiculos" url="/api/colaborador/meus-veiculos"></dmx-serverconnect>
+<meta name="ac:route" content="/colaborador/f/motorista-autorizado">
 <dmx-serverconnect id="pesquisar_colaborador" url="/api/colaborador/listar-colaborador" noload="true"></dmx-serverconnect>
 <div class="offcanvas offcanvas-start" id="offcanvas_novo_motorista" is="dmx-bs5-offcanvas" tabindex="-1">
     <div class="offcanvas-header">
@@ -36,14 +38,30 @@
                     <h6 class="mb-0"><i class="fas fa-user-check me-2"></i>Colaborador Encontrado</h6>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-12 mb-2">
-                            <strong><i class="fas fa-user me-2"></i>Nome:</strong>
-                            <span dmx-text="pesquisar_colaborador.data.query_colaborador_autorizado.nome_colaborador || pesquisar_colaborador.data.nome_colaborador || pesquisar_colaborador.data[0].nome_colaborador"></span>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fas fa-user text-primary me-2"></i>
+                                <strong class="me-2">Nome:</strong>
+                                <span dmx-text="pesquisar_colaborador.data.query_colaborador_autorizado.nome_colaborador || pesquisar_colaborador.data.nome_colaborador || pesquisar_colaborador.data[0].nome_colaborador" class="text-dark"></span>
+                            </div>
                         </div>
+                        <div class="col-12">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fas fa-id-card text-primary me-2"></i>
+                                <strong class="me-2">CPF:</strong>
+                                <span dmx-text="pesquisar_colaborador.data.query_colaborador_autorizado.cpf_colaborador || pesquisar_colaborador.data.cpf_colaborador || pesquisar_colaborador.data[0].cpf_colaborador" class="text-dark"></span>
+                            </div>
+                        </div>
+
                         <div class="col-12 mb-3">
-                            <strong><i class="fas fa-id-card me-2"></i>CPF:</strong>
-                            <span dmx-text="pesquisar_colaborador.data.query_colaborador_autorizado.cpf_colaborador || pesquisar_colaborador.data.cpf_colaborador || pesquisar_colaborador.data[0].cpf_colaborador"></span>
+                            <label class="form-label d-flex align-items-center mb-2">
+                                <i class="fas fa-car text-primary me-2"></i>
+                                <strong>Selecionar Veículo:</strong>
+                            </label>
+                            <select id="select1" class="form-select" dmx-bind:options="lista_meus_veiculos.data.query_meus_veiculos" optiontext="modelo_veiculo+' - '+placa_veiculo" optionvalue="id_veiculo_colaborador">
+                                <option value="">Selecione um veículo</option>
+                            </select>
                         </div>
                     </div>
                     <div class="d-grid">
@@ -65,7 +83,6 @@
         </div>
     </div>
 </div>
-<meta name="ac:route" content="/colaborador/f/motorista-autorizado">
 <dmx-serverconnect id="lista_motoristas_autorizados" url="/api/colaborador/listar-motoristas-autorizados"></dmx-serverconnect>
 <div class="container-fluid px-4">
     <div class="row">

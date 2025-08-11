@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "identity",
+        "module": "auth",
+        "action": "identify",
+        "options": {
+          "provider": "logar"
+        },
+        "output": true,
+        "meta": []
+      },
+      {
+        "name": "query_meus_veiculos",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "veiculos_colaboradores",
+                "column": "id_veiculo_colaborador"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "tipo_veiculo"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "placa_veiculo"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "modelo_veiculo"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "ano_veiculo"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "cor_veiculo"
+              },
+              {
+                "table": "veiculos_colaboradores",
+                "column": "base64_veiculo"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{identity}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "veiculos_colaboradores"
+            },
+            "primary": "id_veiculo_colaborador",
+            "joins": [],
+            "query": "select \"id_veiculo_colaborador\", \"tipo_veiculo\", \"placa_veiculo\", \"modelo_veiculo\", \"ano_veiculo\", \"cor_veiculo\", \"base64_veiculo\" from \"veiculos_colaboradores\" where \"veiculos_colaboradores\".\"colaborador\" = ?",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "veiculos_colaboradores.colaborador",
+                  "field": "veiculos_colaboradores.colaborador",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{identity}}",
+                  "data": {
+                    "table": "veiculos_colaboradores",
+                    "column": "colaborador",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "reference",
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "references": "id_colaborador",
+                      "inTable": "colaboradores",
+                      "referenceType": "uuid",
+                      "onUpdate": "NO ACTION",
+                      "onDelete": "NO ACTION",
+                      "name": "colaborador"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            }
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "text",
+            "name": "id_veiculo_colaborador"
+          },
+          {
+            "type": "text",
+            "name": "tipo_veiculo"
+          },
+          {
+            "type": "text",
+            "name": "placa_veiculo"
+          },
+          {
+            "type": "text",
+            "name": "modelo_veiculo"
+          },
+          {
+            "type": "text",
+            "name": "ano_veiculo"
+          },
+          {
+            "type": "text",
+            "name": "cor_veiculo"
+          },
+          {
+            "type": "text",
+            "name": "base64_veiculo"
+          }
+        ],
+        "outputType": "array"
+      }
+    ]
+  }
+}
