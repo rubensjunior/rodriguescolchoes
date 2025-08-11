@@ -1,5 +1,5 @@
 <!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="portariaplaca" appConnect="local" components="{dmxFormatter:{}}" -->
-<dmx-serverconnect id="pesquisar_veiculo" noload="true" url="/api/portaria/buscar-placa"></dmx-serverconnect>
+<dmx-serverconnect id="pesquisar_veiculo" noload="true" url="/api/portaria/buscar-placa" dmx-on:error="notificacao.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response)"></dmx-serverconnect>
 <div class="container-fluid px-4">
     <div class="row">
         <div class="col">

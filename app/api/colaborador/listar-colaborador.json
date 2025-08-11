@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "cpf_colaborador"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query_colaborador_autorizado",
+      "module": "dbconnector",
+      "action": "single",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "colaboradores",
+              "column": "nome_colaborador"
+            },
+            {
+              "table": "colaboradores",
+              "column": "cpf_colaborador"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.cpf_colaborador}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "colaboradores"
+          },
+          "primary": "id_colaborador",
+          "joins": [],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "colaboradores.cpf_colaborador",
+                "field": "colaboradores.cpf_colaborador",
+                "type": "string",
+                "operator": "equal",
+                "value": "{{$_GET.cpf_colaborador}}",
+                "data": {
+                  "table": "colaboradores",
+                  "column": "cpf_colaborador",
+                  "type": "text",
+                  "columnObj": {
+                    "type": "string",
+                    "maxLength": -5,
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "name": "cpf_colaborador"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select \"nome_colaborador\", \"cpf_colaborador\" from \"colaboradores\" where \"colaboradores\".\"cpf_colaborador\" = ?"
+        }
+      },
+      "meta": [
+        {
+          "type": "text",
+          "name": "nome_colaborador"
+        },
+        {
+          "type": "text",
+          "name": "cpf_colaborador"
+        }
+      ],
+      "outputType": "object",
+      "output": true
+    }
+  }
+}

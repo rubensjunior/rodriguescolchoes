@@ -1,4 +1,70 @@
-<!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="motoristaautorizado" appConnect="local" -->
+<!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="motoristaautorizado" appConnect="local" components="{dmxBootstrap5Offcanvas:{},dmxBootstrap5Alert:{}}" -->
+<dmx-serverconnect id="pesquisar_colaborador" url="/api/colaborador/listar-colaborador" noload="true"></dmx-serverconnect>
+<div class="offcanvas offcanvas-start" id="offcanvas_novo_motorista" is="dmx-bs5-offcanvas" tabindex="-1">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Novo motorista</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="form-group mb-3">
+            <label for="cpf_colaborador" class="form-label">CPF do Colaborador *</label>
+            <input id="cpf_colaborador" name="cpf_colaborador" type="text" class="form-control" placeholder="000.000.000-00" maxlength="14" required>
+        </div>
+
+        <button id="btn2" class="btn w-100 btn-primary mb-3" dmx-on:click="pesquisar_colaborador.load({cpf_colaborador: cpf_colaborador.value})" dmx-bind:disabled="pesquisar_colaborador.state.executing">
+            <span dmx-hide="pesquisar_colaborador.state.executing">
+                <i class="fas fa-search me-2"></i>Pesquisar Colaborador
+            </span>
+            <span dmx-show="pesquisar_colaborador.state.executing">
+                <span class="spinner-border spinner-border-sm me-2"></span>Pesquisando...
+            </span>
+        </button>
+
+        <!-- Loading indicator -->
+        <div dmx-show="pesquisar_colaborador.state.executing" class="text-center mb-3">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+        </div>
+
+        <!-- Error message -->
+
+        <!-- Success result - Simplified to show only one result -->
+        <div dmx-show="pesquisar_colaborador.data && !pesquisar_colaborador.state.executing">
+            <div class="card search-result-card">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0"><i class="fas fa-user-check me-2"></i>Colaborador Encontrado</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <strong><i class="fas fa-user me-2"></i>Nome:</strong>
+                            <span dmx-text="pesquisar_colaborador.data.query_colaborador_autorizado.nome_colaborador || pesquisar_colaborador.data.nome_colaborador || pesquisar_colaborador.data[0].nome_colaborador"></span>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <strong><i class="fas fa-id-card me-2"></i>CPF:</strong>
+                            <span dmx-text="pesquisar_colaborador.data.query_colaborador_autorizado.cpf_colaborador || pesquisar_colaborador.data.cpf_colaborador || pesquisar_colaborador.data[0].cpf_colaborador"></span>
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-success">
+                            <i class="fas fa-plus me-2"></i>Autorizar como Motorista
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- No results message -->
+        <div dmx-show="pesquisar_colaborador.data && (
+            (!pesquisar_colaborador.data.query_colaborador_autorizado && !pesquisar_colaborador.data.nome_colaborador && !pesquisar_colaborador.data.length) ||
+            (pesquisar_colaborador.data.length && pesquisar_colaborador.data.length === 0)
+        ) && !pesquisar_colaborador.state.executing" class="alert alert-warning" role="alert">
+            <i class="fas fa-user-times me-2"></i>
+            Nenhum colaborador encontrado com este CPF.
+        </div>
+    </div>
+</div>
 <meta name="ac:route" content="/colaborador/f/motorista-autorizado">
 <dmx-serverconnect id="lista_motoristas_autorizados" url="/api/colaborador/listar-motoristas-autorizados"></dmx-serverconnect>
 <div class="container-fluid px-4">
@@ -7,7 +73,9 @@
             <h3>Motoristas autorizados</h3>
         </div>
         <div class="col-12 p-3 rounded-3 text-center border">
-            <button id="btn1" class="btn w-100 btn-primary" data-bs-target="undefined">Adicionar Motorista</button>
+            <button id="btn1" class="btn btn-primary w-100" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_novo_motorista">
+                <i class="fas fa-user-plus me-2"></i>Adicionar Motorista
+            </button>
         </div>
         <div class="col-12">
             <table class="table">
@@ -31,3 +99,59 @@
         </div>
     </div>
 </div>
+
+<!-- Script para formatação de CPF (sem validação de alert) -->
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+
+<script>
+    // Função para formatar CPF
+    function formatCPF(value) {
+        // Remove todos os caracteres não numéricos
+        const numbers = value.replace(/\D/g, '');
+        
+        // Aplica a formatação
+        if (numbers.length <= 11) {
+            return numbers
+                .replace(/(\d{3})(\d)/, '$1.$2')
+                .replace(/(\d{3})(\d)/, '$1.$2')
+                .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        }
+        return numbers.substring(0, 11)
+            .replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    }
+
+    // Aplicar máscaras
+    function aplicarMascaras() {
+        const cpfInput = document.getElementById('cpf_colaborador');
+        
+        if (cpfInput && !cpfInput.hasAttribute('data-mask-applied')) {
+            cpfInput.addEventListener('input', function(e) {
+                e.target.value = formatCPF(e.target.value);
+            });
+            cpfInput.setAttribute('data-mask-applied', 'true');
+        }
+    }
+
+    // Aplicar máscaras o mais cedo possível
+    aplicarMascaras();
+    
+    // Fallback para jQuery Mask
+    if (typeof $ !== 'undefined') {
+        $(document).ready(function() {
+            if (!document.getElementById('cpf_colaborador').hasAttribute('data-mask-applied')) {
+                $('#cpf_colaborador').mask('000.000.000-00');
+            }
+        });
+    }
+
+    // Aplicar máscaras quando App Connect carrega
+    if (typeof dmx !== 'undefined') {
+        dmx.ready(aplicarMascaras);
+    }
+    
+    // Timeouts como último recurso
+    setTimeout(aplicarMascaras, 100);
+    setTimeout(aplicarMascaras, 500);
+    setTimeout(aplicarMascaras, 1000);
+</script>

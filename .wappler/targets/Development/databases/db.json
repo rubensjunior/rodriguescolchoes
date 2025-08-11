@@ -568,19 +568,360 @@
     },
     "views": {
       "extensions.pg_stat_statements_info": {
-        "db": {
-          "schema": "extensions"
-        }
+        "db": {}
       },
       "extensions.pg_stat_statements": {
-        "db": {
-          "schema": "extensions"
+        "db": {},
+        "columns": {
+          "userid": {
+            "db": {
+              "type": "oid",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "dbid": {
+            "db": {
+              "type": "oid",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "toplevel": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "queryid": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "query": {
+            "db": {
+              "type": "text",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "plans": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "total_plan_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "min_plan_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "max_plan_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "mean_plan_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "stddev_plan_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "calls": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "total_exec_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "min_exec_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "max_exec_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "mean_exec_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "stddev_exec_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "rows": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "shared_blks_hit": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "shared_blks_read": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "shared_blks_dirtied": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "shared_blks_written": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "local_blks_hit": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "local_blks_read": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "local_blks_dirtied": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "local_blks_written": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "temp_blks_read": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "temp_blks_written": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "shared_blk_read_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "shared_blk_write_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "local_blk_read_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "local_blk_write_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "temp_blk_read_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "temp_blk_write_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "wal_records": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "wal_fpi": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "wal_bytes": {
+            "db": {
+              "type": "decimal",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "jit_functions": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "jit_generation_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "jit_inlining_count": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "jit_inlining_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "jit_optimization_count": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "jit_optimization_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "jit_emission_count": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "jit_emission_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "jit_deform_count": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "jit_deform_time": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "stats_since": {
+            "db": {
+              "type": "timestamp",
+              "useTz": true,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "minmax_stats_since": {
+            "db": {
+              "type": "timestamp",
+              "useTz": true,
+              "primary": false,
+              "nullable": true
+            }
+          }
         }
       },
       "vault.decrypted_secrets": {
-        "db": {
-          "schema": "vault"
-        }
+        "db": {}
       }
     }
   }

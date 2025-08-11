@@ -1530,3 +1530,157 @@ a:hover {
   border-radius: 4px;
   font-weight: 500;
 }
+
+/* ========================================
+   PESQUISA DE COLABORADOR - DEBUG E RESULTADO
+   ======================================== */
+
+/* Container de debug */
+.debug-container {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin: 0.75rem 0;
+}
+
+.debug-container pre {
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  max-height: 200px;
+  overflow-y: auto;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.debug-container .text-muted {
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Card de resultado da pesquisa */
+.search-result-card {
+  animation: fadeInUp 0.4s ease-out;
+  border: 2px solid #28a745;
+  border-radius: 8px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estados de loading melhorados */
+.search-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.search-loading .spinner-border {
+  width: 2rem;
+  height: 2rem;
+  border-width: 0.25em;
+}
+
+.search-loading .text-muted {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Error state styling */
+.search-error {
+  background-color: #f8d7da;
+  border: 2px solid #dc3545;
+  color: #721c24;
+}
+
+.search-error .fas.fa-exclamation-triangle {
+  color: #dc3545;
+  font-size: 1.25rem;
+  margin-right: 0.5rem;
+}
+
+/* Success state styling */
+.search-success {
+  background-color: #d4edda;
+  border: 2px solid #28a745;
+  color: #155724;
+}
+
+.search-success .fas.fa-check-circle {
+  color: #28a745;
+  font-size: 1.25rem;
+  margin-right: 0.5rem;
+}
+
+/* Warning state styling */  
+.search-warning {
+  background-color: #fff3cd;
+  border: 2px solid #ffc107;
+  color: #856404;
+}
+
+.search-warning .fas.fa-info-circle {
+  color: #ffc107;
+  font-size: 1.25rem;
+  margin-right: 0.5rem;
+}
+
+/* Responsive adjustments for search components */
+@media (max-width: 575.98px) {
+  .debug-container {
+    padding: 0.5rem;
+  }
+  
+  .debug-container pre {
+    font-size: 0.7rem;
+    max-height: 150px;
+  }
+  
+  .search-loading .spinner-border {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  
+  .offcanvas-body {
+    padding: 1rem;
+  }
+}
+
+/* Form styling within offcanvas */
+.offcanvas .form-group {
+  margin-bottom: 1rem;
+}
+
+.offcanvas .form-label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.offcanvas .form-control:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 0 0.2rem rgba(0, 86, 179, 0.25);
+}
+
+/* Button states in offcanvas */
+.offcanvas .btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.offcanvas .btn .spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+}
