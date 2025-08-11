@@ -56,6 +56,13 @@
                 "name": ":P1",
                 "value": "{{identity_usuario_atual}}",
                 "test": ""
+              },
+              {
+                "operator": "not_equal",
+                "type": "expression",
+                "name": ":P2",
+                "value": "{{identity_usuario_atual}}",
+                "test": ""
               }
             ],
             "table": {
@@ -133,12 +140,37 @@
                     }
                   },
                   "operation": "="
+                },
+                {
+                  "id": "veiculos_motoristas.id_motorista",
+                  "field": "veiculos_motoristas.id_motorista",
+                  "type": "string",
+                  "operator": "not_equal",
+                  "value": "{{identity_usuario_atual}}",
+                  "data": {
+                    "table": "veiculos_motoristas",
+                    "column": "id_motorista",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "reference",
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "references": "id_colaborador",
+                      "inTable": "colaboradores",
+                      "referenceType": "uuid",
+                      "onUpdate": "NO ACTION",
+                      "onDelete": "NO ACTION",
+                      "name": "id_motorista"
+                    }
+                  },
+                  "operation": "<>"
                 }
               ],
               "conditional": null,
               "valid": true
             },
-            "query": "select \"colaboradores\".\"nome_colaborador\", \"veiculos_colaboradores\".\"modelo_veiculo\", \"veiculos_colaboradores\".\"placa_veiculo\", \"veiculos_colaboradores\".\"cor_veiculo\" from \"veiculos_motoristas\" inner join \"colaboradores\" on \"colaboradores\".\"id_colaborador\" = \"veiculos_motoristas\".\"id_motorista\" inner join \"veiculos_colaboradores\" on \"veiculos_colaboradores\".\"id_veiculo_colaborador\" = \"veiculos_motoristas\".\"id_veiculo\" where \"veiculos_motoristas\".\"id_responsavel_motorista\" = ?"
+            "query": "select \"colaboradores\".\"nome_colaborador\", \"veiculos_colaboradores\".\"modelo_veiculo\", \"veiculos_colaboradores\".\"placa_veiculo\", \"veiculos_colaboradores\".\"cor_veiculo\" from \"veiculos_motoristas\" inner join \"colaboradores\" on \"colaboradores\".\"id_colaborador\" = \"veiculos_motoristas\".\"id_motorista\" inner join \"veiculos_colaboradores\" on \"veiculos_colaboradores\".\"id_veiculo_colaborador\" = \"veiculos_motoristas\".\"id_veiculo\" where \"veiculos_motoristas\".\"id_responsavel_motorista\" = ? and \"veiculos_motoristas\".\"id_motorista\" <> ?"
           }
         },
         "output": true,

@@ -4,168 +4,244 @@
       {
         "type": "text",
         "name": "placa_veiculo"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
       }
     ]
   },
   "exec": {
-    "steps": {
-      "name": "query_placa",
-      "module": "dbconnector",
-      "action": "single",
-      "options": {
-        "connection": "db",
-        "sql": {
-          "type": "SELECT",
-          "columns": [
-            {
-              "table": "veiculos_colaboradores",
-              "column": "tipo_veiculo"
-            },
-            {
-              "table": "veiculos_colaboradores",
-              "column": "placa_veiculo"
-            },
-            {
-              "table": "veiculos_colaboradores",
-              "column": "modelo_veiculo"
-            },
-            {
-              "table": "veiculos_colaboradores",
-              "column": "ano_veiculo"
-            },
-            {
-              "table": "veiculos_colaboradores",
-              "column": "cor_veiculo"
-            },
-            {
-              "table": "colaboradores",
-              "column": "nome_colaborador"
-            },
-            {
-              "table": "colaboradores",
-              "column": "cpf_colaborador"
-            }
-          ],
-          "params": [
-            {
-              "operator": "equal",
-              "type": "expression",
-              "name": ":P1",
-              "value": "{{$_GET.placa_veiculo}}",
-              "test": ""
-            }
-          ],
-          "table": {
-            "name": "veiculos_colaboradores"
-          },
-          "primary": "id_veiculo_colaborador",
-          "joins": [
-            {
-              "table": "veiculos_motoristas",
-              "column": "*",
-              "type": "INNER",
-              "clauses": {
-                "condition": "AND",
-                "rules": [
-                  {
-                    "table": "veiculos_motoristas",
-                    "column": "id_veiculo",
-                    "operator": "equal",
-                    "operation": "=",
-                    "value": {
-                      "table": "veiculos_colaboradores",
-                      "column": "id_veiculo_colaborador"
-                    }
-                  }
-                ]
-              },
-              "primary": "id_veiculos_motoristas"
-            },
-            {
-              "table": "colaboradores",
-              "column": "*",
-              "type": "INNER",
-              "clauses": {
-                "condition": "AND",
-                "rules": [
-                  {
-                    "table": "colaboradores",
-                    "column": "id_colaborador",
-                    "operator": "equal",
-                    "operation": "=",
-                    "value": {
-                      "table": "veiculos_motoristas",
-                      "column": "id_motorista"
-                    }
-                  }
-                ]
-              },
-              "primary": "id_colaborador"
-            }
-          ],
-          "wheres": {
-            "condition": "AND",
-            "rules": [
+    "steps": [
+      {
+        "name": "query_veiculo",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
               {
-                "id": "veiculos_colaboradores.placa_veiculo",
-                "field": "veiculos_colaboradores.placa_veiculo",
-                "type": "string",
-                "operator": "equal",
-                "value": "{{$_GET.placa_veiculo}}",
-                "data": {
-                  "table": "veiculos_colaboradores",
-                  "column": "placa_veiculo",
-                  "type": "text",
-                  "columnObj": {
-                    "type": "string",
-                    "maxLength": -5,
-                    "primary": false,
-                    "unique": false,
-                    "nullable": true,
-                    "name": "placa_veiculo"
-                  }
-                },
-                "operation": "="
+                "table": "veiculos_colaboradores",
+                "column": "*"
               }
             ],
-            "conditional": null,
-            "valid": true
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.placa_veiculo}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "veiculos_colaboradores"
+            },
+            "primary": "id_veiculo_colaborador",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "veiculos_colaboradores.placa_veiculo",
+                  "field": "veiculos_colaboradores.placa_veiculo",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{$_GET.placa_veiculo}}",
+                  "data": {
+                    "table": "veiculos_colaboradores",
+                    "column": "placa_veiculo",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "string",
+                      "maxLength": -5,
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "name": "placa_veiculo"
+                    }
+                  },
+                  "operation": "=",
+                  "table": "veiculos_colaboradores"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select * from \"veiculos_colaboradores\" where \"veiculos_colaboradores\".\"placa_veiculo\" = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "text",
+            "name": "id_veiculo_colaborador"
           },
-          "query": "select \"veiculos_colaboradores\".\"tipo_veiculo\", \"veiculos_colaboradores\".\"placa_veiculo\", \"veiculos_colaboradores\".\"modelo_veiculo\", \"veiculos_colaboradores\".\"ano_veiculo\", \"veiculos_colaboradores\".\"cor_veiculo\", \"colaboradores\".\"nome_colaborador\", \"colaboradores\".\"cpf_colaborador\" from \"veiculos_colaboradores\" inner join \"veiculos_motoristas\" on \"veiculos_motoristas\".\"id_veiculo\" = \"veiculos_colaboradores\".\"id_veiculo_colaborador\" inner join \"colaboradores\" on \"colaboradores\".\"id_colaborador\" = \"veiculos_motoristas\".\"id_motorista\" where \"veiculos_colaboradores\".\"placa_veiculo\" = ?"
-        }
+          {
+            "type": "datetime",
+            "name": "created_at_veiculo"
+          },
+          {
+            "type": "text",
+            "name": "tipo_veiculo"
+          },
+          {
+            "type": "text",
+            "name": "placa_veiculo"
+          },
+          {
+            "type": "number",
+            "name": "colaborador"
+          },
+          {
+            "type": "text",
+            "name": "modelo_veiculo"
+          },
+          {
+            "type": "text",
+            "name": "ano_veiculo"
+          },
+          {
+            "type": "text",
+            "name": "cor_veiculo"
+          },
+          {
+            "type": "text",
+            "name": "base64_veiculo"
+          }
+        ],
+        "outputType": "object",
+        "type": "dbconnector_single"
       },
-      "output": true,
-      "meta": [
-        {
-          "type": "text",
-          "name": "tipo_veiculo"
+      {
+        "name": "query_veiculos",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "veiculos_motoristas",
+                "column": "id_motorista"
+              },
+              {
+                "table": "veiculos_motoristas",
+                "column": "id_veiculo"
+              },
+              {
+                "table": "veiculos_motoristas",
+                "column": "id_responsavel_motorista"
+              },
+              {
+                "table": "colaboradores",
+                "column": "nome_colaborador"
+              },
+              {
+                "table": "colaboradores",
+                "column": "cpf_colaborador"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{query_veiculo.id_veiculo_colaborador}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "veiculos_motoristas"
+            },
+            "primary": "id_veiculos_motoristas",
+            "joins": [
+              {
+                "table": "colaboradores",
+                "column": "*",
+                "type": "INNER",
+                "clauses": {
+                  "condition": "AND",
+                  "rules": [
+                    {
+                      "table": "colaboradores",
+                      "column": "id_colaborador",
+                      "operator": "equal",
+                      "operation": "=",
+                      "value": {
+                        "table": "veiculos_motoristas",
+                        "column": "id_motorista"
+                      }
+                    }
+                  ]
+                },
+                "primary": "id_colaborador"
+              }
+            ],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "veiculos_motoristas.id_veiculo",
+                  "field": "veiculos_motoristas.id_veiculo",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{query_veiculo.id_veiculo_colaborador}}",
+                  "data": {
+                    "table": "veiculos_motoristas",
+                    "column": "id_veiculo",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "bigInteger",
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "referenceType": "bigInteger",
+                      "name": "id_veiculo"
+                    }
+                  },
+                  "operation": "=",
+                  "table": "veiculos_motoristas"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select \"veiculos_motoristas\".\"id_motorista\", \"veiculos_motoristas\".\"id_veiculo\", \"veiculos_motoristas\".\"id_responsavel_motorista\", \"colaboradores\".\"nome_colaborador\", \"colaboradores\".\"cpf_colaborador\" from \"veiculos_motoristas\" inner join \"colaboradores\" on \"colaboradores\".\"id_colaborador\" = \"veiculos_motoristas\".\"id_motorista\" where \"veiculos_motoristas\".\"id_veiculo\" = ?"
+          }
         },
-        {
-          "type": "text",
-          "name": "placa_veiculo"
-        },
-        {
-          "type": "text",
-          "name": "modelo_veiculo"
-        },
-        {
-          "type": "text",
-          "name": "ano_veiculo"
-        },
-        {
-          "type": "text",
-          "name": "cor_veiculo"
-        },
-        {
-          "type": "text",
-          "name": "nome_colaborador"
-        },
-        {
-          "type": "text",
-          "name": "cpf_colaborador"
-        }
-      ],
-      "outputType": "object"
-    }
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "id_motorista"
+          },
+          {
+            "type": "number",
+            "name": "id_veiculo"
+          },
+          {
+            "type": "number",
+            "name": "id_responsavel_motorista"
+          },
+          {
+            "type": "text",
+            "name": "nome_colaborador"
+          },
+          {
+            "type": "text",
+            "name": "cpf_colaborador"
+          }
+        ],
+        "outputType": "array"
+      }
+    ]
   }
 }

@@ -1,12 +1,286 @@
 <!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="portariaplaca" appConnect="local" components="{dmxFormatter:{}}" -->
 <dmx-serverconnect id="pesquisar_veiculo" noload="true" url="/api/portaria/buscar-placa" dmx-on:error="notificacao.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response)"></dmx-serverconnect>
-<div class="container-fluid px-4">
-    <div class="row">
-        <div class="col">
-            <h1>{{ipt_placa.value}}</h1>
-            <input id="ipt_placa" name="ipt_placa" type="text" class="form-control">
-            <button id="btn1" class="btn btn-primary" dmx-on:click="pesquisar_veiculo.load({placa_veiculo: ipt_placa.value.uppercase()})">Button</button>
+<dmx-serverconnect id="registro_entrada" noload="true" url="/api/portaria/entrada" dmx-on:error="notificacao.danger('Ocorreu um erro, entre em contato com o DTI.')" dmx-on:success="run([{run:{outputType:'text',action:`notificacao.success(\'Registro atualizado com sucesso!\')`}},{wait:{delay:3000}},{run:{outputType:'text',action:`navegacao.reload()`}}])"></dmx-serverconnect>
+<dmx-serverconnect id="registro_saida" noload="true" url="/api/portaria/saida" dmx-on:error="notificacao.danger('Ocorreu um erro, entre em contato com o DTI.')" dmx-on:success="run([{run:{outputType:'text',action:`notificacao.success(\'Registro atualizado com sucesso!\')`}},{wait:{delay:3000}},{run:{outputType:'text',action:`navegacao.reload()`}}])"></dmx-serverconnect>
+
+<!-- Layout Principal -->
+<div class="min-vh-100 d-flex flex-column bg-light">
+
+    <!-- Header com Informações da Sessão -->
+    <div class="bg-primary text-white p-3 text-center">
+        <div class="row" dmx-show="usuario_logado.data">
+            <div class="col-12">
+                <div class="bg-white bg-opacity-10 p-2 rounded">
+                    <small class="text-white-50 d-block">Agente de Portaria</small>
+                    <span class="h6 mb-0">{{usuario_logado.data.query_colaborador.nome_colaborador}}</span>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- Indicador de Progresso -->
+    <div class="bg-white border-bottom">
+        <div class="container-fluid px-3 py-2">
+            <div class="step-indicators">
+                <!-- Step 1: Pesquisa -->
+                <div class="step-item">
+                    <div class="step-circle" dmx-class:active="!pesquisar_veiculo.data.query_veiculos" dmx-class:completed="pesquisar_veiculo.data.query_veiculos">
+                        <i class="fas fa-search" dmx-show="!pesquisar_veiculo.data.query_veiculos"></i>
+                        <i class="fas fa-check" dmx-show="pesquisar_veiculo.data.query_veiculos"></i>
+                    </div>
+                    <div class="step-label">Buscar Placa</div>
+                </div>
+
+                <!-- Linha conectora -->
+                <div class="step-line" dmx-class:completed="pesquisar_veiculo.data.query_veiculos"></div>
+
+                <!-- Step 2: Seleção -->
+                <div class="step-item">
+                    <div class="step-circle" dmx-class:active="pesquisar_veiculo.data.query_veiculos && !select_motorista.value" dmx-class:completed="select_motorista.value">
+                        <i class="fas fa-user" dmx-show="!select_motorista.value"></i>
+                        <i class="fas fa-check" dmx-show="select_motorista.value"></i>
+                    </div>
+                    <div class="step-label">Selecionar Motorista</div>
+                </div>
+
+                <!-- Linha conectora -->
+                <div class="step-line" dmx-class:completed="select_motorista.value"></div>
+
+                <!-- Step 3: Ação -->
+                <div class="step-item">
+                    <div class="step-circle" dmx-class:active="select_motorista.value">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="step-label">Registrar</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Área Principal de Conteúdo -->
+    <div class="flex-fill p-3">
+
+        <!-- STEP 1: Pesquisa por Placa (visível apenas quando não há pesquisa ou há erro) -->
+        <div dmx-show="!pesquisar_veiculo.data.query_veiculos">
+            <div class="card mb-3">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-search me-2"></i>
+                        Buscar Veículo por Placa
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="ipt_placa" class="form-label">
+                                <i class="fas fa-id-card me-2"></i>
+                                Digite a placa do veículo:
+                            </label>
+                            <div class="input-group">
+                                <input id="ipt_placa" name="ipt_placa" type="text" class="form-control" placeholder="ABC-1234" style="text-transform: uppercase;">
+                                <button id="btn_pesquisar" class="btn btn-primary" dmx-on:click="pesquisar_veiculo.load({placa_veiculo: ipt_placa.value.uppercase()})" dmx-bind:disabled="!ipt_placa.value || pesquisar_veiculo.state.executing">
+                                    <span dmx-hide="pesquisar_veiculo.state.executing">
+                                        <i class="fas fa-search me-2"></i>
+                                        Buscar
+                                    </span>
+                                    <span dmx-show="pesquisar_veiculo.state.executing">
+                                        <span class="spinner-border spinner-border-sm me-2"></span>
+                                        Buscando...
+                                    </span>
+                                </button>
+                            </div>
+                            <small class="form-text text-muted">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Digite a placa no formato ABC-1234 ou ABC1234
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2: Seleção de Motorista (visível apenas quando há veículo encontrado mas motorista não selecionado) -->
+        <div dmx-show="pesquisar_veiculo.data.query_veiculos && !select_motorista.value">
+            <div class="card mb-3">
+                <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="fas fa-car-side me-2"></i>
+                        Veículo Encontrado
+                    </h5>
+                    <!-- Botão para voltar à pesquisa -->
+                    <button class="btn btn-light btn-sm" dmx-on:click="pesquisar_veiculo.reset()">
+                        <i class="fas fa-arrow-left me-1"></i>
+                        Nova Busca
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+
+                        <!-- Resumo da Placa Pesquisada -->
+                        <div class="col-12">
+                            <div class="alert alert-success d-flex align-items-center">
+                                <i class="fas fa-check-circle me-3"></i>
+                                <div>
+                                    <strong>Placa encontrada:</strong>
+                                    <span class="fw-bold text-uppercase ms-2" dmx-text="ipt_placa.value"></span>
+                                    <small class="d-block text-muted">
+                                        {{pesquisar_veiculo.data.query_veiculos.length}} motorista(s) encontrado(s)
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Seleção do Motorista -->
+                        <div class="col-12">
+                            <label for="select_motorista" class="form-label">
+                                <i class="fas fa-user me-2"></i>
+                                Selecione o Motorista:
+                            </label>
+                            <select id="select_motorista" class="form-select" dmx-bind:options="pesquisar_veiculo.data.query_veiculos" optiontext="nome_colaborador" optionvalue="id_motorista">
+                                <option value="">Escolha o motorista...</option>
+                            </select>
+                            <small class="form-text text-muted">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Identifique qual motorista está utilizando este veículo
+                            </small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3: Confirmação e Ações (visível apenas quando motorista está selecionado) -->
+        <div dmx-show="select_motorista.value">
+
+            <!-- Card de Confirmação dos Dados -->
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="fas fa-clipboard-check me-2"></i>
+                        Confirmar Registro
+                    </h5>
+                    <!-- Botão para voltar à seleção -->
+                    <button class="btn btn-light btn-sm" dmx-on:click="select_motorista.setValue('')">
+                        <i class="fas fa-edit me-1"></i>
+                        Alterar
+                    </button>
+                </div>
+                <div class="card-body">
+
+                    <!-- Resumo Completo -->
+                    <div class="bg-light p-3 rounded mb-3">
+                        <h6 class="text-primary mb-3">
+                            <i class="fas fa-list-check me-2"></i>
+                            Dados do Registro
+                        </h6>
+
+                        <div class="row g-3">
+                            <!-- Dados do Veículo -->
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-car text-info me-2" style="width: 20px;"></i>
+                                    <div>
+                                        <small class="text-muted d-block">Placa do Veículo:</small>
+                                        <span class="fw-bold text-uppercase" dmx-text="ipt_placa.value"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dados do Motorista -->
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-user text-success me-2" style="width: 20px;"></i>
+                                    <div>
+                                        <small class="text-muted d-block">Motorista:</small>
+                                        <span class="fw-bold" dmx-text="pesquisar_veiculo.data.query_veiculos.where('id_motorista', select_motorista.value)[0].nome_colaborador"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CPF do Motorista -->
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-id-card text-warning me-2" style="width: 20px;"></i>
+                                    <div>
+                                        <small class="text-muted d-block">CPF:</small>
+                                        <span class="fw-bold" dmx-text="pesquisar_veiculo.data.query_veiculos.where('id_motorista', select_motorista.value)[0].cpf_colaborador"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Data/Hora Atual -->
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-clock text-secondary me-2" style="width: 20px;"></i>
+                                    <div>
+                                        <small class="text-muted d-block">Data/Hora:</small>
+                                        <span class="fw-bold" dmx-text="'now'.toDate().formatDate('dd/MM/yyyy HH:mm')"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botões de Ação Principais -->
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <button class="btn btn-success btn-lg w-100 d-flex align-items-center justify-content-center" dmx-on:click="registro_entrada.load({id_agente_portaria: usuario_logado.data.query_colaborador.id_colaborador, id_colaborador: select_motorista.value, id_veiculo: pesquisar_veiculo.data.query_veiculos[0].id_veiculo})">
+                                <span dmx-hide="registro_entrada.state.executing">
+                                    <i class="fas fa-sign-in-alt me-2"></i>
+                                    <div>
+                                        <div>Entrada</div>
+                                        <small class="d-block" style="font-size: 0.7rem; opacity: 0.8;">Registrar chegada</small>
+                                    </div>
+                                </span>
+                                <span dmx-show="registro_entrada.state.executing">
+                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                    Registrando...
+                                </span>
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-warning btn-lg w-100 d-flex align-items-center justify-content-center" dmx-on:click="registro_saida.load({id_agente_portaria: usuario_logado.data.query_colaborador.id_colaborador, id_colaborador: select_motorista.value, id_veiculo: pesquisar_veiculo.data.query_veiculos[0].id_veiculo})">
+                                <span dmx-hide="registro_saida.state.executing">
+                                    <i class="fas fa-sign-out-alt me-2"></i>
+                                    <div>
+                                        <div>Saída</div>
+                                        <small class="d-block" style="font-size: 0.7rem; opacity: 0.8;">Registrar partida</small>
+                                    </div>
+                                </span>
+                                <span dmx-show="registro_saida.state.executing">
+                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                    Registrando...
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Botão Secundário para Recomeçar -->
+                    <div class="text-center mt-3">
+                        <button class="btn btn-outline-secondary btn-sm" dmx-on:click="pesquisar_veiculo.reset(); select_motorista.setValue('')">
+                            <i class="fas fa-redo me-2"></i>
+                            Novo Registro
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Alert de Instruções Dinâmicas -->
+        <div class="alert alert-light border-start border-4 border-info" dmx-show="!pesquisar_veiculo.data.query_veiculos && !pesquisar_veiculo.state.executing">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-info-circle text-info me-3"></i>
+                <div>
+                    <strong>Como usar:</strong>
+                    <p class="mb-0">Digite a placa do veículo para encontrar os motoristas autorizados e registrar entrada ou saída.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div>
+
 <meta name="ac:route" content="/d/portaria-placa">
