@@ -1,0 +1,12 @@
+<!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="portariaplaca" appConnect="local" components="{dmxFormatter:{}}" -->
+<dmx-serverconnect id="pesquisar_veiculo" noload="true" url="/api/portaria/buscar-placa"></dmx-serverconnect>
+<div class="container-fluid px-4">
+    <div class="row">
+        <div class="col">
+            <h1>{{ipt_placa.value}}</h1>
+            <input id="ipt_placa" name="ipt_placa" type="text" class="form-control">
+            <button id="btn1" class="btn btn-primary" dmx-on:click="pesquisar_veiculo.load({placa_veiculo: ipt_placa.value.uppercase()})">Button</button>
+        </div>
+    </div>
+</div>
+<meta name="ac:route" content="/d/portaria-placa">

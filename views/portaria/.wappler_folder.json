@@ -18,5 +18,9 @@
   "esolha-registro-portaria.ejs": {
     "layoutPage": "mobile-portaria",
     "description": ""
+  },
+  "portaria-placa.ejs": {
+    "layoutPage": "mobile-portaria",
+    "description": ""
   }
 }

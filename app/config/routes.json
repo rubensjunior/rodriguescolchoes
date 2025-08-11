@@ -50,6 +50,11 @@
       "path": "/colaborador/f/esolha-registro-portaria",
       "page": "portaria/esolha-registro-portaria",
       "layout": "mobile-portaria"
+    },
+    {
+      "path": "/d/portaria-placa",
+      "page": "portaria/portaria-placa",
+      "layout": "mobile-portaria"
     }
   ],
   "layouts": {
