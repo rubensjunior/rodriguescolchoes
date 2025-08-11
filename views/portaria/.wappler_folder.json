@@ -14,5 +14,9 @@
   "colaborador.ejs": {
     "layoutPage": "backoffice",
     "description": ""
+  },
+  "esolha-registro-portaria.ejs": {
+    "layoutPage": "mobile-portaria",
+    "description": ""
   }
 }

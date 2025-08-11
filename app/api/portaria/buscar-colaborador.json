@@ -53,27 +53,27 @@
               "key": "colaborador"
             }
           },
-          "query": "select \"id_colaborador\", \"nome_colaborador\", \"cpf_colaborador\" from \"colaboradores\" where \"colaboradores\".\"id_colaborador\" = ?",
+          "query": "select \"id_colaborador\", \"nome_colaborador\", \"cpf_colaborador\" from \"colaboradores\" where \"colaboradores\".\"cpf_colaborador\" = ?",
           "wheres": {
             "condition": "AND",
             "rules": [
               {
-                "id": "colaboradores.id_colaborador",
-                "field": "colaboradores.id_colaborador",
+                "id": "colaboradores.cpf_colaborador",
+                "field": "colaboradores.cpf_colaborador",
                 "type": "string",
                 "operator": "equal",
                 "value": "{{$_GET.id_colaborador_buscado}}",
                 "data": {
                   "table": "colaboradores",
-                  "column": "id_colaborador",
+                  "column": "cpf_colaborador",
                   "type": "text",
                   "columnObj": {
-                    "type": "uuid",
-                    "default": "gen_random_uuid()",
-                    "primary": true,
-                    "unique": true,
-                    "nullable": false,
-                    "name": "id_colaborador"
+                    "type": "string",
+                    "maxLength": -5,
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "name": "cpf_colaborador"
                   }
                 },
                 "operation": "="
@@ -133,6 +133,10 @@
             {
               "type": "text",
               "name": "cor_veiculo"
+            },
+            {
+              "type": "text",
+              "name": "base64_veiculo"
             }
           ]
         }

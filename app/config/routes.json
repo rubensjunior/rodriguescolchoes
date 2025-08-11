@@ -45,6 +45,11 @@
       "path": "/colaborador/f/motorista-autorizado",
       "page": "colaborador/motorista-autorizado",
       "layout": "mobile-portaria"
+    },
+    {
+      "path": "/colaborador/f/esolha-registro-portaria",
+      "page": "portaria/esolha-registro-portaria",
+      "layout": "mobile-portaria"
     }
   ],
   "layouts": {
