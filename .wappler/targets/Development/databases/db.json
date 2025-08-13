@@ -21,10 +21,23 @@
       "storage"
     ],
     "tables": {
-      "colaboradores": {
+      "realtime.schema_migrations": {
         "db": {
-          "schema": "public"
-        },
+          "schema": "realtime"
+        }
+      },
+      "realtime.subscription": {
+        "db": {
+          "schema": "realtime"
+        }
+      },
+      "realtime.messages": {
+        "db": {
+          "schema": "realtime"
+        }
+      },
+      "colaboradores": {
+        "db": {},
         "columns": {
           "id_colaborador": {
             "db": {
@@ -105,12 +118,48 @@
               "unique": false,
               "nullable": true
             }
+          },
+          "portaria": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
           }
         },
         "refs": {
           "veiculos_colaboradores": "colaborador",
           "registro_portaria": "id_agente_portaria",
           "veiculos_motoristas": "id_motorista"
+        }
+      },
+      "regional": {
+        "db": {
+          "schema": "public"
+        },
+        "refs": {
+          "inauguracao": "regional"
+        }
+      },
+      "inauguracao": {
+        "db": {
+          "schema": "public"
+        },
+        "sub": {
+          "inauguracao_produto": "inauguracao_id"
+        },
+        "refs": {
+          "cadastro_participante": "id_inauguracao"
+        }
+      },
+      "clientes": {
+        "db": {
+          "schema": "public"
+        },
+        "refs": {
+          "cadastro_participante": "id_cliente"
         }
       },
       "veiculos_colaboradores": {
@@ -205,6 +254,88 @@
         },
         "refs": {
           "registro_portaria": "id_veiculo_registrado"
+        }
+      },
+      "produtos": {
+        "db": {
+          "schema": "public"
+        },
+        "refs": {
+          "inauguracao_produto": "produto_inaug_id"
+        }
+      },
+      "inauguracao_produto": {
+        "db": {
+          "schema": "public"
+        },
+        "parent": "inauguracao"
+      },
+      "cadastro_participante": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_cad_cliente": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_cad_participante": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "id_inauguracao": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_inauguracao",
+              "inTable": "inauguracao",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "id_cliente": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_cliente",
+              "inTable": "clientes",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "senha": {
+            "db": {
+              "type": "decimal",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "status_atendimento": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
         }
       },
       "registro_portaria": {
@@ -347,21 +478,6 @@
               "onDelete": "NO ACTION"
             }
           }
-        }
-      },
-      "realtime.schema_migrations": {
-        "db": {
-          "schema": "realtime"
-        }
-      },
-      "realtime.subscription": {
-        "db": {
-          "schema": "realtime"
-        }
-      },
-      "realtime.messages": {
-        "db": {
-          "schema": "realtime"
         }
       },
       "vault.secrets": {
@@ -567,11 +683,20 @@
       }
     },
     "views": {
+      "vault.decrypted_secrets": {
+        "db": {
+          "schema": "vault"
+        }
+      },
       "extensions.pg_stat_statements_info": {
-        "db": {}
+        "db": {
+          "schema": "extensions"
+        }
       },
       "extensions.pg_stat_statements": {
-        "db": {},
+        "db": {
+          "schema": "extensions"
+        },
         "columns": {
           "userid": {
             "db": {
@@ -919,9 +1044,6 @@
             }
           }
         }
-      },
-      "vault.decrypted_secrets": {
-        "db": {}
       }
     }
   }

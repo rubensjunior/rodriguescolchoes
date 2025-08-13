@@ -6,5 +6,9 @@
   "registros-portaria.ejs": {
     "layoutPage": "backoffice",
     "description": ""
+  },
+  "fila-inauguracoes.ejs": {
+    "layoutPage": "backoffice",
+    "description": ""
   }
 }

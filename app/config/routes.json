@@ -55,6 +55,11 @@
       "path": "/d/portaria-placa",
       "page": "portaria/portaria-placa",
       "layout": "mobile-portaria"
+    },
+    {
+      "path": "/backoffice/f/fila-inauguracoes",
+      "page": "dashboard/fila-inauguracoes",
+      "layout": "backoffice"
     }
   ],
   "layouts": {

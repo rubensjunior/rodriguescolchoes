@@ -1,0 +1,132 @@
+<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="filainauguracoes" appConnect="local" components="{dmxBootstrap5Modal:{}}" -->
+<div class="modal" id="modal_criar_fila" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Criar nova fila</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form1">
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="form-group mb-3"> <label for="input1" class="form-label">Filial</label>
+                                <input type="text" class="form-control" id="input1" name="input1" aria-describedby="input1_help">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="input2" class="form-label">Nome da loja</label>
+                                <input type="text" class="form-control" id="input2" name="input1" aria-describedby="input1_help1">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group mb-3"> <label for="input9" class="form-label">Total de senhas</label>
+                                <input type="text" class="form-control" id="input9" name="input1" aria-describedby="input1_help">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-7">
+                            <div class="form-group mb-3"> <label for="input3" class="form-label">Endereço completo</label>
+                                <input type="text" class="form-control" id="input3" name="input3" aria-describedby="input3_help">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="input4" class="form-label">CEP</label>
+                                <input type="text" class="form-control" id="input4" name="input4" aria-describedby="input4_help">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group mb-3"> <label for="input5" class="form-label">Bairro</label>
+                                <input type="text" class="form-control" id="input5" name="input4" aria-describedby="input4_help1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="input6" class="form-label">Cidade</label>
+                                <input type="text" class="form-control" id="input6" name="input6" aria-describedby="input6_help">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="input7" class="form-label">Estado</label>
+                                <select id="uf" class="form-select" name="uf">
+                                    <option selected value="">Selecione</option>
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="input8" class="form-label">Regional<br></label>
+                                <input type="text" class="form-control" id="input8" name="input6" aria-describedby="input6_help2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="input10" class="form-label">Data de inicio</label>
+                                <input type="datetime-local" class="form-control" id="input10" name="input6" aria-describedby="input6_help3" placeholder="Enter some text">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="input10" class="form-label">Data de fim</label>
+                                <input type="datetime-local" class="form-control" id="input10" name="input6" aria-describedby="input6_help3">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="input10" class="form-label">Status<br></label><select id="status" class="form-select" name="status">
+                                    <option selected="" value="">Selecione</option>
+                                    <option value="2">Option Two</option>
+                                    <option value="3">Option Three</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Adicionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-lg my-4 px-2 px-md-0">
+    <div class="row align-items-center justify-content-between">
+        <div class="col align-self-center">
+            <h4 class="m-0">Gestão de Filas de Inagurações</h4>
+        </div>
+        <div class="col text-end align-self-center">
+            <button id="btn1" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal_criar_fila"><i class="fas fa-plus me-2"></i>Adicionar</button>
+        </div>
+    </div>
+</div>
+<meta name="ac:route" content="/backoffice/f/fila-inauguracoes">
