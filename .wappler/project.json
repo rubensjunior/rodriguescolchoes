@@ -54,7 +54,24 @@
       "usage": "production",
       "ftpServer": "ftp.rubensbentes.com.br",
       "ftpUser": "master@sgi.rubensbentes.com.br",
-      "ftpPassword": "v2:911d977dddd9ef354a4179cbd7d7a70acd9ebd733257f651"
+      "ftpPassword": "v2:2ffbe019d85daba35f113c133c95bb27e3730c1b608ecbc2"
+    },
+    {
+      "name": "Oficial",
+      "remoteURL": "https://sgi.rodriguescolchoes.com.br",
+      "access": "ftp",
+      "targetType": "wappler",
+      "databaseConnectionType": "custom",
+      "databaseType": "postgres",
+      "db_host": "aws-0-sa-east-1.pooler.supabase.com",
+      "db_port": "5432",
+      "db_user": "postgres.eqyafrpnfuwgessstuzc",
+      "db_password": "@Baki025@",
+      "db_database": "postgres",
+      "usage": "production",
+      "ftpServer": "ftp.rubensbentes.com.br",
+      "ftpUser": "master@sgi.rodriguescolchoes.com.br",
+      "ftpPassword": "v2:a89dcf6a2e5502184bbae760bcf0b3ac0d3d5a1b2ebcb1bb"
     }
   ],
   "activeTarget": "Development",

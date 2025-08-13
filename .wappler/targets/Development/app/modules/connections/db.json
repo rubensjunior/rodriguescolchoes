@@ -10,10 +10,6 @@
       "user": "postgres.eqyafrpnfuwgessstuzc",
       "password": "@Baki025@",
       "database": "postgres"
-    },
-    "meta": {}
-  },
-  "actionFilePath": "file:///C:/Users/Rubens%20Bentes/Documents/Projetos/rodriguesColchoes/app/modules/connections/db.json",
-  "serverType": "node",
-  "fileName": "db.json"
+    }
+  }
 }
