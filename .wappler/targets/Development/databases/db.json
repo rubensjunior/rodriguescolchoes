@@ -22,19 +22,13 @@
     ],
     "tables": {
       "realtime.schema_migrations": {
-        "db": {
-          "schema": "realtime"
-        }
+        "db": {}
       },
       "realtime.subscription": {
-        "db": {
-          "schema": "realtime"
-        }
+        "db": {}
       },
       "realtime.messages": {
-        "db": {
-          "schema": "realtime"
-        }
+        "db": {}
       },
       "colaboradores": {
         "db": {},
@@ -130,22 +124,210 @@
           }
         },
         "refs": {
+          "inauguracao": "criado_por",
           "veiculos_colaboradores": "colaborador",
           "registro_portaria": "id_agente_portaria",
           "veiculos_motoristas": "id_motorista"
         }
       },
       "regional": {
-        "db": {
-          "schema": "public"
+        "db": {},
+        "columns": {
+          "id_regional": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_regional": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "nome_regional": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "cod_regional": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
         },
         "refs": {
           "inauguracao": "regional"
         }
       },
       "inauguracao": {
-        "db": {
-          "schema": "public"
+        "db": {},
+        "columns": {
+          "id_inauguracao": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_inauguracao": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "nome_loja": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "cidade": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "uf": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "endereco_completo": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "complemento": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "cep": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "cod_filial": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "data_inicio": {
+            "db": {
+              "type": "timestamp",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "useTz": true
+            }
+          },
+          "status": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "data_fim": {
+            "db": {
+              "type": "timestamp",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "useTz": true
+            }
+          },
+          "total_senhas": {
+            "db": {
+              "type": "decimal",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "regional": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_regional",
+              "inTable": "regional",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "bairro": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "criado_por": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_colaborador",
+              "inTable": "colaboradores",
+              "referenceType": "uuid",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          }
         },
         "sub": {
           "inauguracao_produto": "inauguracao_id"
@@ -155,17 +337,13 @@
         }
       },
       "clientes": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "refs": {
           "cadastro_participante": "id_cliente"
         }
       },
       "veiculos_colaboradores": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_veiculo_colaborador": {
             "db": {
@@ -257,23 +435,96 @@
         }
       },
       "produtos": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "refs": {
           "inauguracao_produto": "produto_inaug_id"
         }
       },
       "inauguracao_produto": {
-        "db": {
-          "schema": "public"
+        "db": {},
+        "columns": {
+          "id_inaug_produto": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_inaug_produto": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "produto_inaug_id": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_produtos",
+              "inTable": "produtos",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "inauguracao_id": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_inauguracao",
+              "inTable": "inauguracao",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "unidades_disponiveis": {
+            "db": {
+              "type": "decimal",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "limite_por_pessoa": {
+            "db": {
+              "type": "decimal",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "quantidade_consumida": {
+            "db": {
+              "type": "decimal",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "status": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
         },
         "parent": "inauguracao"
       },
       "cadastro_participante": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_cad_cliente": {
             "db": {
@@ -339,9 +590,7 @@
         }
       },
       "registro_portaria": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_registro_portaria": {
             "db": {
@@ -421,9 +670,7 @@
         }
       },
       "veiculos_motoristas": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_veiculos_motoristas": {
             "db": {
@@ -481,28 +728,16 @@
         }
       },
       "vault.secrets": {
-        "db": {
-          "schema": "vault",
-          "comment": "Table with encrypted `secret` column for storing sensitive information on disk."
-        }
+        "db": {}
       },
       "auth.sso_domains": {
-        "db": {
-          "schema": "auth",
-          "comment": "Auth: Manages SSO email address domain mapping to an SSO Identity Provider."
-        }
+        "db": {}
       },
       "auth.saml_providers": {
-        "db": {
-          "schema": "auth",
-          "comment": "Auth: Manages SAML Identity Provider connections."
-        }
+        "db": {}
       },
       "auth.sso_providers": {
-        "db": {
-          "schema": "auth",
-          "comment": "Auth: Manages SSO identity provider information; see saml_providers for SAML."
-        },
+        "db": {},
         "refs": {
           "auth.sso_domains": "sso_provider_id",
           "auth.saml_providers": "sso_provider_id",
@@ -510,22 +745,13 @@
         }
       },
       "auth.instances": {
-        "db": {
-          "schema": "auth",
-          "comment": "Auth: Manages users across multiple sites."
-        }
+        "db": {}
       },
       "auth.schema_migrations": {
-        "db": {
-          "schema": "auth",
-          "comment": "Auth: Manages updates to the auth system."
-        }
+        "db": {}
       },
       "auth.audit_log_entries": {
-        "db": {
-          "schema": "auth",
-          "comment": "Auth: Audit trail for user actions."
-        },
+        "db": {},
         "columns": {
           "instance_id": {
             "db": {
@@ -573,32 +799,20 @@
         }
       },
       "auth.sessions": {
-        "db": {
-          "schema": "auth",
-          "comment": "Auth: Stores session data associated to a user."
-        },
+        "db": {},
         "refs": {
           "auth.refresh_tokens": "session_id",
           "auth.mfa_amr_claims": "session_id"
         }
       },
       "auth.refresh_tokens": {
-        "db": {
-          "schema": "auth",
-          "comment": "Auth: Store of tokens used to refresh JWT tokens once they expire."
-        }
+        "db": {}
       },
       "auth.saml_relay_states": {
-        "db": {
-          "schema": "auth",
-          "comment": "Auth: Contains SAML Relay State information for each Service Provider initiated login."
-        }
+        "db": {}
       },
       "auth.users": {
-        "db": {
-          "schema": "auth",
-          "comment": "Auth: Stores user login data within a secure schema."
-        },
+        "db": {},
         "refs": {
           "auth.sessions": "user_id",
           "auth.identities": "user_id",
@@ -607,55 +821,34 @@
         }
       },
       "auth.flow_state": {
-        "db": {
-          "schema": "auth",
-          "comment": "stores metadata for pkce logins"
-        },
+        "db": {},
         "refs": {
           "auth.saml_relay_states": "flow_state_id"
         }
       },
       "auth.identities": {
-        "db": {
-          "schema": "auth",
-          "comment": "Auth: Stores identities associated to a user."
-        }
+        "db": {}
       },
       "auth.one_time_tokens": {
-        "db": {
-          "schema": "auth"
-        }
+        "db": {}
       },
       "auth.mfa_challenges": {
-        "db": {
-          "schema": "auth",
-          "comment": "auth: stores metadata about challenge requests made"
-        }
+        "db": {}
       },
       "auth.mfa_amr_claims": {
-        "db": {
-          "schema": "auth",
-          "comment": "auth: stores authenticator method reference claims for multi factor authentication"
-        }
+        "db": {}
       },
       "auth.mfa_factors": {
-        "db": {
-          "schema": "auth",
-          "comment": "auth: stores metadata about factors"
-        },
+        "db": {},
         "refs": {
           "auth.mfa_challenges": "factor_id"
         }
       },
       "storage.migrations": {
-        "db": {
-          "schema": "storage"
-        }
+        "db": {}
       },
       "storage.buckets": {
-        "db": {
-          "schema": "storage"
-        },
+        "db": {},
         "refs": {
           "storage.objects": "bucket_id",
           "storage.s3_multipart_uploads": "bucket_id",
@@ -663,31 +856,20 @@
         }
       },
       "storage.objects": {
-        "db": {
-          "schema": "storage"
-        }
+        "db": {}
       },
       "storage.s3_multipart_uploads": {
-        "db": {
-          "schema": "storage"
-        },
+        "db": {},
         "sub": {
           "storage.s3_multipart_uploads_parts": "upload_id"
         }
       },
       "storage.s3_multipart_uploads_parts": {
-        "db": {
-          "schema": "storage"
-        },
+        "db": {},
         "parent": "s3_multipart_uploads"
       }
     },
     "views": {
-      "vault.decrypted_secrets": {
-        "db": {
-          "schema": "vault"
-        }
-      },
       "extensions.pg_stat_statements_info": {
         "db": {
           "schema": "extensions"
@@ -1043,6 +1225,11 @@
               "nullable": true
             }
           }
+        }
+      },
+      "vault.decrypted_secrets": {
+        "db": {
+          "schema": "vault"
         }
       }
     }

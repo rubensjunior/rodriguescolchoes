@@ -1,0 +1,68 @@
+[
+  {
+    "name": "identity",
+    "module": "auth",
+    "action": "identify",
+    "options": {
+      "provider": "logar"
+    },
+    "output": true,
+    "meta": []
+  },
+  {
+    "name": "query_usuario",
+    "module": "dbconnector",
+    "action": "single",
+    "options": {
+      "connection": "db",
+      "sql": {
+        "type": "SELECT",
+        "columns": [
+          {
+            "table": "colaboradores",
+            "column": "id_colaborador"
+          },
+          {
+            "table": "colaboradores",
+            "column": "nome_colaborador"
+          },
+          {
+            "table": "colaboradores",
+            "column": "cpf_colaborador"
+          },
+          {
+            "table": "colaboradores",
+            "column": "email"
+          }
+        ],
+        "params": [],
+        "table": {
+          "name": "colaboradores"
+        },
+        "primary": "id_colaborador",
+        "joins": [],
+        "query": "select \"id_colaborador\", \"nome_colaborador\", \"cpf_colaborador\", \"email\" from \"colaboradores\""
+      }
+    },
+    "output": true,
+    "meta": [
+      {
+        "type": "text",
+        "name": "id_colaborador"
+      },
+      {
+        "type": "text",
+        "name": "nome_colaborador"
+      },
+      {
+        "type": "text",
+        "name": "cpf_colaborador"
+      },
+      {
+        "type": "text",
+        "name": "email"
+      }
+    ],
+    "outputType": "object"
+  }
+]

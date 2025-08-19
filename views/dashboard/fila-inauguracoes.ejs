@@ -1,57 +1,58 @@
-<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="filainauguracoes" appConnect="local" components="{dmxBootstrap5Modal:{}}" -->
+<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="filainauguracoes" appConnect="local" components="{dmxBootstrap5Modal:{},dmxValidator:{}}" -->
+<dmx-serverconnect id="listar_regionais" url="/api/dashboard/listar-regional"></dmx-serverconnect>
 <div class="modal" id="modal_criar_fila" is="dmx-bs5-modal" tabindex="-1">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Criar nova fila</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" dmx-on:click="form_criar_fila.reset()"></button>
             </div>
             <div class="modal-body">
-                <form id="form1">
+                <form id="form_criar_fila" is="dmx-serverconnect-form" method="post" action="/api/marketing/criar-inauguracao" dmx-on:error="notificacoes.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response)" dmx-on:success="modal_criar_fila.hide();form_criar_fila.reset();notificacoes.success('Evento cadastrado com sucesso!')">
                     <div class="row">
                         <div class="col-2">
-                            <div class="form-group mb-3"> <label for="input1" class="form-label">Filial</label>
-                                <input type="text" class="form-control" id="input1" name="input1" aria-describedby="input1_help">
+                            <div class="form-group mb-3"> <label for="filial" class="form-label">Filial</label>
+                                <input type="text" class="form-control" id="filial" name="filial" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório!">
                             </div>
                         </div>
                         <div class="col">
-                            <div class="form-group mb-3"> <label for="input2" class="form-label">Nome da loja</label>
-                                <input type="text" class="form-control" id="input2" name="input1" aria-describedby="input1_help1">
+                            <div class="form-group mb-3"> <label for="nome_loja" class="form-label">Nome da loja</label>
+                                <input type="text" class="form-control" id="nome_loja" name="nome_loja" aria-describedby="input1_help1" required="" data-msg-required="Este é um campo obrigatório!">
                             </div>
                         </div>
                         <div class="col-2">
-                            <div class="form-group mb-3"> <label for="input9" class="form-label">Total de senhas</label>
-                                <input type="text" class="form-control" id="input9" name="input1" aria-describedby="input1_help">
+                            <div class="form-group mb-3"> <label for="qtd_senhas" class="form-label">Total de senhas</label>
+                                <input type="text" class="form-control" id="qtd_senhas" name="qtd_senhas" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório!">
                             </div>
                         </div>
 
                     </div>
                     <div class="row">
                         <div class="col-7">
-                            <div class="form-group mb-3"> <label for="input3" class="form-label">Endereço completo</label>
-                                <input type="text" class="form-control" id="input3" name="input3" aria-describedby="input3_help">
+                            <div class="form-group mb-3"> <label for="endereco" class="form-label">Endereço completo</label>
+                                <input type="text" class="form-control" id="endereco" name="endereco" aria-describedby="input3_help" required="" data-msg-required="Este é um campo obrigatório!">
                             </div>
                         </div>
                         <div class="col">
-                            <div class="form-group mb-3"> <label for="input4" class="form-label">CEP</label>
-                                <input type="text" class="form-control" id="input4" name="input4" aria-describedby="input4_help">
+                            <div class="form-group mb-3"> <label for="cep" class="form-label">CEP</label>
+                                <input type="text" class="form-control" id="cep" name="cep" aria-describedby="input4_help" required="" data-msg-required="Este é um campo obrigatório!" pattern="\d{5}-\d{3}" data-msg-pattern="CEP deve estar no formato 00000-000" placeholder="00000-000" maxlength="9" inputmode="numeric">
                             </div>
                         </div>
                         <div class="col-3">
-                            <div class="form-group mb-3"> <label for="input5" class="form-label">Bairro</label>
-                                <input type="text" class="form-control" id="input5" name="input4" aria-describedby="input4_help1">
+                            <div class="form-group mb-3"> <label for="bairro" class="form-label">Bairro</label>
+                                <input type="text" class="form-control" id="bairro" name="bairro" aria-describedby="input4_help1" required="" data-msg-required="Este é um campo obrigatório!">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <div class="form-group mb-3"> <label for="input6" class="form-label">Cidade</label>
-                                <input type="text" class="form-control" id="input6" name="input6" aria-describedby="input6_help">
+                            <div class="form-group mb-3"> <label for="cidade" class="form-label">Cidade</label>
+                                <input type="text" class="form-control" id="cidade" name="cidade" aria-describedby="input6_help" required="" data-msg-required="Este é um campo obrigatório!">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group mb-3"> <label for="input7" class="form-label">Estado</label>
-                                <select id="uf" class="form-select" name="uf">
+                                <select id="uf" class="form-select" name="uf" required="" data-msg-required="Este é um campo obrigatório!">
                                     <option selected value="">Selecione</option>
                                     <option value="AC">Acre</option>
                                     <option value="AL">Alagoas</option>
@@ -84,28 +85,32 @@
                             </div>
                         </div>
                         <div class="col">
-                            <div class="form-group mb-3"> <label for="input8" class="form-label">Regional<br></label>
-                                <input type="text" class="form-control" id="input8" name="input6" aria-describedby="input6_help2">
+                            <div class="form-group mb-3"> <label for="regional" class="form-label">Regional<br></label>
+                                <select id="regional" class="form-select" name="regional" dmx-bind:options="listar_regionais.data.query_regionais" optiontext="nome_regional" optionvalue="id_regional">
+                                    <option selected="" value="">Selecione</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <div class="form-group mb-3"> <label for="input10" class="form-label">Data de inicio</label>
-                                <input type="datetime-local" class="form-control" id="input10" name="input6" aria-describedby="input6_help3" placeholder="Enter some text">
+                            <div class="form-group mb-3"> <label for="data_ini" class="form-label">Data de inicio</label>
+                                <input type="datetime-local" class="form-control" id="data_ini" name="data_ini" aria-describedby="input6_help3" placeholder="Enter some text">
                             </div>
                         </div>
                         <div class="col">
-                            <div class="form-group mb-3"> <label for="input10" class="form-label">Data de fim</label>
-                                <input type="datetime-local" class="form-control" id="input10" name="input6" aria-describedby="input6_help3">
+                            <div class="form-group mb-3"> <label for="data_ini" class="form-label">Data de fim</label>
+                                <input type="datetime-local" class="form-control" id="data_fim" name="data_fim" aria-describedby="input6_help3">
                             </div>
                         </div>
                         <div class="col">
-                            <div class="form-group mb-3"> <label for="input10" class="form-label">Status<br></label><select id="status" class="form-select" name="status">
+                            <div class="form-group mb-3"> <label for="data_ini" class="form-label">Status<br></label><select id="status" class="form-select" name="status" required="" data-msg-required="Este é um campo obrigatório!">
                                     <option selected="" value="">Selecione</option>
-                                    <option value="2">Option Two</option>
-                                    <option value="3">Option Three</option>
+                                    <option value="Planejado">Planejado</option>
+                                    <option value="Ativo">Ativo</option>
+                                    <option value="Finalizado">Finalizado</option>
                                 </select>
+                                <input id="id_usuario" name="id_usuario" type="hidden" class="form-control" dmx-bind:value="usuario_logado.data.identity">
 
                             </div>
                         </div>
@@ -113,8 +118,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Adicionar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" dmx-on:click="form_criar_fila.reset()">Cancelar</button>
+                <button class="btn btn-primary" dmx-on:click="form_criar_fila.submit()">Adicionar</button>
             </div>
         </div>
     </div>
@@ -130,3 +135,55 @@
     </div>
 </div>
 <meta name="ac:route" content="/backoffice/f/fila-inauguracoes">
+
+<!-- JavaScript para formatação de CEP -->
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+
+<script>
+    // Função para formatar CEP
+    function formatCEP(value) {
+        // Remove todos os caracteres não numéricos
+        const numbers = value.replace(/\D/g, '');
+        
+        // Aplica a formatação
+        if (numbers.length <= 8) {
+            return numbers.replace(/(\d{5})(\d)/, '$1-$2');
+        }
+        return numbers.substring(0, 8).replace(/(\d{5})(\d{3})/, '$1-$2');
+    }
+
+    // Aplicar máscaras imediatamente e em múltiplos eventos
+    function aplicarMascaraCEP() {
+        const cepInput = document.getElementById('cep');
+        
+        if (cepInput && !cepInput.hasAttribute('data-mask-applied')) {
+            cepInput.addEventListener('input', function(e) {
+                e.target.value = formatCEP(e.target.value);
+            });
+            cepInput.setAttribute('data-mask-applied', 'true');
+        }
+    }
+
+    // Aplicar máscaras o mais cedo possível
+    aplicarMascaraCEP();
+    
+    // Fallback para jQuery Mask (manter compatibilidade)
+    if (typeof $ !== 'undefined') {
+        $(document).ready(function() {
+            // Só aplica jQuery mask se as máscaras nativas não foram aplicadas
+            if (!document.getElementById('cep').hasAttribute('data-mask-applied')) {
+                $('#cep').mask('00000-000');
+            }
+        });
+    }
+
+    // Aplicar máscaras também quando DOM carrega
+    document.addEventListener('DOMContentLoaded', function() {
+        aplicarMascaraCEP(); // Garantir aplicação
+    });
+    
+    // Timeout como último recurso
+    setTimeout(aplicarMascaraCEP, 100);
+    setTimeout(aplicarMascaraCEP, 500);
+</script>

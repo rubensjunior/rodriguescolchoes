@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query_regionais",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "regional",
+              "column": "id_regional"
+            },
+            {
+              "table": "regional",
+              "column": "nome_regional"
+            },
+            {
+              "table": "regional",
+              "column": "cod_regional"
+            }
+          ],
+          "params": [],
+          "table": {
+            "name": "regional"
+          },
+          "primary": "id_regional",
+          "joins": [],
+          "query": "select \"id_regional\", \"nome_regional\", \"cod_regional\" from \"regional\""
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "id_regional"
+        },
+        {
+          "type": "text",
+          "name": "nome_regional"
+        },
+        {
+          "type": "text",
+          "name": "cod_regional"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}
