@@ -2,267 +2,320 @@
   "meta": {
     "options": {
       "linkedFile": "/views/dashboard/fila-inauguracoes.ejs",
-      "linkedForm": "form_criar_fila"
+      "linkedForm": "form_editar_fila"
     },
     "$_POST": [
       {
         "type": "text",
-        "fieldName": "filial",
+        "fieldName": "edit_filial",
         "options": {
           "rules": {}
         },
-        "name": "filial"
+        "name": "edit_filial"
       },
       {
         "type": "text",
-        "fieldName": "nome_loja",
+        "fieldName": "edit_nome_loja",
         "options": {
           "rules": {}
         },
-        "name": "nome_loja"
+        "name": "edit_nome_loja"
       },
       {
         "type": "number",
-        "fieldName": "qtd_senhas",
+        "fieldName": "edit_qtd_senhas",
         "options": {
           "rules": {}
         },
-        "name": "qtd_senhas"
+        "name": "edit_qtd_senhas"
       },
       {
         "type": "text",
-        "fieldName": "endereco",
+        "fieldName": "edit_endereco",
         "options": {
           "rules": {}
         },
-        "name": "endereco"
+        "name": "edit_endereco"
       },
       {
         "type": "text",
-        "fieldName": "cep",
+        "fieldName": "edit_cep",
         "options": {
           "rules": {}
         },
-        "name": "cep"
+        "name": "edit_cep"
       },
       {
         "type": "text",
-        "fieldName": "bairro",
+        "fieldName": "edit_bairro",
         "options": {
           "rules": {}
         },
-        "name": "bairro"
+        "name": "edit_bairro"
       },
       {
         "type": "text",
-        "fieldName": "cidade",
+        "fieldName": "edit_cidade",
         "options": {
           "rules": {}
         },
-        "name": "cidade"
+        "name": "edit_cidade"
       },
       {
         "type": "text",
-        "fieldName": "data_ini",
+        "fieldName": "edit_data_ini",
         "options": {
           "rules": {}
         },
-        "name": "data_ini"
+        "name": "edit_data_ini"
       },
       {
         "type": "text",
-        "fieldName": "data_fim",
+        "fieldName": "edit_data_fim",
         "options": {
           "rules": {}
         },
-        "name": "data_fim"
+        "name": "edit_data_fim"
       },
       {
         "type": "text",
-        "fieldName": "id_usuario",
-        "name": "id_usuario"
+        "fieldName": "edit_id_usuario",
+        "name": "edit_id_usuario"
       },
       {
         "type": "text",
-        "fieldName": "uf",
+        "fieldName": "edit_id_inauguracao",
+        "name": "edit_id_inauguracao"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_uf",
         "options": {
           "rules": {}
         },
-        "name": "uf"
+        "name": "edit_uf"
       },
       {
         "type": "text",
-        "fieldName": "regional",
-        "name": "regional"
-      },
-      {
-        "type": "text",
-        "fieldName": "status",
+        "fieldName": "edit_regional",
         "options": {
           "rules": {}
         },
-        "name": "status"
+        "name": "edit_regional"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_status",
+        "options": {
+          "rules": {}
+        },
+        "name": "edit_status"
+      },
+      {
+        "type": "text",
+        "name": "crud"
+      },
+      {
+        "type": "text",
+        "name": "tipo"
+      },
+      {
+        "type": "number",
+        "name": "item"
+      },
+      {
+        "type": "text",
+        "name": "usuario"
+      },
+      {
+        "type": "text",
+        "name": "conteudo"
       }
     ]
   },
   "exec": {
     "steps": [
       {
-        "name": "insert_inauguracao",
+        "name": "update_inauguracao",
         "module": "dbupdater",
-        "action": "insert",
+        "action": "update",
         "options": {
           "connection": "db",
           "sql": {
-            "type": "insert",
+            "type": "update",
             "values": [
               {
                 "table": "inauguracao",
                 "column": "nome_loja",
                 "type": "text",
-                "value": "{{$_POST.nome_loja}}"
+                "value": "{{$_POST.edit_nome_loja}}"
               },
               {
                 "table": "inauguracao",
                 "column": "cidade",
                 "type": "text",
-                "value": "{{$_POST.cidade}}"
+                "value": "{{$_POST.edit_cidade}}"
               },
               {
                 "table": "inauguracao",
                 "column": "uf",
                 "type": "text",
-                "value": "{{$_POST.uf}}"
+                "value": "{{$_POST.edit_uf}}"
               },
               {
                 "table": "inauguracao",
                 "column": "endereco_completo",
                 "type": "text",
-                "value": "{{$_POST.endereco}}"
+                "value": "{{$_POST.edit_endereco}}"
               },
               {
                 "table": "inauguracao",
                 "column": "cep",
                 "type": "text",
-                "value": "{{$_POST.cep}}"
+                "value": "{{$_POST.edit_cep}}"
               },
               {
                 "table": "inauguracao",
                 "column": "cod_filial",
                 "type": "text",
-                "value": "{{$_POST.filial}}"
-              },
-              {
-                "table": "inauguracao",
-                "column": "status",
-                "type": "text",
-                "value": "{{$_POST.status}}"
-              },
-              {
-                "table": "inauguracao",
-                "column": "total_senhas",
-                "type": "number",
-                "value": "{{$_POST.qtd_senhas}}"
-              },
-              {
-                "table": "inauguracao",
-                "column": "regional",
-                "type": "number",
-                "value": "{{$_POST.regional}}"
-              },
-              {
-                "table": "inauguracao",
-                "column": "bairro",
-                "type": "text",
-                "value": "{{$_POST.bairro}}"
+                "value": "{{$_POST.edit_filial}}"
               },
               {
                 "table": "inauguracao",
                 "column": "data_inicio",
                 "type": "datetime",
-                "value": "{{$_POST.data_ini}}"
+                "value": "{{$_POST.edit_data_ini}}"
+              },
+              {
+                "table": "inauguracao",
+                "column": "status",
+                "type": "text",
+                "value": "{{$_POST.edit_status}}"
               },
               {
                 "table": "inauguracao",
                 "column": "data_fim",
                 "type": "datetime",
-                "value": "{{$_POST.data_fim}}"
+                "value": "{{$_POST.edit_data_fim}}"
+              },
+              {
+                "table": "inauguracao",
+                "column": "total_senhas",
+                "type": "number",
+                "value": "{{$_POST.edit_qtd_senhas}}"
+              },
+              {
+                "table": "inauguracao",
+                "column": "regional",
+                "type": "number",
+                "value": "{{$_POST.edit_regional}}"
+              },
+              {
+                "table": "inauguracao",
+                "column": "bairro",
+                "type": "text",
+                "value": "{{$_POST.edit_bairro}}"
               }
             ],
             "table": "inauguracao",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "id_inauguracao",
+                  "field": "id_inauguracao",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{$_POST.edit_id_inauguracao}}",
+                  "data": {
+                    "column": "id_inauguracao"
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
             "returning": "id_inauguracao",
-            "query": "insert into \"inauguracao\" (\"bairro\", \"cep\", \"cidade\", \"cod_filial\", \"data_fim\", \"data_inicio\", \"endereco_completo\", \"nome_loja\", \"regional\", \"status\", \"total_senhas\", \"uf\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) returning \"id_inauguracao\"",
+            "query": "update \"inauguracao\" set \"nome_loja\" = ?, \"cidade\" = ?, \"uf\" = ?, \"endereco_completo\" = ?, \"cep\" = ?, \"cod_filial\" = ?, \"data_inicio\" = ?, \"status\" = ?, \"data_fim\" = ?, \"total_senhas\" = ?, \"regional\" = ?, \"bairro\" = ? where \"id_inauguracao\" = ?",
             "params": [
               {
                 "name": ":P1",
                 "type": "expression",
-                "value": "{{$_POST.nome_loja}}",
+                "value": "{{$_POST.edit_nome_loja}}",
                 "test": ""
               },
               {
                 "name": ":P2",
                 "type": "expression",
-                "value": "{{$_POST.cidade}}",
+                "value": "{{$_POST.edit_cidade}}",
                 "test": ""
               },
               {
                 "name": ":P3",
                 "type": "expression",
-                "value": "{{$_POST.uf}}",
+                "value": "{{$_POST.edit_uf}}",
                 "test": ""
               },
               {
                 "name": ":P4",
                 "type": "expression",
-                "value": "{{$_POST.endereco}}",
+                "value": "{{$_POST.edit_endereco}}",
                 "test": ""
               },
               {
                 "name": ":P5",
                 "type": "expression",
-                "value": "{{$_POST.cep}}",
+                "value": "{{$_POST.edit_cep}}",
                 "test": ""
               },
               {
                 "name": ":P6",
                 "type": "expression",
-                "value": "{{$_POST.filial}}",
+                "value": "{{$_POST.edit_filial}}",
                 "test": ""
               },
               {
                 "name": ":P7",
                 "type": "expression",
-                "value": "{{$_POST.status}}",
+                "value": "{{$_POST.edit_data_ini}}",
                 "test": ""
               },
               {
                 "name": ":P8",
                 "type": "expression",
-                "value": "{{$_POST.qtd_senhas}}",
+                "value": "{{$_POST.edit_status}}",
                 "test": ""
               },
               {
                 "name": ":P9",
                 "type": "expression",
-                "value": "{{$_POST.regional}}",
+                "value": "{{$_POST.edit_data_fim}}",
                 "test": ""
               },
               {
                 "name": ":P10",
                 "type": "expression",
-                "value": "{{$_POST.bairro}}",
+                "value": "{{$_POST.edit_qtd_senhas}}",
                 "test": ""
               },
               {
                 "name": ":P11",
                 "type": "expression",
-                "value": "{{$_POST.data_ini}}",
+                "value": "{{$_POST.edit_regional}}",
                 "test": ""
               },
               {
                 "name": ":P12",
                 "type": "expression",
-                "value": "{{$_POST.data_fim}}",
+                "value": "{{$_POST.edit_bairro}}",
+                "test": ""
+              },
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P13",
+                "value": "{{$_POST.edit_id_inauguracao}}",
                 "test": ""
               }
             ]
@@ -270,15 +323,10 @@
         },
         "meta": [
           {
-            "name": "identity",
-            "type": "text"
-          },
-          {
             "name": "affected",
             "type": "number"
           }
-        ],
-        "_id": "j1_25"
+        ]
       },
       {
         "name": "insert_log_mkt",
@@ -293,31 +341,31 @@
                 "table": "logs_mkt_inauguracao",
                 "column": "crud",
                 "type": "text",
-                "value": "{{'Create'}}"
+                "value": "{{$_POST.crud}}"
               },
               {
                 "table": "logs_mkt_inauguracao",
                 "column": "tipo",
                 "type": "text",
-                "value": "{{'Fila Inauguracao'}}"
+                "value": "{{$_POST.tipo}}"
               },
               {
                 "table": "logs_mkt_inauguracao",
                 "column": "item",
                 "type": "number",
-                "value": "{{insert_inauguracao.identity}}"
+                "value": "{{$_POST.item}}"
               },
               {
                 "table": "logs_mkt_inauguracao",
                 "column": "usuario",
                 "type": "text",
-                "value": "{{$_POST.id_usuario}}"
+                "value": "{{$_POST.usuario}}"
               },
               {
                 "table": "logs_mkt_inauguracao",
                 "column": "conteudo",
                 "type": "text",
-                "value": "{{\"Filia: \"+$_POST.filial+\". Nome loja: \"+$_POST.nome_loja+\". Qtd Senhas: \"+$_POST.qtd_senhas+\". Endereco: \"+$_POST.endereco+\". CEP: \"+$_POST.cep+\". Bairro: \"+$_POST.bairro+\". Cidade: \"+$_POST.cidade+\". Estado: \"+$_POST.uf+\". Regional: \"+$_POST.regional+\". Data e Hora Ini e Fim: \"+$_POST.data_ini+\" \"+$_POST.data_fim+\". Status: \"+$_POST.status}}"
+                "value": "{{$_POST.conteudo}}"
               }
             ],
             "table": "logs_mkt_inauguracao",
@@ -327,31 +375,31 @@
               {
                 "name": ":P1",
                 "type": "expression",
-                "value": "{{'Create'}}",
+                "value": "{{$_POST.crud}}",
                 "test": ""
               },
               {
                 "name": ":P2",
                 "type": "expression",
-                "value": "{{'Fila Inauguracao'}}",
+                "value": "{{$_POST.tipo}}",
                 "test": ""
               },
               {
                 "name": ":P3",
                 "type": "expression",
-                "value": "{{insert_inauguracao.identity}}",
+                "value": "{{$_POST.item}}",
                 "test": ""
               },
               {
                 "name": ":P4",
                 "type": "expression",
-                "value": "{{$_POST.id_usuario}}",
+                "value": "{{$_POST.usuario}}",
                 "test": ""
               },
               {
                 "name": ":P5",
                 "type": "expression",
-                "value": "{{\"Filia: \"+$_POST.filial+\". Nome loja: \"+$_POST.nome_loja+\". Qtd Senhas: \"+$_POST.qtd_senhas+\". Endereco: \"+$_POST.endereco+\". CEP: \"+$_POST.cep+\". Bairro: \"+$_POST.bairro+\". Cidade: \"+$_POST.cidade+\". Estado: \"+$_POST.uf+\". Regional: \"+$_POST.regional+\". Data e Hora Ini e Fim: \"+$_POST.data_ini+\" \"+$_POST.data_fim+\". Status: \"+$_POST.status}}",
+                "value": "{{$_POST.conteudo}}",
                 "test": ""
               }
             ]

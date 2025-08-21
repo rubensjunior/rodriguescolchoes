@@ -10,5 +10,9 @@
   "fila-inauguracoes.ejs": {
     "layoutPage": "backoffice",
     "description": ""
+  },
+  "produtos.ejs": {
+    "layoutPage": "backoffice",
+    "description": ""
   }
 }

@@ -1,4 +1,6 @@
-<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="filainauguracoes" appConnect="local" components="{dmxBootstrap5Modal:{},dmxValidator:{}}" -->
+<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="filainauguracoes" appConnect="local" components="{dmxBootstrap5Modal:{},dmxValidator:{},dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxDataTraversal:{}}" -->
+<dmx-data-detail id="data_fila" dmx-bind:data="listar_inauguracoes.data.query_inauguracao.data" key="id_inauguracao"></dmx-data-detail>
+<dmx-serverconnect id="listar_inauguracoes" url="/api/marketing/listar-inauguracao"></dmx-serverconnect>
 <dmx-serverconnect id="listar_regionais" url="/api/dashboard/listar-regional"></dmx-serverconnect>
 <div class="modal" id="modal_criar_fila" is="dmx-bs5-modal" tabindex="-1">
     <div class="modal-dialog modal-xl" role="document">
@@ -8,7 +10,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" dmx-on:click="form_criar_fila.reset()"></button>
             </div>
             <div class="modal-body">
-                <form id="form_criar_fila" is="dmx-serverconnect-form" method="post" action="/api/marketing/criar-inauguracao" dmx-on:error="notificacoes.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response)" dmx-on:success="modal_criar_fila.hide();form_criar_fila.reset();notificacoes.success('Evento cadastrado com sucesso!')">
+                <form id="form_criar_fila" is="dmx-serverconnect-form" method="post" action="/api/marketing/criar-inauguracao" dmx-on:error="notificacoes.danger('Ocorreu um erro ao cadastrar. Verifique os dados e tente novamente.')" dmx-on:success="listar_inauguracoes.load({});modal_criar_fila.hide();form_criar_fila.reset();notificacoes.success('Evento cadastrado com sucesso!')">
                     <div class="row">
                         <div class="col-2">
                             <div class="form-group mb-3"> <label for="filial" class="form-label">Filial</label>
@@ -22,7 +24,7 @@
                         </div>
                         <div class="col-2">
                             <div class="form-group mb-3"> <label for="qtd_senhas" class="form-label">Total de senhas</label>
-                                <input type="text" class="form-control" id="qtd_senhas" name="qtd_senhas" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório!">
+                                <input type="number" class="form-control" id="qtd_senhas" name="qtd_senhas" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório!">
                             </div>
                         </div>
 
@@ -95,12 +97,12 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group mb-3"> <label for="data_ini" class="form-label">Data de inicio</label>
-                                <input type="datetime-local" class="form-control" id="data_ini" name="data_ini" aria-describedby="input6_help3" placeholder="Enter some text">
+                                <input type="datetime-local" class="form-control" id="data_ini" name="data_ini" aria-describedby="input6_help3" required="" data-msg-required="Este é um campo obrigatório!">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group mb-3"> <label for="data_ini" class="form-label">Data de fim</label>
-                                <input type="datetime-local" class="form-control" id="data_fim" name="data_fim" aria-describedby="input6_help3">
+                                <input type="datetime-local" class="form-control" id="data_fim" name="data_fim" aria-describedby="input6_help3" required="" data-msg-required="Este é um campo obrigatório!">
                             </div>
                         </div>
                         <div class="col">
@@ -124,8 +126,133 @@
         </div>
     </div>
 </div>
+<div class="modal" id="modal_editar_fila" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar fila</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" dmx-on:click="form_editar_fila.reset()"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form_editar_fila" is="dmx-serverconnect-form" method="post" action="/api/marketing/atualizar-inauguracao" dmx-on:error="notificacoes.danger('Ocorreu um erro ao atualizar. Verifique os dados e tente novamente.')" dmx-on:success="listar_inauguracoes.load({});data_fila.select(0);form_editar_fila.reset();modal_editar_fila.hide();notificacoes.success('Atualização realizada com sucesso!')">
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="form-group mb-3"> <label for="edit_filial" class="form-label">Filial</label>
+                                <input type="text" class="form-control" id="edit_filial" name="edit_filial" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório!" dmx-bind:value="data_fila.data.cod_filial">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="edit_nome_loja" class="form-label">Nome da loja</label>
+                                <input type="text" class="form-control" id="edit_nome_loja" name="edit_nome_loja" aria-describedby="input1_help1" required="" data-msg-required="Este é um campo obrigatório!" dmx-bind:value="data_fila.data.nome_loja">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group mb-3"> <label for="edit_qtd_senhas" class="form-label">Total de senhas</label>
+                                <input type="number" class="form-control" id="edit_qtd_senhas" name="edit_qtd_senhas" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório!" dmx-bind:value="data_fila.data.total_senhas">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-7">
+                            <div class="form-group mb-3"> <label for="edit_endereco" class="form-label">Endereço completo</label>
+                                <input type="text" class="form-control" id="edit_endereco" name="edit_endereco" aria-describedby="input3_help" required="" data-msg-required="Este é um campo obrigatório!" dmx-bind:value="data_fila.data.endereco_completo">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="edit_cep" class="form-label">CEP</label>
+                                <input type="text" class="form-control" id="edit_cep" name="edit_cep" aria-describedby="input4_help" required="" data-msg-required="Este é um campo obrigatório!" pattern="\d{5}-\d{3}" data-msg-pattern="CEP deve estar no formato 00000-000" placeholder="00000-000" maxlength="9" inputmode="numeric" dmx-bind:value="data_fila.data.cep">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group mb-3"> <label for="edit_bairro" class="form-label">Bairro</label>
+                                <input type="text" class="form-control" id="edit_bairro" name="edit_bairro" aria-describedby="input4_help1" required="" data-msg-required="Este é um campo obrigatório!" dmx-bind:value="data_fila.data.bairro">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="edit_cidade" class="form-label">Cidade</label>
+                                <input type="text" class="form-control" id="edit_cidade" name="edit_cidade" aria-describedby="input6_help" required="" data-msg-required="Este é um campo obrigatório!" dmx-bind:value="data_fila.data.cidade">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="input7" class="form-label">Estado</label>
+                                <select id="edit_uf" class="form-select" name="edit_uf" required="" data-msg-required="Este é um campo obrigatório!" dmx-bind:value="data_fila.data.uf">
+                                    <option selected value="">Selecione</option>
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="edit_regional" class="form-label">Regional<br></label>
+                                <select id="edit_regional" class="form-select" name="edit_regional" dmx-bind:options="listar_regionais.data.query_regionais" optiontext="nome_regional" optionvalue="id_regional" required="" dmx-bind:value="data_fila.data.regional">
+                                    <option selected="" value="">Selecione</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="edit_data_ini" class="form-label">Data de inicio</label>
+                                <input type="datetime-local" class="form-control" id="edit_data_ini" name="edit_data_ini" aria-describedby="input6_help3" dmx-bind:value="data_fila.data.data_inicio.formatDate('yyyy-MM-ddTHH:mm')" required="" data-msg-required="Este é um campo obrigatório!">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="edit_data_ini" class="form-label">Data de fim</label>
+                                <input type="datetime-local" class="form-control" id="edit_data_fim" name="edit_data_fim" aria-describedby="input6_help3" required="" data-msg-required="Este é um campo obrigatório!" dmx-bind:value="data_fila.data.data_fim.formatDate('yyyy-MM-ddTHH:mm')">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="edit_data_ini" class="form-label">Status<br></label><select id="edit_status" class="form-select" name="edit_status" required="" data-msg-required="Este é um campo obrigatório!" dmx-bind:value="data_fila.data.status">
+                                    <option selected="" value="">Selecione</option>
+                                    <option value="Planejado">Planejado</option>
+                                    <option value="Ativo">Ativo</option>
+                                    <option value="Finalizado">Finalizado</option>
+                                </select>
+                                <input id="edit_id_usuario" name="edit_id_usuario" type="hidden" class="form-control" dmx-bind:value="usuario_logado.data.identity">
+                                <input id="edit_id_inauguracao" name="edit_id_inauguracao" type="hidden" class="form-control" dmx-bind:value="data_fila.data.id_inauguracao">
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" dmx-on:click="form_editar_fila.reset()">Cancelar</button>
+                <button class="btn btn-primary" dmx-on:click="form_editar_fila.submit()">Atualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container-lg my-4 px-2 px-md-0">
-    <div class="row align-items-center justify-content-between">
+    <div class="row align-items-center justify-content-between mb-4 px-0">
         <div class="col align-self-center">
             <h4 class="m-0">Gestão de Filas de Inagurações</h4>
         </div>
@@ -133,6 +260,45 @@
             <button id="btn1" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal_criar_fila"><i class="fas fa-plus me-2"></i>Adicionar</button>
         </div>
     </div>
+    <div class="row p-3 rounded-3 border border-light-subtle">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="titulo-tabela py-3">Nome loja</th>
+                        <th class="titulo-tabela py-3">Cidade</th>
+                        <th class="titulo-tabela py-3">Uf</th>
+                        <th class="titulo-tabela py-3">Data inicio</th>
+                        <th class="titulo-tabela py-3">Data fim</th>
+                        <th class="titulo-tabela py-3">Status</th>
+                        <th class="titulo-tabela py-3">Total senhas</th>
+                        <th class="titulo-tabela py-3 text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="listar_inauguracoes.data.query_inauguracao.data" id="tableRepeat1">
+                    <tr>
+                        <td dmx-text="nome_loja" class="titulo-tabela py-4"></td>
+                        <td dmx-text="cidade" class="titulo-tabela py-4"></td>
+                        <td dmx-text="uf" class="titulo-tabela py-4"></td>
+                        <td dmx-text="data_inicio.formatDate('dd/MM/yyyy HH:mm')" class="titulo-tabela py-4"></td>
+                        <td dmx-text="data_fim.formatDate('dd/MM/yyyy HH:mm')" class="titulo-tabela py-4"></td>
+                        <td dmx-text="status" class="titulo-tabela py-4"></td>
+                        <td dmx-text="total_senhas" class="titulo-tabela py-4"></td>
+                        <td class="titulo-tabela py-3 text-end">
+                            <div class="dropdown">
+                                <button id="dropdown1" class="btn dropdown-toggle btn-light btn-sm" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ações</button>
+                                <div class="dropdown-menu" aria-labelledby="dropdown1">
+                                    <a class="dropdown-item" dmx-on:click="data_fila.select(id_inauguracao);modal_editar_fila.show()">Editar</a>
+                                    <a class="dropdown-item" href="#" dmx-on:click="data_fila.select(id_inauguracao);modal_editar_fila.show()">Adicionar Produto</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 <meta name="ac:route" content="/backoffice/f/fila-inauguracoes">
 
@@ -156,12 +322,21 @@
     // Aplicar máscaras imediatamente e em múltiplos eventos
     function aplicarMascaraCEP() {
         const cepInput = document.getElementById('cep');
+        const cepInput1 = document.getElementById('cep1');
         
         if (cepInput && !cepInput.hasAttribute('data-mask-applied')) {
             cepInput.addEventListener('input', function(e) {
                 e.target.value = formatCEP(e.target.value);
             });
             cepInput.setAttribute('data-mask-applied', 'true');
+        }
+        
+        // Aplicar também no CEP da modal de edição
+        if (cepInput1 && !cepInput1.hasAttribute('data-mask-applied')) {
+            cepInput1.addEventListener('input', function(e) {
+                e.target.value = formatCEP(e.target.value);
+            });
+            cepInput1.setAttribute('data-mask-applied', 'true');
         }
     }
 
@@ -174,6 +349,9 @@
             // Só aplica jQuery mask se as máscaras nativas não foram aplicadas
             if (!document.getElementById('cep').hasAttribute('data-mask-applied')) {
                 $('#cep').mask('00000-000');
+            }
+            if (document.getElementById('cep1') && !document.getElementById('cep1').hasAttribute('data-mask-applied')) {
+                $('#cep1').mask('00000-000');
             }
         });
     }

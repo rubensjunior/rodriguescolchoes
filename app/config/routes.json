@@ -60,10 +60,18 @@
       "path": "/backoffice/f/fila-inauguracoes",
       "page": "dashboard/fila-inauguracoes",
       "layout": "backoffice"
+    },
+    {
+      "path": "/dashboard/produtos",
+      "page": "dashboard/produtos",
+      "layout": "backoffice"
     }
   ],
   "layouts": {
     "mobile-portaria": {
+      "exec": "/api/seguranca/restricao"
+    },
+    "backoffice": {
       "exec": "/api/seguranca/restricao"
     }
   }
