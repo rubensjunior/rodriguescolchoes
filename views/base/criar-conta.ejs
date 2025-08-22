@@ -71,7 +71,7 @@
                                 <div class="col-12 col-md-6">
                                     <div class="form-group mb-2">
                                         <label for="data_nascimento" class="form-label">Data de nascimento *</label>
-                                        <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" required data-msg-required="Por favor, selecione sua data de nascimento">
+                                        <input type="text" class="form-control" id="data_nascimento" name="data_nascimento" required data-msg-required="Por favor, digite sua data de nascimento" pattern="\d{2}/\d{2}/\d{4}" data-msg-pattern="Data deve estar no formato DD/MM/AAAA" placeholder="DD/MM/AAAA" maxlength="10" inputmode="numeric">
                                     </div>
                                 </div>
 
@@ -173,6 +173,10 @@
                                         <div class="col-12 col-md-6">
                                             <strong>Telefone:</strong><br>
                                             <span dmx-text="telefone.value || 'Não informado'"></span>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <strong>Data de Nascimento:</strong><br>
+                                            <span dmx-text="data_nascimento.value || 'Não informado'"></span>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <strong>Veículo:</strong><br>
@@ -352,10 +356,59 @@
         return secondDigit === parseInt(cpf.charAt(10));
     }
 
+    // Função para formatar data
+    function formatData(value) {
+        // Remove todos os caracteres não numéricos
+        const numbers = value.replace(/\D/g, '');
+        
+        // Aplica a formatação DD/MM/AAAA
+        if (numbers.length <= 8) {
+            return numbers
+                .replace(/(\d{2})(\d)/, '$1/$2')
+                .replace(/(\d{2})(\d)/, '$1/$2');
+        }
+        return numbers.substring(0, 8)
+            .replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
+    }
+
+    // Validação de data
+    function validarData(data) {
+        const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+        if (!regex.test(data)) return false;
+        
+        const [, dia, mes, ano] = data.match(regex);
+        const dataObj = new Date(ano, mes - 1, dia);
+        
+        // Verifica se a data é válida
+        const isValid = dataObj.getDate() == dia && 
+                       dataObj.getMonth() == (mes - 1) && 
+                       dataObj.getFullYear() == ano;
+        
+        if (!isValid) return false;
+        
+        // Verifica se não é uma data futura
+        const hoje = new Date();
+        hoje.setHours(23, 59, 59, 999); // Permite nascimento hoje
+        
+        if (dataObj > hoje) return false;
+        
+        // Verifica se a pessoa tem pelo menos 16 anos
+        const idade = hoje.getFullYear() - dataObj.getFullYear();
+        const mesAtual = hoje.getMonth();
+        const diaAtual = hoje.getDate();
+        
+        if (mesAtual < (mes - 1) || (mesAtual === (mes - 1) && diaAtual < dia)) {
+            return idade >= 17; // Precisa de 17 anos antes do aniversário
+        }
+        
+        return idade >= 16;
+    }
+
     // Aplicar máscaras imediatamente e em múltiplos eventos
     function aplicarMascaras() {
         const cpfInput = document.getElementById('cpf');
         const telefoneInput = document.getElementById('telefone');
+        const dataInput = document.getElementById('data_nascimento');
         
         if (cpfInput && !cpfInput.hasAttribute('data-mask-applied')) {
             cpfInput.addEventListener('input', function(e) {
@@ -369,6 +422,13 @@
                 e.target.value = formatTelefone(e.target.value);
             });
             telefoneInput.setAttribute('data-mask-applied', 'true');
+        }
+        
+        if (dataInput && !dataInput.hasAttribute('data-mask-applied')) {
+            dataInput.addEventListener('input', function(e) {
+                e.target.value = formatData(e.target.value);
+            });
+            dataInput.setAttribute('data-mask-applied', 'true');
         }
     }
 
@@ -385,6 +445,9 @@
             if (!document.getElementById('telefone').hasAttribute('data-mask-applied')) {
                 $('#telefone').mask('(00) 00000-0000');
             }
+            if (!document.getElementById('data_nascimento').hasAttribute('data-mask-applied')) {
+                $('#data_nascimento').mask('00/00/0000');
+            }
         });
     }
 
@@ -397,6 +460,7 @@
             form.addEventListener('submit', function(e) {
                 const cpfInput = document.getElementById('cpf');
                 const telefoneInput = document.getElementById('telefone');
+                const dataInput = document.getElementById('data_nascimento');
                 
                 // Garantir formatação antes do envio
                 if (cpfInput && cpfInput.value) {
@@ -413,6 +477,17 @@
                 if (telefoneInput && telefoneInput.value) {
                     telefoneInput.value = formatTelefone(telefoneInput.value);
                 }
+                
+                if (dataInput && dataInput.value) {
+                    dataInput.value = formatData(dataInput.value);
+                    
+                    // Validar data
+                    if (!validarData(dataInput.value)) {
+                        e.preventDefault();
+                        alert('Data de nascimento inválida. Verifique os dados digitados. Você deve ter pelo menos 16 anos.');
+                        return false;
+                    }
+                }
             });
         }
         
@@ -421,7 +496,8 @@
         console.log('App Connect:', typeof dmx !== 'undefined' ? 'Carregado' : 'Não carregado');
         console.log('Máscaras aplicadas:', {
             cpf: document.getElementById('cpf').hasAttribute('data-mask-applied'),
-            telefone: document.getElementById('telefone').hasAttribute('data-mask-applied')
+            telefone: document.getElementById('telefone').hasAttribute('data-mask-applied'),
+            data_nascimento: document.getElementById('data_nascimento').hasAttribute('data-mask-applied')
         });
     });
     
