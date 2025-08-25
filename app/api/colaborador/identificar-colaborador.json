@@ -64,6 +64,10 @@
               {
                 "table": "colaboradores",
                 "column": "portaria"
+              },
+              {
+                "table": "colaboradores",
+                "column": "dashboard"
               }
             ],
             "params": [
@@ -108,7 +112,7 @@
               "conditional": null,
               "valid": true
             },
-            "query": "select \"id_colaborador\", \"nome_colaborador\", \"cpf_colaborador\", \"base64\", \"data_nascimento\", \"email\", \"telefone\", \"portaria\" from \"colaboradores\" where \"colaboradores\".\"id_colaborador\" = ?"
+            "query": "select \"id_colaborador\", \"nome_colaborador\", \"cpf_colaborador\", \"base64\", \"data_nascimento\", \"email\", \"telefone\", \"portaria\", \"dashboard\" from \"colaboradores\" where \"colaboradores\".\"id_colaborador\" = ?"
           }
         },
         "output": true,
@@ -144,6 +148,10 @@
           {
             "type": "text",
             "name": "portaria"
+          },
+          {
+            "type": "text",
+            "name": "dashboard"
           }
         ],
         "outputType": "object"

@@ -62,7 +62,7 @@
       "layout": "backoffice"
     },
     {
-      "path": "/dashboard/produtos",
+      "path": "/backoffice/f/produtos",
       "page": "dashboard/produtos",
       "layout": "backoffice"
     }

@@ -1,11 +1,50 @@
-<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="produtos" appConnect="local" -->
+<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="produtos" appConnect="local" components="{dmxBootstrap5Modal:{}}" -->
+<div class="modal" id="modal_criar" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cadastrar produtos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form1">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-group mb-3"> <label for="cod_produto" class="form-label">Codigo</label>
+                                <input type="text" class="form-control" id="cod_produto" name="cod_produto" aria-describedby="input1_help">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="nome_produto" class="form-label">Nome do produtos</label>
+                                <input type="text" class="form-control" id="nome_produto" name="nome_produto" aria-describedby="input1_help1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3"> <label for="input3" class="form-label">Descrição</label>
+                        <textarea id="descricao" class="form-control" name="descricao"></textarea>
+                    </div>
+                    <div class="form-group mb-3"> <label for="input3" class="form-label">Imagem do produto</label>
+                        <input id="file1" name="file1" type="file" class="form-control">
+                    </div>
+
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Cadastrar produto</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container-lg my-4 px-2 px-md-0">
     <div class="row align-items-center justify-content-between mb-4 px-0">
         <div class="col align-self-center">
-            <h4 class="m-0">Gestão de Filas de Inagurações</h4>
+            <h4 class="m-0">Gestão de Produtos Cadastrados</h4>
         </div>
         <div class="col text-end align-self-center">
-            <button id="btn1" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal_criar_fila"><i class="fas fa-plus me-2"></i>Adicionar</button>
+            <button id="btn1" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal_criar"><i class="fas fa-plus me-2"></i>Adicionar</button>
         </div>
     </div>
 </div>

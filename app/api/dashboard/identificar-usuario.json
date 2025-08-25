@@ -7,7 +7,8 @@
       "provider": "logar"
     },
     "output": true,
-    "meta": []
+    "meta": [],
+    "collapsed": true
   },
   {
     "name": "query_usuario",
@@ -35,13 +36,49 @@
             "column": "email"
           }
         ],
-        "params": [],
+        "params": [
+          {
+            "operator": "equal",
+            "type": "expression",
+            "name": ":P1",
+            "value": "{{identity}}",
+            "test": ""
+          }
+        ],
         "table": {
           "name": "colaboradores"
         },
         "primary": "id_colaborador",
         "joins": [],
-        "query": "select \"id_colaborador\", \"nome_colaborador\", \"cpf_colaborador\", \"email\" from \"colaboradores\""
+        "query": "select \"id_colaborador\", \"nome_colaborador\", \"cpf_colaborador\", \"email\" from \"colaboradores\" where \"colaboradores\".\"id_colaborador\" = ?",
+        "wheres": {
+          "condition": "AND",
+          "rules": [
+            {
+              "id": "colaboradores.id_colaborador",
+              "field": "colaboradores.id_colaborador",
+              "type": "string",
+              "operator": "equal",
+              "value": "{{identity}}",
+              "data": {
+                "table": "colaboradores",
+                "column": "id_colaborador",
+                "type": "text",
+                "columnObj": {
+                  "type": "uuid",
+                  "default": "gen_random_uuid()",
+                  "primary": true,
+                  "unique": true,
+                  "nullable": false,
+                  "name": "id_colaborador"
+                }
+              },
+              "operation": "="
+            }
+          ],
+          "conditional": null,
+          "valid": true
+        }
       }
     },
     "output": true,

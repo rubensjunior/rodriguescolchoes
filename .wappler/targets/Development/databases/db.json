@@ -108,9 +108,7 @@
         }
       },
       "colaboradores": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_colaborador": {
             "db": {
@@ -193,6 +191,15 @@
             }
           },
           "portaria": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "dashboard": {
             "db": {
               "type": "string",
               "maxLength": -5,
