@@ -1,4 +1,5 @@
-<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="produtos" appConnect="local" components="{dmxBootstrap5Modal:{}}" -->
+<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="produtos" appConnect="local" components="{dmxBootstrap5Modal:{},dmxBootstrap5TableGenerator:{},dmxFormatter:{}}" -->
+<dmx-serverconnect id="listar_produtos" url="/api/marketing/Produtos/listar-produtos"></dmx-serverconnect>
 <div class="modal" id="modal_criar" is="dmx-bs5-modal" tabindex="-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -7,7 +8,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="form1">
+                <form id="form_criar_produto" is="dmx-serverconnect-form" method="post" action="/api/marketing/Produtos/criar-produto" dmx-on:error="notificacoes.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response+'. Entre em contato com o suporte.')" dmx-on:success="form_criar_produto.reset();modal_criar.hide();notificacoes.success('Produto cadastrado com sucesso!')">
                     <div class="row">
                         <div class="col-3">
                             <div class="form-group mb-3"> <label for="cod_produto" class="form-label">Codigo</label>
@@ -33,7 +34,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Cadastrar produto</button>
+                <button type="button" class="btn btn-primary" dmx-on:click="form_criar_produto.submit()">Cadastrar produto</button>
             </div>
         </div>
     </div>
@@ -47,5 +48,28 @@
             <button id="btn1" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal_criar"><i class="fas fa-plus me-2"></i>Adicionar</button>
         </div>
     </div>
+    <div class="row p-3 rounded-3 border border-light-subtle">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id produtos</th>
+                        <th>Cod produto</th>
+                        <th>Nome produto</th>
+                        <th>Descricao produtos</th>
+                    </tr>
+                </thead>
+                <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="listar_produtos.data.query_produtos.data" id="tableRepeat1">
+                    <tr>
+                        <td dmx-text="id_produtos"></td>
+                        <td dmx-text="cod_produto"></td>
+                        <td dmx-text="nome_produto"></td>
+                        <td dmx-text="descricao_produtos.trunc(128, true, '...')"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<meta name="ac:route" content="/dashboard/produtos">
+
+<meta name="ac:route" content="/backoffice/f/produtos">

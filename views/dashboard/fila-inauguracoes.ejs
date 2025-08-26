@@ -1,7 +1,12 @@
 <!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="filainauguracoes" appConnect="local" components="{dmxBootstrap5Modal:{},dmxValidator:{},dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxDataTraversal:{}}" -->
-<dmx-data-detail id="data_fila" dmx-bind:data="listar_inauguracoes.data.query_inauguracao.data" key="id_inauguracao"></dmx-data-detail>
-<dmx-serverconnect id="listar_inauguracoes" url="/api/marketing/listar-inauguracao"></dmx-serverconnect>
+
+
+
+
+
+<dmx-data-detail id="data_fila" dmx-bind:data="listar_inauguracoes.data.query_inauguracao.data" key="id_inauguracao"></dmx-data-detail><dmx-data-detail id="data_produto"></dmx-data-detail><dmx-serverconnect id="listar_produtos" url="/api/marketing/Produtos/listar-produtos"></dmx-serverconnect><dmx-serverconnect id="listar_inauguracoes" url="/api/marketing/listar-inauguracao"></dmx-serverconnect>
 <dmx-serverconnect id="listar_regionais" url="/api/dashboard/listar-regional"></dmx-serverconnect>
+<dmx-serverconnect id="listar_produto_inauguracao" url="/api/marketing/listar-produto-inauguracao"></dmx-serverconnect>
 <div class="modal" id="modal_criar_fila" is="dmx-bs5-modal" tabindex="-1">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -251,6 +256,42 @@
         </div>
     </div>
 </div>
+<div class="modal" id="modal_adicionar_produto" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Adicionar produto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" dmx-on:click="data_fila.select(0);form1.reset()"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form_criar_produto_nauguracao" is="dmx-serverconnect-form" method="post" action="/api/marketing/criar-produto-inauguracao" dmx-on:error="notificacoes.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response+'. Entre em contato com o suporte.')" dmx-on:success="data_fila.select(0);form_criar_produto_nauguracao.reset();modal_adicionar_produto.hide();notificacoes.success('Produto adicionado a inauguração com sucesso!')">
+                    <div class="form-group mb-3"> <label for="input1" class="form-label">Produto</label>
+                        <select id="produto" class="form-select" dmx-bind:options="listar_produtos.data.query_produtos.data" optiontext="nome_produto" optionvalue="id_produtos" name="produto" required="" data-msg-required="Este é um campo obrigatório!">
+                            <option selected="" value="">Selecione</option>
+                        </select>
+                        <input id="id_inauguracao" name="id_inauguracao" type="hidden" class="form-control" dmx-bind:value="data_fila.data.id_inauguracao">
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="qtd_disponivel" class="form-label">QTD disponível</label>
+                                <input type="number" class="form-control" id="qtd_disponivel" name="qtd_disponivel" aria-describedby="input2_help" required="" data-msg-required="Este é um campo obrigatório!">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="qtd_cpf" class="form-label">QTD por CPF</label>
+                                <input type="number" class="form-control" id="qtd_cpf" name="qtd_cpf" aria-describedby="input3_help" required="" data-msg-required="Este é um campo obrigatório!">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" dmx-on:click="data_fila.select(0);form1.reset()">Cancelar</button>
+                <button type="button" class="btn btn-primary" dmx-on:click="form_criar_produto_nauguracao.submit()">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container-lg my-4 px-2 px-md-0">
     <div class="row align-items-center justify-content-between mb-4 px-0">
         <div class="col align-self-center">
@@ -289,7 +330,7 @@
                                 <button id="dropdown1" class="btn dropdown-toggle btn-light btn-sm" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ações</button>
                                 <div class="dropdown-menu" aria-labelledby="dropdown1">
                                     <a class="dropdown-item" dmx-on:click="data_fila.select(id_inauguracao);modal_editar_fila.show()">Editar</a>
-                                    <a class="dropdown-item" href="#" dmx-on:click="data_fila.select(id_inauguracao);modal_editar_fila.show()">Adicionar Produto</a>
+                                    <a class="dropdown-item" href="#" dmx-on:click="data_fila.select(id_inauguracao);modal_adicionar_produto.show()">Adicionar Produto</a>
                                 </div>
                             </div>
                         </td>

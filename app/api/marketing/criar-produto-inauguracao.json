@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/dashboard/fila-inauguracoes.ejs",
+      "linkedForm": "form_criar_produto_nauguracao"
+    },
+    "$_POST": [
+      {
+        "type": "number",
+        "fieldName": "id_inauguracao",
+        "name": "id_inauguracao"
+      },
+      {
+        "type": "number",
+        "fieldName": "qtd_disponivel",
+        "options": {
+          "rules": {}
+        },
+        "name": "qtd_disponivel"
+      },
+      {
+        "type": "number",
+        "fieldName": "qtd_cpf",
+        "options": {
+          "rules": {}
+        },
+        "name": "qtd_cpf"
+      },
+      {
+        "type": "number",
+        "fieldName": "produto",
+        "options": {
+          "rules": {}
+        },
+        "name": "produto"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "insert",
+      "module": "dbupdater",
+      "action": "insert",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "insert",
+          "values": [
+            {
+              "table": "inauguracao_produto",
+              "column": "produto_inaug_id",
+              "type": "number",
+              "value": "{{$_POST.produto}}"
+            },
+            {
+              "table": "inauguracao_produto",
+              "column": "inauguracao_id",
+              "type": "number",
+              "value": "{{$_POST.id_inauguracao}}"
+            },
+            {
+              "table": "inauguracao_produto",
+              "column": "unidades_disponiveis",
+              "type": "number",
+              "value": "{{$_POST.qtd_disponivel}}"
+            },
+            {
+              "table": "inauguracao_produto",
+              "column": "limite_por_pessoa",
+              "type": "number",
+              "value": "{{$_POST.qtd_cpf}}"
+            },
+            {
+              "table": "inauguracao_produto",
+              "column": "status",
+              "type": "text",
+              "value": "{{'Ativo'}}"
+            }
+          ],
+          "table": "inauguracao_produto",
+          "returning": "id_inaug_produto",
+          "query": "insert into \"inauguracao_produto\" (\"inauguracao_id\", \"limite_por_pessoa\", \"produto_inaug_id\", \"status\", \"unidades_disponiveis\") values (?, ?, ?, ?, ?) returning \"id_inaug_produto\"",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.produto}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.id_inauguracao}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.qtd_disponivel}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.qtd_cpf}}",
+              "test": ""
+            },
+            {
+              "name": ":P5",
+              "type": "expression",
+              "value": "{{'Ativo'}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "identity",
+          "type": "text"
+        },
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

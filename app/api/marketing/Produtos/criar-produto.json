@@ -1,0 +1,226 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/dashboard/produtos.ejs",
+      "linkedForm": "form_criar_produto"
+    },
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "cod_produto",
+        "name": "cod_produto"
+      },
+      {
+        "type": "text",
+        "fieldName": "nome_produto",
+        "name": "nome_produto"
+      },
+      {
+        "type": "file",
+        "fieldName": "file1",
+        "name": "file1",
+        "sub": [
+          {
+            "type": "text",
+            "name": "name"
+          },
+          {
+            "type": "text",
+            "name": "type"
+          },
+          {
+            "type": "number",
+            "name": "size"
+          },
+          {
+            "type": "text",
+            "name": "error"
+          }
+        ],
+        "outputType": "file"
+      },
+      {
+        "type": "text",
+        "fieldName": "descricao",
+        "name": "descricao"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "upload_image",
+        "module": "upload",
+        "action": "upload",
+        "options": {
+          "fields": "{{$_POST.file1}}",
+          "path": "/public/assets/imagem-produtos",
+          "template": "{name}.{ext}",
+          "replaceSpace": true,
+          "replaceDiacritics": true,
+          "asciiOnly": true,
+          "overwrite": true
+        },
+        "meta": [
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "path",
+            "type": "text"
+          },
+          {
+            "name": "url",
+            "type": "text"
+          },
+          {
+            "name": "type",
+            "type": "text"
+          },
+          {
+            "name": "size",
+            "type": "text"
+          },
+          {
+            "name": "error",
+            "type": "number"
+          }
+        ],
+        "outputType": "file"
+      },
+      {
+        "name": "image",
+        "module": "image",
+        "action": "load",
+        "options": {
+          "path": "{{upload_image.path}}"
+        },
+        "outputType": "object",
+        "meta": [
+          {
+            "name": "width",
+            "type": "number"
+          },
+          {
+            "name": "height",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "name": "",
+        "module": "image",
+        "action": "crop",
+        "options": {
+          "instance": "image",
+          "x": "center",
+          "y": "middle",
+          "width": 800,
+          "height": 800
+        }
+      },
+      {
+        "name": "produto_image",
+        "module": "image",
+        "action": "save",
+        "options": {
+          "instance": "image",
+          "path": "/public/assets/imagem-produtos/tratado",
+          "format": "jpeg",
+          "quality": 100,
+          "overwrite": true
+        },
+        "output": true
+      },
+      {
+        "name": "fileRemove",
+        "module": "fs",
+        "action": "remove",
+        "options": {
+          "path": "{{upload_image.path}}"
+        },
+        "outputType": "boolean"
+      },
+      {
+        "name": "insert",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "produtos",
+                "column": "nome_produto",
+                "type": "text",
+                "value": "{{$_POST.nome_produto}}"
+              },
+              {
+                "table": "produtos",
+                "column": "descricao_produtos",
+                "type": "text",
+                "value": "{{$_POST.descricao}}"
+              },
+              {
+                "table": "produtos",
+                "column": "cod_produto",
+                "type": "text",
+                "value": "{{$_POST.cod_produto}}"
+              },
+              {
+                "table": "produtos",
+                "column": "url_imagens",
+                "type": "text",
+                "value": "{{produto_image}}"
+              }
+            ],
+            "table": "produtos",
+            "returning": "id_produtos",
+            "query": "insert into \"produtos\" (\"cod_produto\", \"descricao_produtos\", \"nome_produto\", \"url_imagens\") values (?, ?, ?, ?) returning \"id_produtos\"",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.nome_produto}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.descricao}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.cod_produto}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{produto_image}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  },
+  "usedModules": {
+    "sharp": "^0.29.3"
+  }
+}

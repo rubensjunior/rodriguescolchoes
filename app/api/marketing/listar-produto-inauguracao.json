@@ -1,0 +1,151 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "inauguracao_produto",
+              "column": "id_inaug_produto"
+            },
+            {
+              "table": "inauguracao_produto",
+              "column": "produto_inaug_id"
+            },
+            {
+              "table": "inauguracao_produto",
+              "column": "inauguracao_id"
+            },
+            {
+              "table": "inauguracao_produto",
+              "column": "unidades_disponiveis"
+            },
+            {
+              "table": "inauguracao_produto",
+              "column": "limite_por_pessoa"
+            },
+            {
+              "table": "inauguracao_produto",
+              "column": "quantidade_consumida"
+            },
+            {
+              "table": "inauguracao_produto",
+              "column": "status"
+            },
+            {
+              "table": "produtos",
+              "column": "nome_produto"
+            },
+            {
+              "table": "produtos",
+              "column": "descricao_produtos"
+            },
+            {
+              "table": "produtos",
+              "column": "cod_produto"
+            },
+            {
+              "table": "produtos",
+              "column": "url_imagens"
+            }
+          ],
+          "params": [],
+          "table": {
+            "name": "inauguracao_produto"
+          },
+          "primary": "id_inaug_produto",
+          "joins": [
+            {
+              "table": "produtos",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "produtos",
+                    "column": "id_produtos",
+                    "operation": "=",
+                    "operator": "equal",
+                    "value": {
+                      "table": "inauguracao_produto",
+                      "column": "produto_inaug_id",
+                      "type": "number"
+                    }
+                  }
+                ]
+              },
+              "primary": "id_produtos"
+            }
+          ],
+          "query": "select \"inauguracao_produto\".\"id_inaug_produto\", \"inauguracao_produto\".\"produto_inaug_id\", \"inauguracao_produto\".\"inauguracao_id\", \"inauguracao_produto\".\"unidades_disponiveis\", \"inauguracao_produto\".\"limite_por_pessoa\", \"inauguracao_produto\".\"quantidade_consumida\", \"inauguracao_produto\".\"status\", \"produtos\".\"nome_produto\", \"produtos\".\"descricao_produtos\", \"produtos\".\"cod_produto\", \"produtos\".\"url_imagens\" from \"inauguracao_produto\" inner join \"produtos\" on \"produtos\".\"id_produtos\" = \"inauguracao_produto\".\"produto_inaug_id\""
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "id_inaug_produto"
+        },
+        {
+          "type": "number",
+          "name": "produto_inaug_id"
+        },
+        {
+          "type": "number",
+          "name": "inauguracao_id"
+        },
+        {
+          "type": "number",
+          "name": "unidades_disponiveis"
+        },
+        {
+          "type": "number",
+          "name": "limite_por_pessoa"
+        },
+        {
+          "type": "number",
+          "name": "quantidade_consumida"
+        },
+        {
+          "type": "text",
+          "name": "status"
+        },
+        {
+          "type": "text",
+          "name": "nome_produto"
+        },
+        {
+          "type": "text",
+          "name": "descricao_produtos"
+        },
+        {
+          "type": "text",
+          "name": "cod_produto"
+        },
+        {
+          "type": "text",
+          "name": "url_imagens"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}
