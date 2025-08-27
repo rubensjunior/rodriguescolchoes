@@ -22,7 +22,7 @@
         "name": "cpf"
       },
       {
-        "type": "date",
+        "type": "text",
         "fieldName": "data_nascimento",
         "options": {
           "rules": {}
@@ -48,9 +48,6 @@
       {
         "type": "text",
         "fieldName": "placa",
-        "options": {
-          "rules": {}
-        },
         "name": "placa"
       },
       {
@@ -82,68 +79,20 @@
       {
         "type": "text",
         "fieldName": "tipo_veiculo",
-        "options": {
-          "rules": {}
-        },
         "name": "tipo_veiculo"
       },
       {
         "type": "text",
-        "name": "password"
+        "name": "placa_veiculo"
+      },
+      {
+        "type": "text",
+        "name": "colaborador"
       }
     ]
   },
   "exec": {
     "steps": [
-      {
-        "name": "validate",
-        "module": "validator",
-        "action": "validate",
-        "options": {
-          "data": [
-            {
-              "name": "validar_cpf",
-              "value": "{{$_POST.cpf}}",
-              "rules": {
-                "db:notexists": {
-                  "param": {
-                    "connection": "db",
-                    "table": "colaboradores",
-                    "column": "cpf_colaborador"
-                  },
-                  "message": "CPF Já cadastrado!"
-                }
-              },
-              "fieldName": "cpf"
-            }
-          ]
-        }
-      },
-      {
-        "name": "validate_copy",
-        "module": "validator",
-        "action": "validate",
-        "options": {
-          "data": [
-            {
-              "name": "validate_veiculo",
-              "value": "{{$_POST.placa}}",
-              "rules": {
-                "db:notexists": {
-                  "param": {
-                    "connection": "db",
-                    "table": "veiculos_colaboradores",
-                    "column": "placa_veiculo"
-                  },
-                  "message": "Veículo já cadastrado."
-                }
-              },
-              "fieldName": "placa"
-            }
-          ]
-        },
-        "collapsed": true
-      },
       {
         "name": "hash",
         "module": "crypto",
@@ -155,7 +104,7 @@
         "outputType": "text"
       },
       {
-        "name": "insert_colaborador",
+        "name": "colaborador",
         "module": "dbupdater",
         "action": "insert",
         "options": {
@@ -202,7 +151,7 @@
             ],
             "table": "colaboradores",
             "returning": "id_colaborador",
-            "query": "insert into \"colaboradores\" (\"cpf_colaborador\", \"data_nascimento\", \"email\", \"nome_colaborador\", \"password\", \"telefone\") values (?, ?, ?, ?, ?, ?) returning \"id_colaborador\"",
+            "query": "insert into \"colaboradores\" (\"cpf_colaborador\", \"data_nascimento\", \"email\", \"nome_colaborador\", \"password\", \"telefone\") values (?, ?, ?, ?, ?, ?)",
             "params": [
               {
                 "name": ":P1",
@@ -255,7 +204,7 @@
         ]
       },
       {
-        "name": "insert_veiculo",
+        "name": "veiculo",
         "module": "dbupdater",
         "action": "insert",
         "options": {
@@ -273,13 +222,13 @@
                 "table": "veiculos_colaboradores",
                 "column": "placa_veiculo",
                 "type": "text",
-                "value": "{{$_POST.placa.uppercase()}}"
+                "value": "{{$_POST.placa}}"
               },
               {
                 "table": "veiculos_colaboradores",
                 "column": "colaborador",
                 "type": "text",
-                "value": "{{insert_colaborador.identity}}"
+                "value": "{{colaborador.identity}}"
               },
               {
                 "table": "veiculos_colaboradores",
@@ -313,13 +262,13 @@
               {
                 "name": ":P2",
                 "type": "expression",
-                "value": "{{$_POST.placa.uppercase()}}",
+                "value": "{{$_POST.placa}}",
                 "test": ""
               },
               {
                 "name": ":P3",
                 "type": "expression",
-                "value": "{{insert_colaborador.identity}}",
+                "value": "{{colaborador.identity}}",
                 "test": ""
               },
               {
@@ -355,7 +304,7 @@
         ]
       },
       {
-        "name": "insert_motorista_veiculo",
+        "name": "motorista",
         "module": "dbupdater",
         "action": "insert",
         "options": {
@@ -367,41 +316,41 @@
                 "table": "veiculos_motoristas",
                 "column": "id_motorista",
                 "type": "text",
-                "value": "{{insert_colaborador.identity}}"
+                "value": "{{colaborador.identity}}"
               },
               {
                 "table": "veiculos_motoristas",
                 "column": "id_veiculo",
                 "type": "number",
-                "value": "{{insert_veiculo.identity}}"
+                "value": "{{veiculo.identity}}"
               },
               {
                 "table": "veiculos_motoristas",
                 "column": "id_responsavel_motorista",
                 "type": "text",
-                "value": "{{insert_colaborador.identity}}"
+                "value": "{{colaborador.identity}}"
               }
             ],
             "table": "veiculos_motoristas",
             "returning": "id_veiculos_motoristas",
-            "query": "insert into \"veiculos_motoristas\" (\"id_motorista\", \"id_responsavel_motorista\", \"id_veiculo\") values (?, ?, ?) returning \"id_veiculos_motoristas\"",
+            "query": "insert into \"veiculos_motoristas\" (\"id_motorista\", \"id_responsavel_motorista\", \"id_veiculo\") values (?, ?, ?)",
             "params": [
               {
                 "name": ":P1",
                 "type": "expression",
-                "value": "{{insert_colaborador.identity}}",
+                "value": "{{colaborador.identity}}",
                 "test": ""
               },
               {
                 "name": ":P2",
                 "type": "expression",
-                "value": "{{insert_veiculo.identity}}",
+                "value": "{{veiculo.identity}}",
                 "test": ""
               },
               {
                 "name": ":P3",
                 "type": "expression",
-                "value": "{{insert_colaborador.identity}}",
+                "value": "{{colaborador.identity}}",
                 "test": ""
               }
             ]
@@ -424,12 +373,6 @@
         "action": "send",
         "options": {
           "url": "https://backend.spacefeed.app/api/qrcode",
-          "params": {
-            "usuario": "{{$_POST.cpf+'}'}}",
-            "placa": "{{$_POST.placa}}",
-            "veiculo": "{{insert_veiculo.identity}}",
-            "id_usuario": "{{insert_colaborador.identity}}"
-          },
           "dataType": "json",
           "schema": [
             {
@@ -446,6 +389,10 @@
               "type": "object",
               "name": "headers",
               "sub": [
+                {
+                  "type": "text",
+                  "name": "connection"
+                },
                 {
                   "type": "text",
                   "name": "content-length"
@@ -476,10 +423,15 @@
                 }
               ]
             }
-          ]
+          ],
+          "params": {
+            "usuario": "{{$_POST.cpf}}",
+            "placa": "{{$_POST.placa}}",
+            "veiculo": "{{veiculo.identity}}",
+            "id_usuario": "{{colaborador.identity}}"
+          }
         },
         "output": true,
-        "collapsed": true,
         "meta": [
           {
             "type": "object",
@@ -495,6 +447,10 @@
             "type": "object",
             "name": "headers",
             "sub": [
+              {
+                "type": "text",
+                "name": "connection"
+              },
               {
                 "type": "text",
                 "name": "content-length"
@@ -526,7 +482,8 @@
             ]
           }
         ],
-        "outputType": "object"
+        "outputType": "object",
+        "collapsed": true
       }
     ]
   },
