@@ -22,14 +22,6 @@
         "name": "cpf"
       },
       {
-        "type": "date",
-        "fieldName": "data_nascimento",
-        "options": {
-          "rules": {}
-        },
-        "name": "data_nascimento"
-      },
-      {
         "type": "text",
         "fieldName": "email",
         "options": {
@@ -177,12 +169,6 @@
               },
               {
                 "table": "colaboradores",
-                "column": "data_nascimento",
-                "type": "date",
-                "value": "{{$_POST.data_nascimento}}"
-              },
-              {
-                "table": "colaboradores",
                 "column": "email",
                 "type": "text",
                 "value": "{{$_POST.email}}"
@@ -202,7 +188,7 @@
             ],
             "table": "colaboradores",
             "returning": "id_colaborador",
-            "query": "insert into \"colaboradores\" (\"cpf_colaborador\", \"data_nascimento\", \"email\", \"nome_colaborador\", \"password\", \"telefone\") values (?, ?, ?, ?, ?, ?) returning \"id_colaborador\"",
+            "query": "insert into \"colaboradores\" (\"cpf_colaborador\", \"email\", \"nome_colaborador\", \"password\", \"telefone\") values (?, ?, ?, ?, ?) returning \"id_colaborador\"",
             "params": [
               {
                 "name": ":P1",
@@ -219,23 +205,17 @@
               {
                 "name": ":P3",
                 "type": "expression",
-                "value": "{{$_POST.data_nascimento}}",
+                "value": "{{$_POST.email}}",
                 "test": ""
               },
               {
                 "name": ":P4",
                 "type": "expression",
-                "value": "{{$_POST.email}}",
-                "test": ""
-              },
-              {
-                "name": ":P5",
-                "type": "expression",
                 "value": "{{$_POST.telefone}}",
                 "test": ""
               },
               {
-                "name": ":P6",
+                "name": ":P5",
                 "type": "expression",
                 "value": "{{hash}}",
                 "test": ""
