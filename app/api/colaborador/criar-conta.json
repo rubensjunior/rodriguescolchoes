@@ -425,7 +425,7 @@
         "options": {
           "url": "https://backend.spacefeed.app/api/qrcode",
           "params": {
-            "usuario": "{{$_POST.cpf+'}'}}",
+            "usuario": "{{$_POST.cpf}}",
             "placa": "{{$_POST.placa}}",
             "veiculo": "{{insert_veiculo.identity}}",
             "id_usuario": "{{insert_colaborador.identity}}"
