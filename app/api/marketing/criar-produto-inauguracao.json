@@ -14,7 +14,13 @@
         "type": "number",
         "fieldName": "qtd_disponivel",
         "options": {
-          "rules": {}
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório!"
+            },
+            "core:number": {}
+          }
         },
         "name": "qtd_disponivel"
       },
@@ -22,7 +28,13 @@
         "type": "number",
         "fieldName": "qtd_cpf",
         "options": {
-          "rules": {}
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório!"
+            },
+            "core:number": {}
+          }
         },
         "name": "qtd_cpf"
       },
@@ -30,9 +42,28 @@
         "type": "number",
         "fieldName": "produto",
         "options": {
-          "rules": {}
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório!"
+            }
+          }
         },
         "name": "produto"
+      },
+      {
+        "type": "number",
+        "fieldName": "valor_unitario",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório!"
+            },
+            "core:number": {}
+          }
+        },
+        "name": "valor_unitario"
       }
     ]
   },
@@ -75,11 +106,23 @@
               "column": "status",
               "type": "text",
               "value": "{{'Ativo'}}"
+            },
+            {
+              "table": "inauguracao_produto",
+              "column": "valor",
+              "type": "number",
+              "value": "{{$_POST.valor_unitario}}"
+            },
+            {
+              "table": "inauguracao_produto",
+              "column": "quantidade_consumida",
+              "type": "number",
+              "value": "{{0}}"
             }
           ],
           "table": "inauguracao_produto",
           "returning": "id_inaug_produto",
-          "query": "insert into \"inauguracao_produto\" (\"inauguracao_id\", \"limite_por_pessoa\", \"produto_inaug_id\", \"status\", \"unidades_disponiveis\") values (?, ?, ?, ?, ?) returning \"id_inaug_produto\"",
+          "query": "insert into \"inauguracao_produto\" (\"inauguracao_id\", \"limite_por_pessoa\", \"produto_inaug_id\", \"quantidade_consumida\", \"status\", \"unidades_disponiveis\", \"valor\") values (?, ?, ?, ?, ?, ?, ?) returning \"id_inaug_produto\"",
           "params": [
             {
               "name": ":P1",
@@ -109,6 +152,18 @@
               "name": ":P5",
               "type": "expression",
               "value": "{{'Ativo'}}",
+              "test": ""
+            },
+            {
+              "name": ":P6",
+              "type": "expression",
+              "value": "{{$_POST.valor_unitario}}",
+              "test": ""
+            },
+            {
+              "name": ":P7",
+              "type": "expression",
+              "value": "{{0}}",
               "test": ""
             }
           ]

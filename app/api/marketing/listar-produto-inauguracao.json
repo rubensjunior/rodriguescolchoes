@@ -8,6 +8,10 @@
       {
         "type": "text",
         "name": "dir"
+      },
+      {
+        "type": "number",
+        "name": "inauguracao"
       }
     ]
   },
@@ -66,7 +70,15 @@
               "column": "url_imagens"
             }
           ],
-          "params": [],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.inauguracao}}",
+              "test": ""
+            }
+          ],
           "table": {
             "name": "inauguracao_produto"
           },
@@ -95,7 +107,39 @@
               "primary": "id_produtos"
             }
           ],
-          "query": "select \"inauguracao_produto\".\"id_inaug_produto\", \"inauguracao_produto\".\"produto_inaug_id\", \"inauguracao_produto\".\"inauguracao_id\", \"inauguracao_produto\".\"unidades_disponiveis\", \"inauguracao_produto\".\"limite_por_pessoa\", \"inauguracao_produto\".\"quantidade_consumida\", \"inauguracao_produto\".\"status\", \"produtos\".\"nome_produto\", \"produtos\".\"descricao_produtos\", \"produtos\".\"cod_produto\", \"produtos\".\"url_imagens\" from \"inauguracao_produto\" inner join \"produtos\" on \"produtos\".\"id_produtos\" = \"inauguracao_produto\".\"produto_inaug_id\""
+          "query": "select \"inauguracao_produto\".\"id_inaug_produto\", \"inauguracao_produto\".\"produto_inaug_id\", \"inauguracao_produto\".\"inauguracao_id\", \"inauguracao_produto\".\"unidades_disponiveis\", \"inauguracao_produto\".\"limite_por_pessoa\", \"inauguracao_produto\".\"quantidade_consumida\", \"inauguracao_produto\".\"status\", \"produtos\".\"nome_produto\", \"produtos\".\"descricao_produtos\", \"produtos\".\"cod_produto\", \"produtos\".\"url_imagens\" from \"inauguracao_produto\" inner join \"produtos\" on \"produtos\".\"id_produtos\" = \"inauguracao_produto\".\"produto_inaug_id\" where \"inauguracao_produto\".\"inauguracao_id\" = ?",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "inauguracao_produto.inauguracao_id",
+                "field": "inauguracao_produto.inauguracao_id",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.inauguracao}}",
+                "data": {
+                  "table": "inauguracao_produto",
+                  "column": "inauguracao_id",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "references": "id_inauguracao",
+                    "inTable": "inauguracao",
+                    "referenceType": "bigInteger",
+                    "onUpdate": "NO ACTION",
+                    "onDelete": "NO ACTION",
+                    "name": "inauguracao_id"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          }
         }
       },
       "output": true,

@@ -6,7 +6,7 @@
 
 <dmx-data-detail id="data_fila" dmx-bind:data="listar_inauguracoes.data.query_inauguracao.data" key="id_inauguracao"></dmx-data-detail><dmx-data-detail id="data_produto"></dmx-data-detail><dmx-serverconnect id="listar_produtos" url="/api/marketing/Produtos/listar-produtos"></dmx-serverconnect><dmx-serverconnect id="listar_inauguracoes" url="/api/marketing/listar-inauguracao"></dmx-serverconnect>
 <dmx-serverconnect id="listar_regionais" url="/api/dashboard/listar-regional"></dmx-serverconnect>
-<dmx-serverconnect id="listar_produto_inauguracao" url="/api/marketing/listar-produto-inauguracao"></dmx-serverconnect>
+<dmx-serverconnect id="listar_produto_inauguracao" url="/api/marketing/listar-produto-inauguracao" noload="true"></dmx-serverconnect>
 <div class="modal" id="modal_criar_fila" is="dmx-bs5-modal" tabindex="-1">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -257,14 +257,14 @@
     </div>
 </div>
 <div class="modal" id="modal_adicionar_produto" is="dmx-bs5-modal" tabindex="-1">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Adicionar produto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" dmx-on:click="data_fila.select(0);form1.reset()"></button>
             </div>
             <div class="modal-body">
-                <form id="form_criar_produto_nauguracao" is="dmx-serverconnect-form" method="post" action="/api/marketing/criar-produto-inauguracao" dmx-on:error="notificacoes.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response+'. Entre em contato com o suporte.')" dmx-on:success="data_fila.select(0);form_criar_produto_nauguracao.reset();modal_adicionar_produto.hide();notificacoes.success('Produto adicionado a inauguração com sucesso!')">
+                <form id="form_criar_produto_nauguracao" is="dmx-serverconnect-form" method="post" action="/api/marketing/criar-produto-inauguracao" dmx-on:error="notificacoes.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response+'. Entre em contato com o suporte.')" dmx-on:success="form_criar_produto_nauguracao.reset();notificacoes.success('Produto adicionado a inauguração com sucesso!');listar_produto_inauguracao.load({inauguracao: data_fila.data.id_inauguracao})">
                     <div class="form-group mb-3"> <label for="input1" class="form-label">Produto</label>
                         <select id="produto" class="form-select" dmx-bind:options="listar_produtos.data.query_produtos.data" optiontext="nome_produto" optionvalue="id_produtos" name="produto" required="" data-msg-required="Este é um campo obrigatório!">
                             <option selected="" value="">Selecione</option>
@@ -282,8 +282,35 @@
                                 <input type="number" class="form-control" id="qtd_cpf" name="qtd_cpf" aria-describedby="input3_help" required="" data-msg-required="Este é um campo obrigatório!">
                             </div>
                         </div>
+                        <div class="col">
+                            <div class="form-group mb-3"> <label for="valor_unitario" class="form-label">Valor unitario</label>
+                                <input type="number" class="form-control" id="valor_unitario" name="valor_unitario" aria-describedby="input3_help" required="" data-msg-required="Este é um campo obrigatório!">
+                            </div>
+                        </div>
                     </div>
                 </form>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Cod</th>
+                            <th>Produto</th>
+                            <th>Un disponiveis</th>
+                            <th>Limite por pessoa</th>
+                            <th>Quantidade consumida</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="listar_produto_inauguracao.data.query" id="tableRepeat2">
+                        <tr>
+                            <td dmx-text="cod_produto"></td>
+                            <td dmx-text="nome_produto"></td>
+                            <td dmx-text="unidades_disponiveis"></td>
+                            <td dmx-text="limite_por_pessoa"></td>
+                            <td dmx-text="quantidade_consumida"></td>
+                            <td dmx-text="status"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" dmx-on:click="data_fila.select(0);form1.reset()">Cancelar</button>
@@ -298,7 +325,7 @@
             <h4 class="m-0">Gestão de Filas de Inagurações</h4>
         </div>
         <div class="col text-end align-self-center">
-            <button id="btn1" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal_criar_fila"><i class="fas fa-plus me-2"></i>Adicionar</button>
+            <button id="btn1" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_criar_fila"><i class="fas fa-plus me-2"></i>Adicionar</button>
         </div>
     </div>
     <div class="row p-3 rounded-3 border border-light-subtle">
@@ -318,19 +345,19 @@
                 </thead>
                 <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="listar_inauguracoes.data.query_inauguracao.data" id="tableRepeat1">
                     <tr>
-                        <td dmx-text="nome_loja" class="titulo-tabela py-4"></td>
-                        <td dmx-text="cidade" class="titulo-tabela py-4"></td>
-                        <td dmx-text="uf" class="titulo-tabela py-4"></td>
-                        <td dmx-text="data_inicio.formatDate('dd/MM/yyyy HH:mm')" class="titulo-tabela py-4"></td>
-                        <td dmx-text="data_fim.formatDate('dd/MM/yyyy HH:mm')" class="titulo-tabela py-4"></td>
-                        <td dmx-text="status" class="titulo-tabela py-4"></td>
-                        <td dmx-text="total_senhas" class="titulo-tabela py-4"></td>
-                        <td class="titulo-tabela py-3 text-end">
+                        <td dmx-text="nome_loja" class="titulo-tabela py-2"></td>
+                        <td dmx-text="cidade" class="titulo-tabela py-2"></td>
+                        <td dmx-text="uf" class="titulo-tabela py-2"></td>
+                        <td dmx-text="data_inicio.formatDate('dd/MM/yyyy HH:mm')" class="titulo-tabela py-2"></td>
+                        <td dmx-text="data_fim.formatDate('dd/MM/yyyy HH:mm')" class="titulo-tabela py-2"></td>
+                        <td dmx-text="status" class="titulo-tabela py-2"></td>
+                        <td dmx-text="total_senhas" class="titulo-tabela py-2"></td>
+                        <td class="titulo-tabela py-2 text-end">
                             <div class="dropdown">
                                 <button id="dropdown1" class="btn dropdown-toggle btn-light btn-sm" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ações</button>
                                 <div class="dropdown-menu" aria-labelledby="dropdown1">
                                     <a class="dropdown-item" dmx-on:click="data_fila.select(id_inauguracao);modal_editar_fila.show()">Editar</a>
-                                    <a class="dropdown-item" href="#" dmx-on:click="data_fila.select(id_inauguracao);modal_adicionar_produto.show()">Adicionar Produto</a>
+                                    <a class="dropdown-item" dmx-on:click="data_fila.select(id_inauguracao);listar_produto_inauguracao.load({inauguracao: id_inauguracao});modal_adicionar_produto.show()">Adicionar Produto</a>
                                 </div>
                             </div>
                         </td>
