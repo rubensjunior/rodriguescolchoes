@@ -178,12 +178,12 @@
         "action": "upload",
         "options": {
           "fields": "{{$_POST.foto}}",
-          "path": "/public/upload/Nova%20pasta",
+          "path": "/public/upload",
           "replaceSpace": true,
           "replaceDiacritics": true,
           "asciiOnly": true,
           "overwrite": true,
-          "template": "{{$_POST.cpf}}{ext}"
+          "template": "{{$_POST.cpf}}.{ext}"
         },
         "meta": [
           {

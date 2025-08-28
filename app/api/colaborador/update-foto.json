@@ -65,7 +65,7 @@
           "asciiOnly": true,
           "overwrite": true,
           "path": "/public/upload",
-          "template": "{{$_POST.cpf}}{ext}"
+          "template": "{{$_POST.cpf}}.{ext}"
         },
         "meta": [
           {
