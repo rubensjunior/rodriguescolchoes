@@ -11,7 +11,7 @@
 
     .camera-preview {
         width: 100%;
-        height: 300px;
+        height: 375px;
         border-radius: 15px;
         background: #f8f9fa;
         border: 2px dashed #dee2e6;
@@ -25,14 +25,21 @@
     .camera-preview video {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         border-radius: 13px;
+        background: #000;
+    }
+
+    .camera-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 13px;
+        background: #000;
     }
 
     .camera-preview canvas {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         border-radius: 13px;
     }
 
@@ -220,6 +227,7 @@
                                                 <li>Fundo neutro é recomendado</li>
                                                 <li>Formato: JPG, PNG (máx. 5MB)</li>
                                                 <li>Para melhor qualidade, use a câmera</li>
+                                                <li>Foto será salva no formato 4:5 (ideal para perfil)</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -385,24 +393,42 @@
 
                         <!-- Navigation Buttons -->
                         <div class="form-navigation mt-4">
-                            <!-- Steps 1 and 2: Apenas botão "Próximo" -->
-                            <div dmx-show="current_step.value == 1 || current_step.value == 2" class="d-grid">
-                                <button type="button" class="btn btn-primary btn-lg" dmx-on:click="current_step.setValue(current_step.value + 1)">
+                            <!-- Step 1: Apenas botão "Próximo" -->
+                            <div dmx-show="current_step.value == 1" class="d-grid">
+                                <button type="button" class="btn btn-primary btn-lg" dmx-on:click="current_step.setValue(2)">
                                     Próximo<i class="fas fa-arrow-right ms-2"></i>
                                 </button>
                             </div>
 
-                            <!-- Step 3: Botões "Voltar" e "Próximo" -->
-                            <div dmx-show="current_step.value == 3" class="row g-2 g-md-3">
+                            <!-- Step 2: Botões "Voltar" e "Próximo" -->
+                            <div dmx-show="current_step.value == 2" class="row g-2 g-md-3">
                                 <div class="col-6">
-                                    <button type="button" class="btn btn-outline-secondary w-100" dmx-on:click="current_step.setValue(current_step.value - 1)">
+                                    <button type="button" class="btn btn-outline-secondary w-100" dmx-on:click="current_step.setValue(1)">
                                         <i class="fas fa-arrow-left me-1 d-none d-sm-inline"></i>
                                         <span class="d-none d-sm-inline">Voltar</span>
                                         <span class="d-sm-none"><i class="fas fa-arrow-left"></i></span>
                                     </button>
                                 </div>
                                 <div class="col-6">
-                                    <button type="button" class="btn btn-primary w-100" dmx-on:click="current_step.setValue(current_step.value + 1)">
+                                    <button type="button" class="btn btn-primary w-100" dmx-on:click="current_step.setValue(3)">
+                                        <span class="d-none d-sm-inline">Próximo</span>
+                                        <span class="d-sm-none">Avançar</span>
+                                        <i class="fas fa-arrow-right ms-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Botões "Voltar" e "Próximo" -->
+                            <div dmx-show="current_step.value == 3" class="row g-2 g-md-3">
+                                <div class="col-6">
+                                    <button type="button" class="btn btn-outline-secondary w-100" dmx-on:click="current_step.setValue(2)">
+                                        <i class="fas fa-arrow-left me-1 d-none d-sm-inline"></i>
+                                        <span class="d-none d-sm-inline">Voltar</span>
+                                        <span class="d-sm-none"><i class="fas fa-arrow-left"></i></span>
+                                    </button>
+                                </div>
+                                <div class="col-6">
+                                    <button type="button" class="btn btn-primary w-100" dmx-on:click="current_step.setValue(4)">
                                         <span class="d-none d-sm-inline">Próximo</span>
                                         <span class="d-sm-none">Avançar</span>
                                         <i class="fas fa-arrow-right ms-1"></i>
@@ -414,7 +440,7 @@
                             <div dmx-show="current_step.value == 4" class="row g-2 g-md-3">
                                 <!-- Botão Voltar -->
                                 <div class="col-6">
-                                    <button type="button" class="btn btn-outline-secondary w-100" dmx-on:click="current_step.setValue(current_step.value - 1)">
+                                    <button type="button" class="btn btn-outline-secondary w-100" dmx-on:click="current_step.setValue(3)">
                                         <i class="fas fa-arrow-left me-1 d-none d-sm-inline"></i>
                                         <span class="d-none d-sm-inline">Voltar</span>
                                         <span class="d-sm-none"><i class="fas fa-arrow-left"></i></span>
@@ -693,11 +719,40 @@
     // Capture Photo
     captureBtn.addEventListener('click', function() {
         const context = canvas.getContext('2d');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
         
-        // Draw video frame to canvas
-        context.drawImage(video, 0, 0);
+        // Manter as mesmas dimensões do container de preview
+        const previewRect = photoPreview.getBoundingClientRect();
+        
+        // Formato 4:5 para foto de perfil (320x400 para boa qualidade)
+        canvas.width = 320;
+        canvas.height = 400;
+        
+        // Preencher fundo preto
+        context.fillStyle = '#000';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Calcular como centralizar o vídeo no formato 4:5
+        const videoAspect = video.videoWidth / video.videoHeight;
+        const targetAspect = 4 / 5; // 0.8
+        
+        let drawWidth, drawHeight, offsetX, offsetY;
+        
+        if (videoAspect > targetAspect) {
+            // Vídeo mais largo que 4:5 - ajustar pela altura
+            drawHeight = canvas.height;
+            drawWidth = drawHeight * videoAspect;
+            offsetX = (canvas.width - drawWidth) / 2;
+            offsetY = 0;
+        } else {
+            // Vídeo mais alto ou igual a 4:5 - ajustar pela largura
+            drawWidth = canvas.width;
+            drawHeight = drawWidth / videoAspect;
+            offsetX = 0;
+            offsetY = (canvas.height - drawHeight) / 2;
+        }
+        
+        // Desenhar o vídeo centralizado no formato 4:5
+        context.drawImage(video, offsetX, offsetY, drawWidth, drawHeight);
         
         // Convert to image
         const dataURL = canvas.toDataURL('image/jpeg', 0.8);

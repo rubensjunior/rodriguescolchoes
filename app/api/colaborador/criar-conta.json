@@ -183,7 +183,7 @@
           "replaceDiacritics": true,
           "asciiOnly": true,
           "overwrite": true,
-          "template": "{$_POST.cpf}.{ext}"
+          "template": "{{$_POST.cpf}}.{ext}"
         },
         "meta": [
           {
@@ -242,7 +242,7 @@
           "x": "center",
           "y": "middle",
           "width": 400,
-          "height": 400
+          "height": 500
         }
       },
       {
@@ -304,11 +304,17 @@
                 "column": "password",
                 "type": "text",
                 "value": "{{hash}}"
+              },
+              {
+                "table": "colaboradores",
+                "column": "imagem_perfil",
+                "type": "text",
+                "value": "{{newImage}}"
               }
             ],
             "table": "colaboradores",
             "returning": "id_colaborador",
-            "query": "insert into \"colaboradores\" (\"cpf_colaborador\", \"email\", \"nome_colaborador\", \"password\", \"telefone\") values (?, ?, ?, ?, ?) returning \"id_colaborador\"",
+            "query": "insert into \"colaboradores\" (\"cpf_colaborador\", \"email\", \"imagem_perfil\", \"nome_colaborador\", \"password\", \"telefone\") values (?, ?, ?, ?, ?, ?) returning \"id_colaborador\"",
             "params": [
               {
                 "name": ":P1",
@@ -338,6 +344,12 @@
                 "name": ":P5",
                 "type": "expression",
                 "value": "{{hash}}",
+                "test": ""
+              },
+              {
+                "name": ":P6",
+                "type": "expression",
+                "value": "{{newImage}}",
                 "test": ""
               }
             ]
