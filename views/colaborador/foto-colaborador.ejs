@@ -1,0 +1,535 @@
+<!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="fotocolaborador" appConnect="local" components="{dmxValidator:{}}" -->
+<meta name="ac:route" content="/colaborador/f/foto-colaborador">
+
+<div class="min-vh-100 d-flex flex-column bg-light">
+    <!-- Header -->
+
+    <!-- Main Content -->
+    <main class="flex-fill d-flex align-items-center justify-content-center p-3">
+        <div class="container-lg">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0 text-center">
+                                <i class="fas fa-user-circle me-2 text-primary"></i>
+                                Capturar Foto
+                            </h5>
+                        </div>
+                        <div class="card-body p-3">
+                            <form is="dmx-serverconnect-form" id="foto_form" class="needs-validation" method="post" action="/api/colaborador/salvar-foto">
+
+                                <!-- Camera/Photo Preview Container -->
+                                <div class="camera-container mb-4">
+                                    <div id="photoPreview" class="camera-preview">
+                                        <div id="defaultIcon" class="text-center">
+                                            <i class="fas fa-user fa-4x text-muted mb-3"></i>
+                                            <p class="text-muted mb-0">Foto do colaborador</p>
+                                        </div>
+
+                                        <video id="cameraVideo" style="display: none;" autoplay playsinline></video>
+                                        <canvas id="photoCanvas" style="display: none;"></canvas>
+                                        <img id="capturedPhoto" style="display: none;" alt="Foto capturada">
+
+                                        <div id="cameraControls" class="camera-controls" style="display: none;">
+                                            <button type="button" id="captureBtn" class="camera-btn capture" title="Tirar foto">
+                                                <i class="fas fa-camera"></i>
+                                            </button>
+                                        </div>
+
+                                        <div id="photoControls" class="camera-controls" style="display: none;">
+                                            <button type="button" id="retakeBtn" class="camera-btn retake" title="Tirar nova foto">
+                                                <i class="fas fa-redo"></i>
+                                            </button>
+                                            <button type="button" id="confirmBtn" class="camera-btn confirm" title="Confirmar foto">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Photo Options -->
+                                <div class="photo-options mb-3 d-flex justify-content-center gap-2">
+                                    <button type="button" id="openCameraBtn" class="btn btn-primary">
+                                        <i class="fas fa-camera me-2"></i>Usar Câmera
+                                    </button>
+                                    <button type="button" id="selectFileBtn" class="btn btn-outline-primary">
+                                        <i class="fas fa-upload me-2"></i>Selecionar Arquivo
+                                    </button>
+                                </div>
+
+                                <!-- Hidden File Input -->
+                                <input type="file" id="foto" name="foto" accept="image/*" style="display: none;" required data-msg-required="Por favor, selecione ou tire uma foto">
+
+                                <!-- Hidden Canvas for Photo Data -->
+                                <canvas id="finalPhotoCanvas" style="display: none;"></canvas>
+
+                                <!-- Photo Guidelines -->
+                                <div class="form-text text-center mb-4">
+                                    <div class="alert alert-info border-0">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        <strong>Instruções:</strong>
+                                        <ul class="mb-0 mt-2 text-start">
+                                            <li>Use uma foto de rosto clara e recente</li>
+                                            <li>Fundo neutro é recomendado</li>
+                                            <li>Formato: JPG, PNG (máx. 5MB)</li>
+                                            <li>Para melhor qualidade, use a câmera</li>
+                                            <li>Foto será salva no formato 4:5 (ideal para perfil)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-success btn-lg" dmx-bind:disabled="foto_form.state.executing">
+                                        <span dmx-hide="foto_form.state.executing">
+                                            <i class="fas fa-save me-2"></i>Salvar Foto
+                                        </span>
+                                        <span dmx-show="foto_form.state.executing">
+                                            <span class="spinner-border spinner-border-sm me-2"></span>
+                                            Salvando...
+                                        </span>
+                                    </button>
+                                </div>
+
+                                <!-- Messages -->
+                                <div class="mt-3">
+                                    <!-- Success Message -->
+
+                                    <!-- Error Message -->
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+</div>
+
+<!-- Estilos CSS específicos para a página de foto do colaborador -->
+<style>
+    /* ========================================
+   ESTILOS ESPECÍFICOS PARA FOTO DO COLABORADOR
+   ======================================== */
+
+    /* Container da câmera */
+    .camera-container {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        border-radius: 12px;
+        overflow: hidden;
+        background-color: #f8f9fa;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+
+    .camera-container:hover {
+        border-color: #0056b3;
+        box-shadow: 0 0.25rem 0.5rem rgba(0, 86, 179, 0.15);
+    }
+
+    /* Preview da câmera/foto */
+    .camera-preview {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4/5;
+        /* Formato retrato para foto de perfil */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    /* Ícone padrão */
+    .camera-preview #defaultIcon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: #6c757d;
+    }
+
+    .camera-preview #defaultIcon .fas {
+        margin-bottom: 0.5rem;
+    }
+
+    /* Vídeo da câmera */
+    .camera-preview video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    /* Foto capturada */
+    .camera-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    /* Canvas oculto */
+    .camera-preview canvas {
+        display: none !important;
+    }
+
+    /* Controles da câmera */
+    .camera-controls {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 15px;
+        z-index: 10;
+    }
+
+    /* Botões da câmera */
+    .camera-btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
+
+    .camera-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .camera-btn:active {
+        transform: scale(0.95);
+    }
+
+    /* Botão de capturar */
+    .camera-btn.capture {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .camera-btn.capture:hover {
+        background-color: #c82333;
+    }
+
+    /* Botão de refazer */
+    .camera-btn.retake {
+        background-color: #ffc107;
+        color: #212529;
+    }
+
+    .camera-btn.retake:hover {
+        background-color: #e0a800;
+    }
+
+    /* Botão de confirmar */
+    .camera-btn.confirm {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .camera-btn.confirm:hover {
+        background-color: #218838;
+    }
+
+    /* Opções de foto */
+    .photo-options {
+        justify-content: center;
+        gap: 0.75rem;
+    }
+
+    /* Responsividade */
+    @media (max-width: 767.98px) {
+        .camera-container {
+            max-width: 320px;
+        }
+
+        .camera-btn {
+            width: 45px;
+            height: 45px;
+            font-size: 1.1rem;
+        }
+
+        .camera-controls {
+            bottom: 12px;
+            gap: 12px;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .camera-container {
+            max-width: 280px;
+        }
+
+        .camera-btn {
+            width: 40px;
+            height: 40px;
+            font-size: 1rem;
+        }
+
+        .camera-controls {
+            bottom: 10px;
+            gap: 10px;
+        }
+
+        .photo-options {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .photo-options .btn {
+            width: 100%;
+        }
+    }
+
+    /* Animações */
+    @keyframes cameraFadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .camera-preview video,
+    .camera-preview img {
+        animation: cameraFadeIn 0.3s ease-out;
+    }
+</style>
+
+<!-- JavaScript -->
+<script>
+    // Camera Functionality
+    let stream = null;
+    let photoTaken = false;
+
+    const video = document.getElementById('cameraVideo');
+    const canvas = document.getElementById('photoCanvas');
+    const finalCanvas = document.getElementById('finalPhotoCanvas');
+    const capturedPhoto = document.getElementById('capturedPhoto');
+    const photoPreview = document.getElementById('photoPreview');
+    const defaultIcon = document.getElementById('defaultIcon');
+    const fileInput = document.getElementById('foto');
+    
+    const openCameraBtn = document.getElementById('openCameraBtn');
+    const selectFileBtn = document.getElementById('selectFileBtn');
+    const captureBtn = document.getElementById('captureBtn');
+    const retakeBtn = document.getElementById('retakeBtn');
+    const confirmBtn = document.getElementById('confirmBtn');
+    
+    const cameraControls = document.getElementById('cameraControls');
+    const photoControls = document.getElementById('photoControls');
+
+    // Open Camera
+    openCameraBtn.addEventListener('click', async function() {
+        try {
+            // Verificar se estamos em HTTPS ou localhost
+            if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+                alert('A câmera só funciona em conexões seguras (HTTPS) ou localhost. Use a opção de arquivo.');
+                return;
+            }
+
+            stream = await navigator.mediaDevices.getUserMedia({ 
+                video: { 
+                    facingMode: 'user',
+                    width: { ideal: 640 },
+                    height: { ideal: 480 }
+                } 
+            });
+            
+            video.srcObject = stream;
+            
+            // Aguardar o vídeo carregar antes de mostrar
+            video.addEventListener('loadedmetadata', () => {
+                // Show camera interface
+                defaultIcon.style.display = 'none';
+                video.style.display = 'block';
+                cameraControls.style.display = 'flex';
+                
+                // Hide buttons
+                openCameraBtn.style.display = 'none';
+                selectFileBtn.style.display = 'none';
+            });
+            
+        } catch (err) {
+            console.error('Erro ao acessar a câmera:', err);
+            alert('Não foi possível acessar a câmera. Verifique as permissões ou use a opção de arquivo.');
+        }
+    });
+
+    // Select File
+    selectFileBtn.addEventListener('click', function() {
+        fileInput.click();
+    });
+
+    // Handle file selection
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            // Verificar tamanho do arquivo (máx 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Arquivo muito grande. O tamanho máximo é 5MB.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                capturedPhoto.src = event.target.result;
+                capturedPhoto.style.display = 'block';
+                defaultIcon.style.display = 'none';
+                photoTaken = true;
+                
+                // Show reset option
+                showPhotoControls();
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Capture Photo
+    captureBtn.addEventListener('click', function() {
+        if (!video.videoWidth || !video.videoHeight) {
+            alert('Aguarde a câmera carregar completamente.');
+            return;
+        }
+
+        const context = canvas.getContext('2d');
+        
+        // Formato 4:5 para foto de perfil (320x400 para boa qualidade)
+        canvas.width = 320;
+        canvas.height = 400;
+        
+        // Preencher fundo preto
+        context.fillStyle = '#000';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Calcular como centralizar o vídeo no formato 4:5
+        const videoAspect = video.videoWidth / video.videoHeight;
+        const targetAspect = 4 / 5; // 0.8
+        
+        let drawWidth, drawHeight, offsetX, offsetY;
+        
+        if (videoAspect > targetAspect) {
+            // Vídeo mais largo que 4:5 - ajustar pela altura
+            drawHeight = canvas.height;
+            drawWidth = drawHeight * videoAspect;
+            offsetX = (canvas.width - drawWidth) / 2;
+            offsetY = 0;
+        } else {
+            // Vídeo mais alto ou igual a 4:5 - ajustar pela largura
+            drawWidth = canvas.width;
+            drawHeight = drawWidth / videoAspect;
+            offsetX = 0;
+            offsetY = (canvas.height - drawHeight) / 2;
+        }
+        
+        // Desenhar o vídeo centralizado no formato 4:5
+        context.drawImage(video, offsetX, offsetY, drawWidth, drawHeight);
+        
+        // Convert to image
+        const dataURL = canvas.toDataURL('image/jpeg', 0.8);
+        capturedPhoto.src = dataURL;
+        
+        // Hide video, show photo
+        video.style.display = 'none';
+        capturedPhoto.style.display = 'block';
+        
+        // Show photo controls
+        cameraControls.style.display = 'none';
+        photoControls.style.display = 'flex';
+        
+        photoTaken = true;
+    });
+
+    // Retake Photo
+    retakeBtn.addEventListener('click', function() {
+        capturedPhoto.style.display = 'none';
+        video.style.display = 'block';
+        
+        photoControls.style.display = 'none';
+        cameraControls.style.display = 'flex';
+        
+        photoTaken = false;
+    });
+
+    // Confirm Photo
+    confirmBtn.addEventListener('click', function() {
+        // Convert photo to file and set it to the file input
+        canvas.toBlob(function(blob) {
+            if (!blob) {
+                alert('Erro ao processar a foto. Tente novamente.');
+                return;
+            }
+
+            const file = new File([blob], 'camera-photo.jpg', { type: 'image/jpeg' });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            fileInput.files = dataTransfer.files;
+            
+            // Stop camera
+            stopCamera();
+            
+            // Show reset options
+            showPhotoControls();
+        }, 'image/jpeg', 0.8);
+    });
+
+    function stopCamera() {
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+            stream = null;
+        }
+        video.style.display = 'none';
+        cameraControls.style.display = 'none';
+    }
+
+    function showPhotoControls() {
+        photoControls.style.display = 'none';
+        openCameraBtn.style.display = 'inline-block';
+        selectFileBtn.style.display = 'inline-block';
+        openCameraBtn.innerHTML = '<i class="fas fa-camera me-2"></i>Nova Foto';
+        selectFileBtn.innerHTML = '<i class="fas fa-upload me-2"></i>Outro Arquivo';
+    }
+
+    // Clean up when leaving the page
+    window.addEventListener('beforeunload', function() {
+        stopCamera();
+    });
+
+    // Adicionar validação visual do form
+    document.addEventListener('DOMContentLoaded', function() {
+        // Verificar se há foto quando tentar submeter
+        const form = document.getElementById('foto_form');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        
+        submitBtn.addEventListener('click', function(e) {
+            if (!fileInput.files || fileInput.files.length === 0) {
+                e.preventDefault();
+                alert('Por favor, selecione ou tire uma foto antes de salvar.');
+                return false;
+            }
+        });
+    });
+</script>
+
+</html>

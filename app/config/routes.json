@@ -65,6 +65,11 @@
       "path": "/backoffice/f/produtos",
       "page": "dashboard/produtos",
       "layout": "backoffice"
+    },
+    {
+      "path": "/colaborador/f/foto-colaborador",
+      "page": "colaborador/foto-colaborador",
+      "layout": "mobile-portaria"
     }
   ],
   "layouts": {

@@ -41,7 +41,8 @@
             <div class="dropdown">
               <button id="menu_mobile" class="btn dropdown-toggle btn-sm btn-outline-light" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars fa-lg"></i></button>
               <div class="dropdown-menu" aria-labelledby="dropdown1">
-                <a class="dropdown-item" href="/colaborador/f/adicionar-veiculo" internal="true">Adicionar veículo</a>
+                <a class="dropdown-item" href="/colaborador/f/foto-colaborador" internal="true">Foto do colaborador</a><a class="dropdown-item" href="/colaborador/f/adicionar-veiculo" internal="true">Adicionar veículo</a>
+
                 <a class="dropdown-item" href="/colaborador/f/motorista-autorizado" internal="true">Motoristas autorizados</a>
                 <a class="dropdown-item mt-3" href="/colaborador/f/esolha-registro-portaria" internal="true" dmx-show="usuario_logado.data.query_colaborador.portaria=='Ativo'">Portaria</a>
                 <a class="dropdown-item mt-3" href="/backoffice/f/" dmx-show="usuario_logado.data.query_colaborador.dashboard=='Ativo'">Dashboard</a><a class="dropdown-item" dmx-on:click="deslogar.load({},true);navegacao.reload()">Deslogar</a>

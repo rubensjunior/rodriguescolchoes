@@ -18,5 +18,9 @@
   "motorista-autorizado.ejs": {
     "layoutPage": "mobile-portaria",
     "description": ""
+  },
+  "foto-colaborador.ejs": {
+    "layoutPage": "mobile-portaria",
+    "description": ""
   }
 }
