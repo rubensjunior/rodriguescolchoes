@@ -1,13 +1,13 @@
 <!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="inicialcolaborador" appConnect="local" components="{dmxBootstrap5Offcanvas:{},dmxFormatter:{},dmxDataTraversal:{}}" -->
 
 <style>
-    /* Estilo para imagem de perfil no offcanvas QR Code */
+    /* Estilo para imagem de perfil no offcanvas QR Code - mesma largura do QR Code */
     .profile-image {
-        width: 120px !important;
-        height: 150px !important;
-        /* Proporção 4:5 (120x150) */
-        max-width: 120px !important;
-        max-height: 150px !important;
+        width: 280px !important;
+        height: 350px !important;
+        /* Proporção 4:5 (280x350) */
+        max-width: 280px !important;
+        max-height: 350px !important;
         border-radius: 8px;
         object-fit: cover;
         border: 4px solid #fff;
@@ -43,17 +43,63 @@
     }
 
     .profile-image:hover {
-        transform: scale(1.05);
+        transform: scale(1.02);
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
     }
 
+    /* Tablet - mesma largura do QR Code tablet */
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        .profile-image {
+            width: 300px !important;
+            height: 375px !important;
+            /* Proporção 4:5 (300x375) */
+            max-width: 300px !important;
+            max-height: 375px !important;
+        }
+
+        .profile-image::before {
+            font-size: 2.2rem;
+        }
+    }
+
+    /* Desktop - mesma largura do QR Code desktop */
+    @media (min-width: 992px) {
+        .profile-image {
+            width: 320px !important;
+            height: 400px !important;
+            /* Proporção 4:5 (320x400) */
+            max-width: 320px !important;
+            max-height: 400px !important;
+        }
+
+        .profile-image::before {
+            font-size: 2.5rem;
+        }
+    }
+
+    /* Mobile - mesma largura do QR Code mobile */
+    @media (max-width: 767.98px) {
+        .profile-image {
+            width: 250px !important;
+            height: 312px !important;
+            /* Proporção 4:5 (250x312) */
+            max-width: 250px !important;
+            max-height: 312px !important;
+        }
+
+        .profile-image::before {
+            font-size: 1.8rem;
+        }
+    }
+
+    /* Mobile pequeno - mesma largura do QR Code mobile pequeno */
     @media (max-width: 575.98px) {
         .profile-image {
-            width: 100px !important;
-            height: 125px !important;
-            /* Proporção 4:5 (100x125) */
-            max-width: 100px !important;
-            max-height: 125px !important;
+            width: 220px !important;
+            height: 275px !important;
+            /* Proporção 4:5 (220x275) */
+            max-width: 220px !important;
+            max-height: 275px !important;
         }
 
         .profile-image::before {
