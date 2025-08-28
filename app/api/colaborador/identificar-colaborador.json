@@ -68,6 +68,10 @@
               {
                 "table": "colaboradores",
                 "column": "dashboard"
+              },
+              {
+                "table": "colaboradores",
+                "column": "imagem_perfil"
               }
             ],
             "params": [
@@ -112,7 +116,7 @@
               "conditional": null,
               "valid": true
             },
-            "query": "select \"id_colaborador\", \"nome_colaborador\", \"cpf_colaborador\", \"base64\", \"data_nascimento\", \"email\", \"telefone\", \"portaria\", \"dashboard\" from \"colaboradores\" where \"colaboradores\".\"id_colaborador\" = ?"
+            "query": "select \"id_colaborador\", \"nome_colaborador\", \"cpf_colaborador\", \"base64\", \"data_nascimento\", \"email\", \"telefone\", \"portaria\", \"dashboard\", \"imagem_perfil\" from \"colaboradores\" where \"colaboradores\".\"id_colaborador\" = ?"
           }
         },
         "output": true,
@@ -152,6 +156,10 @@
           {
             "type": "text",
             "name": "dashboard"
+          },
+          {
+            "type": "text",
+            "name": "imagem_perfil"
           }
         ],
         "outputType": "object"

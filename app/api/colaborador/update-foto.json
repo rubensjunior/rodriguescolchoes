@@ -1,3 +1,218 @@
 {
-  "exec": {}
+  "meta": {
+    "options": {
+      "linkedFile": "/views/colaborador/foto-colaborador.ejs",
+      "linkedForm": "foto_form"
+    },
+    "$_POST": [
+      {
+        "type": "file",
+        "fieldName": "foto",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Por favor, selecione ou tire uma foto"
+            },
+            "upload:accept": {
+              "param": "image/*"
+            }
+          }
+        },
+        "name": "foto",
+        "sub": [
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "type",
+            "type": "text"
+          },
+          {
+            "name": "size",
+            "type": "number"
+          },
+          {
+            "name": "error",
+            "type": "text"
+          }
+        ],
+        "outputType": "file"
+      },
+      {
+        "type": "text",
+        "fieldName": "id_colaborador",
+        "name": "id_colaborador"
+      },
+      {
+        "type": "text",
+        "fieldName": "cpf",
+        "name": "cpf"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "upload",
+        "module": "upload",
+        "action": "upload",
+        "options": {
+          "fields": "{{$_POST.foto}}",
+          "replaceSpace": true,
+          "replaceDiacritics": true,
+          "asciiOnly": true,
+          "overwrite": true,
+          "path": "/public/upload",
+          "template": "{{$_POST.cpf}}{ext}"
+        },
+        "meta": [
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "path",
+            "type": "text"
+          },
+          {
+            "name": "url",
+            "type": "text"
+          },
+          {
+            "name": "type",
+            "type": "text"
+          },
+          {
+            "name": "size",
+            "type": "text"
+          },
+          {
+            "name": "error",
+            "type": "number"
+          }
+        ],
+        "outputType": "file",
+        "output": true
+      },
+      {
+        "name": "image",
+        "module": "image",
+        "action": "load",
+        "options": {
+          "path": "{{upload.path}}"
+        },
+        "outputType": "object",
+        "meta": [
+          {
+            "name": "width",
+            "type": "number"
+          },
+          {
+            "name": "height",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "name": "",
+        "module": "image",
+        "action": "crop",
+        "options": {
+          "instance": "image",
+          "x": "center",
+          "y": "middle",
+          "width": 400,
+          "height": 500
+        }
+      },
+      {
+        "name": "newImage",
+        "module": "image",
+        "action": "save",
+        "options": {
+          "instance": "image",
+          "quality": 50,
+          "format": "jpeg",
+          "path": "/public/upload/perfil",
+          "overwrite": true
+        },
+        "output": true
+      },
+      {
+        "name": "fileRemove",
+        "module": "fs",
+        "action": "remove",
+        "options": {
+          "path": "{{upload.path}}"
+        },
+        "outputType": "boolean"
+      },
+      {
+        "name": "update",
+        "module": "dbupdater",
+        "action": "update",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "update",
+            "values": [
+              {
+                "table": "colaboradores",
+                "column": "imagem_perfil",
+                "type": "text",
+                "value": "{{newImage}}"
+              }
+            ],
+            "table": "colaboradores",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "id_colaborador",
+                  "field": "id_colaborador",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{$_POST.id_colaborador}}",
+                  "data": {
+                    "column": "id_colaborador"
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "returning": "id_colaborador",
+            "query": "update \"colaboradores\" set \"imagem_perfil\" = ? where \"id_colaborador\" = ?",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{newImage}}",
+                "test": ""
+              },
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P2",
+                "value": "{{$_POST.id_colaborador}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  },
+  "usedModules": {
+    "sharp": "^0.29.3"
+  }
 }

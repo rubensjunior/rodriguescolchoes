@@ -183,7 +183,7 @@
           "replaceDiacritics": true,
           "asciiOnly": true,
           "overwrite": true,
-          "template": "{{$_POST.cpf}}.{ext}"
+          "template": "{{$_POST.cpf}}{ext}"
         },
         "meta": [
           {

@@ -17,7 +17,9 @@
                             </h5>
                         </div>
                         <div class="card-body p-3">
-                            <form is="dmx-serverconnect-form" id="foto_form" class="needs-validation" method="post" action="/api/colaborador/salvar-foto">
+                            <form is="dmx-serverconnect-form" id="foto_form" class="needs-validation" method="post" action="/api/colaborador/update-foto" dmx-on:error="notificacao.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response+'. Entre em contato com o suporte.')" dmx-on:success="run([{run:{outputType:'text',action:`notificacao.success(\'Foto de perfil atualizado com sucesso!\');usuario_logado.load({})`}},{wait:{delay:1500}},{run:{outputType:'text',action:`navegacao.goto(\'/colaborador/f/\',true)`}}])">
+                                <input id="id_colaborador" name="id_colaborador" type="hidden" class="form-control" dmx-bind:value="usuario_logado.data.identity">
+                                <input id="cpf" name="cpf" type="hidden" class="form-control" dmx-bind:value="usuario_logado.data.query_colaborador.cpf_colaborador">
 
                                 <!-- Camera/Photo Preview Container -->
                                 <div class="camera-container mb-4">

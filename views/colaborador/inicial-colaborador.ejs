@@ -1,5 +1,67 @@
 <!-- Wappler include head-page="layouts/mobile-portaria" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="inicialcolaborador" appConnect="local" components="{dmxBootstrap5Offcanvas:{},dmxFormatter:{},dmxDataTraversal:{}}" -->
 
+<style>
+    /* Estilo para imagem de perfil no offcanvas QR Code */
+    .profile-image {
+        width: 120px !important;
+        height: 150px !important;
+        /* Proporção 4:5 (120x150) */
+        max-width: 120px !important;
+        max-height: 150px !important;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 4px solid #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        margin-bottom: 1rem;
+        display: block !important;
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        margin-left: auto !important;
+        margin-right: auto !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative;
+    }
+
+    .profile-image::before {
+        content: "📷";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2rem;
+        color: #1976d2;
+        z-index: 1;
+    }
+
+    .profile-image[src]:not([src=""]) {
+        background: none;
+    }
+
+    .profile-image[src]:not([src=""])::before {
+        display: none;
+    }
+
+    .profile-image:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 575.98px) {
+        .profile-image {
+            width: 100px !important;
+            height: 125px !important;
+            /* Proporção 4:5 (100x125) */
+            max-width: 100px !important;
+            max-height: 125px !important;
+        }
+
+        .profile-image::before {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
 
 <dmx-data-detail id="data_detail_veiculo" dmx-bind:data="usuario_logado.data.query_acesso_veiculo" key="id_veiculo"></dmx-data-detail>
 <div class="offcanvas offcanvas-start" id="offcanvas_qrcode" is="dmx-bs5-offcanvas" tabindex="-1">
@@ -8,6 +70,8 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body text-center">
+        <img class="profile-image" dmx-bind:src="usuario_logado.data.query_colaborador.imagem_perfil.replace('/public', '')" alt="Foto do Colaborador" onerror="this.style.border='4px solid #f44336'; this.style.background='#ffebee';">
+
         <img dmx-bind:src="'data:image/png;base64,' + usuario_logado.data.query_colaborador.base64" class="img-fluid qr-code-image mb-3" alt="QR Code de Acesso">
         <h5 class="text-start">Nome: {{usuario_logado.data.query_colaborador.nome_colaborador}}</h5>
         <h5 class="text-start">CPF: {{data_detail_veiculo.data.cpf_colaborador}}</h5>
