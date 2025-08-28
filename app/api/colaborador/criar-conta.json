@@ -9,7 +9,12 @@
         "type": "text",
         "fieldName": "nome_completo",
         "options": {
-          "rules": {}
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Por favor, digite seu nome completo"
+            }
+          }
         },
         "name": "nome_completo"
       },
@@ -40,9 +45,6 @@
       {
         "type": "text",
         "fieldName": "placa",
-        "options": {
-          "rules": {}
-        },
         "name": "placa"
       },
       {
@@ -74,14 +76,38 @@
       {
         "type": "text",
         "fieldName": "tipo_veiculo",
-        "options": {
-          "rules": {}
-        },
         "name": "tipo_veiculo"
       },
       {
         "type": "text",
         "name": "password"
+      },
+      {
+        "type": "file",
+        "fieldName": "foto",
+        "options": {
+          "rules": {}
+        },
+        "name": "foto",
+        "sub": [
+          {
+            "type": "text",
+            "name": "name"
+          },
+          {
+            "type": "text",
+            "name": "type"
+          },
+          {
+            "type": "number",
+            "name": "size"
+          },
+          {
+            "type": "text",
+            "name": "error"
+          }
+        ],
+        "outputType": "file"
       }
     ]
   },
@@ -145,6 +171,100 @@
           "algo": "argon2id"
         },
         "outputType": "text"
+      },
+      {
+        "name": "upload",
+        "module": "upload",
+        "action": "upload",
+        "options": {
+          "fields": "{{$_POST.foto}}",
+          "path": "/public/upload/Nova%20pasta",
+          "replaceSpace": true,
+          "replaceDiacritics": true,
+          "asciiOnly": true,
+          "overwrite": true,
+          "template": "{$_POST.cpf}.{ext}"
+        },
+        "meta": [
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "path",
+            "type": "text"
+          },
+          {
+            "name": "url",
+            "type": "text"
+          },
+          {
+            "name": "type",
+            "type": "text"
+          },
+          {
+            "name": "size",
+            "type": "text"
+          },
+          {
+            "name": "error",
+            "type": "number"
+          }
+        ],
+        "outputType": "file",
+        "output": true
+      },
+      {
+        "name": "image",
+        "module": "image",
+        "action": "load",
+        "options": {
+          "path": "{{upload.path}}"
+        },
+        "outputType": "object",
+        "meta": [
+          {
+            "name": "width",
+            "type": "number"
+          },
+          {
+            "name": "height",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "name": "",
+        "module": "image",
+        "action": "crop",
+        "options": {
+          "instance": "image",
+          "x": "center",
+          "y": "middle",
+          "width": 400,
+          "height": 400
+        }
+      },
+      {
+        "name": "newImage",
+        "module": "image",
+        "action": "save",
+        "options": {
+          "instance": "image",
+          "quality": 50,
+          "format": "jpeg",
+          "path": "/public/upload/perfil"
+        },
+        "output": true
+      },
+      {
+        "name": "fileRemove",
+        "module": "fs",
+        "action": "remove",
+        "options": {
+          "path": "{{upload.path}}"
+        },
+        "outputType": "boolean"
       },
       {
         "name": "insert_colaborador",
@@ -511,6 +631,7 @@
     ]
   },
   "usedModules": {
-    "argon2": "^0.30.2"
+    "argon2": "^0.30.2",
+    "sharp": "^0.29.3"
   }
 }
