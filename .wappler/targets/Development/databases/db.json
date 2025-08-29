@@ -21,21 +21,6 @@
       "storage"
     ],
     "tables": {
-      "realtime.schema_migrations": {
-        "db": {
-          "schema": "realtime"
-        }
-      },
-      "realtime.subscription": {
-        "db": {
-          "schema": "realtime"
-        }
-      },
-      "realtime.messages": {
-        "db": {
-          "schema": "realtime"
-        }
-      },
       "colaboradores": {
         "db": {},
         "columns": {
@@ -155,10 +140,23 @@
           "logs_mkt_inauguracao": "usuario"
         }
       },
-      "regional": {
+      "realtime.schema_migrations": {
         "db": {
-          "schema": "public"
-        },
+          "schema": "realtime"
+        }
+      },
+      "realtime.subscription": {
+        "db": {
+          "schema": "realtime"
+        }
+      },
+      "realtime.messages": {
+        "db": {
+          "schema": "realtime"
+        }
+      },
+      "regional": {
+        "db": {},
         "columns": {
           "id_regional": {
             "db": {
@@ -202,9 +200,7 @@
         }
       },
       "clientes": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_cliente": {
             "db": {
@@ -268,6 +264,15 @@
               "unique": false,
               "nullable": true
             }
+          },
+          "termo_participacap": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
           }
         },
         "refs": {
@@ -275,9 +280,7 @@
         }
       },
       "inauguracao": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_inauguracao": {
             "db": {
@@ -439,9 +442,7 @@
         }
       },
       "veiculos_colaboradores": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_veiculo_colaborador": {
             "db": {
@@ -488,8 +489,8 @@
               "references": "id_colaborador",
               "inTable": "colaboradores",
               "referenceType": "uuid",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
+              "onUpdate": "CASCADE",
+              "onDelete": "CASCADE"
             }
           },
           "modelo_veiculo": {
@@ -533,9 +534,7 @@
         }
       },
       "produtos": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_produtos": {
             "db": {
@@ -597,9 +596,7 @@
         }
       },
       "inauguracao_produto": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_inaug_produto": {
             "db": {
@@ -690,9 +687,7 @@
         "parent": "inauguracao"
       },
       "cadastro_participante": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_cad_cliente": {
             "db": {
@@ -758,9 +753,7 @@
         }
       },
       "registro_portaria": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_registro_portaria": {
             "db": {
@@ -840,9 +833,7 @@
         }
       },
       "veiculos_motoristas": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_veiculos_motoristas": {
             "db": {
@@ -871,8 +862,8 @@
               "references": "id_colaborador",
               "inTable": "colaboradores",
               "referenceType": "uuid",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
+              "onUpdate": "CASCADE",
+              "onDelete": "CASCADE"
             }
           },
           "id_veiculo": {
@@ -893,16 +884,14 @@
               "references": "id_colaborador",
               "inTable": "colaboradores",
               "referenceType": "uuid",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
+              "onUpdate": "CASCADE",
+              "onDelete": "CASCADE"
             }
           }
         }
       },
       "logs_mkt_inauguracao": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_log_mkt": {
             "db": {
@@ -973,8 +962,80 @@
         }
       },
       "Lojas": {
-        "db": {
-          "schema": "public"
+        "db": {},
+        "columns": {
+          "id": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "endereco": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "complemento": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "cep": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "bairro": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "cidade": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "estado": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
         }
       },
       "vault.secrets": {
@@ -1191,11 +1252,6 @@
       }
     },
     "views": {
-      "vault.decrypted_secrets": {
-        "db": {
-          "schema": "vault"
-        }
-      },
       "extensions.pg_stat_statements_info": {
         "db": {
           "schema": "extensions"
@@ -1551,6 +1607,11 @@
               "nullable": true
             }
           }
+        }
+      },
+      "vault.decrypted_secrets": {
+        "db": {
+          "schema": "vault"
         }
       }
     }
