@@ -298,9 +298,10 @@
                             <th>Limite por pessoa</th>
                             <th>Quantidade consumida</th>
                             <th>Status</th>
+                            <th>Valor</th>
                         </tr>
                     </thead>
-                    <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="listar_produto_inauguracao.data.query" id="tableRepeat2">
+                    <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="listar_produto_inauguracao.data.query" id="tableRepeat3">
                         <tr>
                             <td dmx-text="cod_produto"></td>
                             <td dmx-text="nome_produto"></td>
@@ -308,6 +309,7 @@
                             <td dmx-text="limite_por_pessoa"></td>
                             <td dmx-text="quantidade_consumida"></td>
                             <td dmx-text="status"></td>
+                            <td dmx-text="valor"></td>
                         </tr>
                     </tbody>
                 </table>

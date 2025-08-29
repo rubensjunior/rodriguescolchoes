@@ -68,6 +68,10 @@
             {
               "table": "produtos",
               "column": "url_imagens"
+            },
+            {
+              "table": "inauguracao_produto",
+              "column": "valor"
             }
           ],
           "params": [
@@ -107,7 +111,7 @@
               "primary": "id_produtos"
             }
           ],
-          "query": "select \"inauguracao_produto\".\"id_inaug_produto\", \"inauguracao_produto\".\"produto_inaug_id\", \"inauguracao_produto\".\"inauguracao_id\", \"inauguracao_produto\".\"unidades_disponiveis\", \"inauguracao_produto\".\"limite_por_pessoa\", \"inauguracao_produto\".\"quantidade_consumida\", \"inauguracao_produto\".\"status\", \"produtos\".\"nome_produto\", \"produtos\".\"descricao_produtos\", \"produtos\".\"cod_produto\", \"produtos\".\"url_imagens\" from \"inauguracao_produto\" inner join \"produtos\" on \"produtos\".\"id_produtos\" = \"inauguracao_produto\".\"produto_inaug_id\" where \"inauguracao_produto\".\"inauguracao_id\" = ?",
+          "query": "select \"inauguracao_produto\".\"id_inaug_produto\", \"inauguracao_produto\".\"produto_inaug_id\", \"inauguracao_produto\".\"inauguracao_id\", \"inauguracao_produto\".\"unidades_disponiveis\", \"inauguracao_produto\".\"limite_por_pessoa\", \"inauguracao_produto\".\"quantidade_consumida\", \"inauguracao_produto\".\"status\", \"produtos\".\"nome_produto\", \"produtos\".\"descricao_produtos\", \"produtos\".\"cod_produto\", \"produtos\".\"url_imagens\", \"inauguracao_produto\".\"valor\" from \"inauguracao_produto\" inner join \"produtos\" on \"produtos\".\"id_produtos\" = \"inauguracao_produto\".\"produto_inaug_id\" where \"inauguracao_produto\".\"inauguracao_id\" = ?",
           "wheres": {
             "condition": "AND",
             "rules": [
@@ -187,6 +191,10 @@
         {
           "type": "text",
           "name": "url_imagens"
+        },
+        {
+          "type": "number",
+          "name": "valor"
         }
       ],
       "outputType": "array"
