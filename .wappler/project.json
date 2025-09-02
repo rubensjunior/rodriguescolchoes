@@ -54,7 +54,7 @@
       "usage": "production",
       "ftpServer": "ftp.rubensbentes.com.br",
       "ftpUser": "master@sgi.rubensbentes.com.br",
-      "ftpPassword": "v2:9cb8e1a757150cb428b38bff955e6b4ac30bf4e40eb55489"
+      "ftpPassword": "v2:135828d38d4795c0a0d540ff7cd5edc0da9556965fffa30a"
     },
     {
       "name": "Oficial",
@@ -71,7 +71,7 @@
       "usage": "production",
       "ftpServer": "ftp.rubensbentes.com.br",
       "ftpUser": "master@sgi.rodriguescolchoes.com.br",
-      "ftpPassword": "v2:6b59548deff30171877a088a64a5f22dd2d9bc8b7bdef504"
+      "ftpPassword": "v2:c9fabe81fab357e105f1652bf0eb8b77e6c1cf1c87848fee"
     }
   ],
   "activeTarget": "Development",
