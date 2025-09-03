@@ -13,9 +13,9 @@
                         <input type="text" class="form-control" id="cpf" name="cpf" aria-describedby="input1_help" placeholder="XXX.XXX.XXX-XX">
                     </div>
                 </form>
-                <h5 dmx-show="!buscar_qrcode.data.query.isEmpty()">{{buscar_qrcode.data.query.nome_colaborador}}</h5>
-                <img dmx-bind:src="buscar_qrcode.data.query.imagem_perfil" dmx-show="!buscar_qrcode.data.query.isEmpty()" id="img_perfil">
-                <img dmx-bind:src="buscar_qrcode.data.query.base64" dmx-show="!buscar_qrcode.data.query.isEmpty()" id="img_qrcode">
+                <h6 dmx-show="!buscar_qrcode.data.query.isEmpty()" class="text-center">{{buscar_qrcode.data.query.nome_colaborador}}</h6>
+                <img dmx-bind:src="buscar_qrcode.data.query.imagem_perfil" dmx-show="!buscar_qrcode.data.query.isEmpty()" id="img_perfil" class="img-fluid">
+                <img dmx-bind:src="'data:image/png;base64,' + buscar_qrcode.data.query.base64" dmx-show="!buscar_qrcode.data.query.isEmpty()" id="img_qrcode" class="img-fluid">
 
             </div>
             <div class="modal-footer">
