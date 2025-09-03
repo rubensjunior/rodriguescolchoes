@@ -143,10 +143,9 @@
                     </div>
                 </form>
                 <div dmx-show="!buscar_qrcode.data.query.isEmpty()">
-                    <img class="profile-image" dmx-bind:src="buscar_qrcode.data.query.imagem_perfil" alt="Foto do Colaborador" onerror="this.style.border='4px solid #f44336'; this.style.background='#ffebee';">
-                    <img dmx-bind:src="'data:image/png;base64,' + buscar_qrcode.data.query.base64" class="img-fluid qr-code-image mb-3" alt="QR Code de Acesso">
-                    <h5 class="text-start">Nome: {{buscar_qrcode.data.query.nome_colaborador}}</h5>
-                    <h5 class="text-start">CPF: {{buscar_qrcode.data.query.cpf}}</h5>
+                    <h6 class="text-center">{{buscar_qrcode.data.query.nome_colaborador}}</h6><img dmx-bind:src="buscar_qrcode.data.query.imagem_perfil" alt="Foto do Colaborador" onerror="this.style.border='4px solid #f44336'; this.style.background='#ffebee';">
+                    <img dmx-bind:src="'data:image/png;base64,' + buscar_qrcode.data.query.base64" class="img-fluid  mb-3" alt="QR Code de Acesso">
+
                 </div>
             </div>
             <div class="modal-footer">
