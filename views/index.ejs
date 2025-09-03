@@ -1,11 +1,61 @@
-<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="index" appConnect="local" -->
+<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="index" appConnect="local" components="{dmxBootstrap5Modal:{},dmxFormatter:{}}" -->
+<dmx-serverconnect id="buscar_qrcode" url="/api/colaborador/indentificar-colaborador-cpf" noload="true"></dmx-serverconnect>
+<div class="modal" id="modal1" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Meu QRCODE</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" dmx-on:click="form1.reset()"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form1">
+                    <div class="form-group mb-3"> <label for="cpf" class="form-label">Insira seu CPF</label>
+                        <input type="text" class="form-control" id="cpf" name="cpf" aria-describedby="input1_help" placeholder="XXX.XXX.XXX-XX">
+                    </div>
+                </form>
+                <h5 dmx-show="!buscar_qrcode.data.query.isEmpty()">{{buscar_qrcode.data.query.nome_colaborador}}</h5>
+                <img dmx-bind:src="buscar_qrcode.data.query.imagem_perfil" dmx-show="!buscar_qrcode.data.query.isEmpty()" id="img_perfil">
+                <img dmx-bind:src="buscar_qrcode.data.query.base64" dmx-show="!buscar_qrcode.data.query.isEmpty()" id="img_qrcode">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" dmx-on:click="form1.reset()">Cancelar</button>
+                <button type="button" class="btn btn-primary" dmx-on:click="buscar_qrcode.load({cpf: form1.cpf.value})">Ver meu QRCODE</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container-fluid pt-3 ps-4 pe-4">
     <div class="row h-100 justify-content-center align-items-center bg-light rounded-4 py-5">
         <div class="col-md-9 text-center">
             <h1 class="mb-3">Bem-vindo ao Futuro da Gestão na Rodrigues Colchões</h1>
             <p class="fs-4">Um novo sistema que reflete nosso compromisso com a inovação, a eficiência e o crescimento sustentável. Porque evoluir faz parte da nossa essência.</p>
             <button id="btn1" class="btn btn-primary" dmx-on:click="navegacao.goto('/f/criar-conta',true)">Crie sua conta</button>
+            <button id="btn2" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1">Ver meu QRCODE</button>
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('cpf').addEventListener('input', function(e) {
+    let value = e.target.value;
+    // Remove tudo que não é dígito
+    value = value.replace(/\D/g, '');
+    
+    // Limita a 11 dígitos
+    value = value.substring(0, 11);
+    
+    // Aplica a máscara
+    value = value.replace(/(\d{3})(\d)/, '$1.$2');
+    value = value.replace(/(\d{3})(\d)/, '$1.$2');
+    value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    
+    // Atualiza o valor no campo
+    e.target.value = value;
+});
+
+document.getElementById('cpf').addEventListener('keypress', function(e) {
+    // Permite apenas números
+    if (!/\d/.test(String.fromCharCode(e.keyCode))) e.preventDefault();
+});
+</script>
 <meta name="ac:route" content="/">

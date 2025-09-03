@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "cpf"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "single",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "colaboradores",
+              "column": "id_colaborador"
+            },
+            {
+              "table": "colaboradores",
+              "column": "nome_colaborador"
+            },
+            {
+              "table": "colaboradores",
+              "column": "imagem_perfil"
+            },
+            {
+              "table": "colaboradores",
+              "column": "cpf_colaborador"
+            },
+            {
+              "table": "colaboradores",
+              "column": "base64"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.cpf}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "colaboradores"
+          },
+          "primary": "id_colaborador",
+          "joins": [],
+          "query": "select \"id_colaborador\", \"nome_colaborador\", \"imagem_perfil\", \"cpf_colaborador\", \"base64\" from \"colaboradores\" where \"colaboradores\".\"cpf_colaborador\" = ?",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "colaboradores.cpf_colaborador",
+                "field": "colaboradores.cpf_colaborador",
+                "type": "string",
+                "operator": "equal",
+                "value": "{{$_GET.cpf}}",
+                "data": {
+                  "table": "colaboradores",
+                  "column": "cpf_colaborador",
+                  "type": "text",
+                  "columnObj": {
+                    "type": "string",
+                    "maxLength": -5,
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "name": "cpf_colaborador"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          }
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "id_colaborador"
+        },
+        {
+          "type": "text",
+          "name": "nome_colaborador"
+        },
+        {
+          "type": "text",
+          "name": "imagem_perfil"
+        },
+        {
+          "type": "text",
+          "name": "cpf_colaborador"
+        },
+        {
+          "type": "text",
+          "name": "base64"
+        }
+      ],
+      "outputType": "object"
+    }
+  }
+}
