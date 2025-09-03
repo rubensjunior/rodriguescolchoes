@@ -1,4 +1,133 @@
 <!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="index" appConnect="local" components="{dmxBootstrap5Modal:{},dmxFormatter:{}}" -->
+
+<style>
+    /* Estilo para imagem de perfil no modal QR Code */
+    .profile-image {
+        width: 280px !important;
+        height: 350px !important;
+        /* Proporção 4:5 (280x350) */
+        max-width: 280px !important;
+        max-height: 350px !important;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 4px solid #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        margin-bottom: 1rem;
+        display: block !important;
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        margin-left: auto !important;
+        margin-right: auto !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative;
+    }
+
+    .profile-image::before {
+        content: "📷";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2rem;
+        color: #1976d2;
+        z-index: 1;
+    }
+
+    .profile-image[src]:not([src=""]) {
+        background: none;
+    }
+
+    .profile-image[src]:not([src=""])::before {
+        display: none;
+    }
+
+    .profile-image:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .qr-code-image {
+        width: 280px !important;
+        height: auto;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block !important;
+    }
+
+    /* Tablet */
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        .profile-image {
+            width: 300px !important;
+            height: 375px !important;
+            max-width: 300px !important;
+            max-height: 375px !important;
+        }
+
+        .profile-image::before {
+            font-size: 2.2rem;
+        }
+
+        .qr-code-image {
+            width: 300px !important;
+        }
+    }
+
+    /* Desktop */
+    @media (min-width: 992px) {
+        .profile-image {
+            width: 320px !important;
+            height: 400px !important;
+            max-width: 320px !important;
+            max-height: 400px !important;
+        }
+
+        .profile-image::before {
+            font-size: 2.5rem;
+        }
+
+        .qr-code-image {
+            width: 320px !important;
+        }
+    }
+
+    /* Mobile */
+    @media (max-width: 767.98px) {
+        .profile-image {
+            width: 250px !important;
+            height: 312px !important;
+            max-width: 250px !important;
+            max-height: 312px !important;
+        }
+
+        .profile-image::before {
+            font-size: 1.8rem;
+        }
+
+        .qr-code-image {
+            width: 250px !important;
+        }
+    }
+
+    /* Mobile pequeno */
+    @media (max-width: 575.98px) {
+        .profile-image {
+            width: 220px !important;
+            height: 275px !important;
+            max-width: 220px !important;
+            max-height: 275px !important;
+        }
+
+        .profile-image::before {
+            font-size: 1.5rem;
+        }
+
+        .qr-code-image {
+            width: 220px !important;
+        }
+    }
+</style>
+
 <dmx-serverconnect id="buscar_qrcode" url="/api/colaborador/indentificar-colaborador-cpf" noload="true"></dmx-serverconnect>
 <div class="modal" id="modal1" is="dmx-bs5-modal" tabindex="-1">
     <div class="modal-dialog modal-sm" role="document">
@@ -7,16 +136,18 @@
                 <h5 class="modal-title">Meu QRCODE</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" dmx-on:click="form1.reset()"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-center">
                 <form id="form1">
                     <div class="form-group mb-3"> <label for="cpf" class="form-label">Insira seu CPF</label>
                         <input type="text" class="form-control" id="cpf" name="cpf" aria-describedby="input1_help" placeholder="XXX.XXX.XXX-XX">
                     </div>
                 </form>
-                <h6 dmx-show="!buscar_qrcode.data.query.isEmpty()" class="text-center">{{buscar_qrcode.data.query.nome_colaborador}}</h6>
-                <img dmx-bind:src="buscar_qrcode.data.query.imagem_perfil" dmx-show="!buscar_qrcode.data.query.isEmpty()" id="img_perfil" class="img-fluid">
-                <img dmx-bind:src="'data:image/png;base64,' + buscar_qrcode.data.query.base64" dmx-show="!buscar_qrcode.data.query.isEmpty()" id="img_qrcode" class="img-fluid">
-
+                <div dmx-show="!buscar_qrcode.data.query.isEmpty()">
+                    <img class="profile-image" dmx-bind:src="buscar_qrcode.data.query.imagem_perfil" alt="Foto do Colaborador" onerror="this.style.border='4px solid #f44336'; this.style.background='#ffebee';">
+                    <img dmx-bind:src="'data:image/png;base64,' + buscar_qrcode.data.query.base64" class="img-fluid qr-code-image mb-3" alt="QR Code de Acesso">
+                    <h5 class="text-start">Nome: {{buscar_qrcode.data.query.nome_colaborador}}</h5>
+                    <h5 class="text-start">CPF: {{buscar_qrcode.data.query.cpf}}</h5>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" dmx-on:click="form1.reset()">Cancelar</button>
