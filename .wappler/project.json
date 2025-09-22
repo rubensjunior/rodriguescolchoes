@@ -54,7 +54,7 @@
       "usage": "production",
       "ftpServer": "ftp.rubensbentes.com.br",
       "ftpUser": "master@sgi.rubensbentes.com.br",
-      "ftpPassword": "v2:135828d38d4795c0a0d540ff7cd5edc0da9556965fffa30a"
+      "ftpPassword": "v2:37c917c3ab3fcfef807344dcb9ee26ad67878bfdc58531b1"
     },
     {
       "name": "Oficial",
@@ -63,15 +63,15 @@
       "targetType": "wappler",
       "databaseConnectionType": "custom",
       "databaseType": "postgres",
-      "db_host": "aws-0-sa-east-1.pooler.supabase.com",
+      "db_host": "aws-1-sa-east-1.pooler.supabase.com",
       "db_port": "5432",
-      "db_user": "postgres.eqyafrpnfuwgessstuzc",
-      "db_password": "@Baki025@",
+      "db_user": "postgres.cnbfqolhcadzrmroselp",
+      "db_password": "@Baki025@025#",
       "db_database": "postgres",
       "usage": "production",
       "ftpServer": "ftp.rubensbentes.com.br",
       "ftpUser": "master@sgi.rodriguescolchoes.com.br",
-      "ftpPassword": "v2:c9fabe81fab357e105f1652bf0eb8b77e6c1cf1c87848fee"
+      "ftpPassword": "v2:f817dd6adaa96f6b9315225175c0b664001b84a577fa1a27"
     }
   ],
   "activeTarget": "Development",

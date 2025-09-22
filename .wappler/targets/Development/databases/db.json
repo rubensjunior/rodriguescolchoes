@@ -2,10 +2,10 @@
   "direct": true,
   "type": "postgres",
   "connection": {
-    "host": "aws-1-sa-east-1.pooler.supabase.com",
+    "host": "aws-0-sa-east-1.pooler.supabase.com",
     "port": 5432,
-    "user": "postgres.cnbfqolhcadzrmroselp",
-    "password": "@Baki025@025#",
+    "user": "postgres.eqyafrpnfuwgessstuzc",
+    "password": "@Baki025@",
     "database": "postgres"
   },
   "schema": {
@@ -22,7 +22,9 @@
     ],
     "tables": {
       "colaboradores": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_colaborador": {
             "db": {
@@ -135,28 +137,15 @@
         "refs": {
           "inauguracao": "criado_por",
           "veiculos_colaboradores": "colaborador",
-          "registro_portaria": "id_agente_portaria",
+          "registro_portaria": "id_colaborador_registro",
           "veiculos_motoristas": "id_motorista",
           "logs_mkt_inauguracao": "usuario"
         }
       },
-      "realtime.schema_migrations": {
-        "db": {
-          "schema": "realtime"
-        }
-      },
-      "realtime.subscription": {
-        "db": {
-          "schema": "realtime"
-        }
-      },
-      "realtime.messages": {
-        "db": {
-          "schema": "realtime"
-        }
-      },
       "regional": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_regional": {
             "db": {
@@ -200,7 +189,9 @@
         }
       },
       "clientes": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_cliente": {
             "db": {
@@ -280,7 +271,9 @@
         }
       },
       "inauguracao": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_inauguracao": {
             "db": {
@@ -442,7 +435,9 @@
         }
       },
       "veiculos_colaboradores": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_veiculo_colaborador": {
             "db": {
@@ -534,7 +529,9 @@
         }
       },
       "produtos": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_produtos": {
             "db": {
@@ -596,7 +593,9 @@
         }
       },
       "inauguracao_produto": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_inaug_produto": {
             "db": {
@@ -687,7 +686,9 @@
         "parent": "inauguracao"
       },
       "cadastro_participante": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_cad_cliente": {
             "db": {
@@ -753,7 +754,9 @@
         }
       },
       "registro_portaria": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_registro_portaria": {
             "db": {
@@ -833,7 +836,9 @@
         }
       },
       "veiculos_motoristas": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_veiculos_motoristas": {
             "db": {
@@ -891,7 +896,9 @@
         }
       },
       "logs_mkt_inauguracao": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_log_mkt": {
             "db": {
@@ -1036,6 +1043,31 @@
               "nullable": true
             }
           }
+        }
+      },
+      "tab_prod_ia": {
+        "db": {
+          "schema": "public"
+        }
+      },
+      "lojas": {
+        "db": {
+          "schema": "public"
+        }
+      },
+      "realtime.schema_migrations": {
+        "db": {
+          "schema": "realtime"
+        }
+      },
+      "realtime.subscription": {
+        "db": {
+          "schema": "realtime"
+        }
+      },
+      "realtime.messages": {
+        "db": {
+          "schema": "realtime"
         }
       },
       "vault.secrets": {
@@ -1203,6 +1235,11 @@
         },
         "refs": {
           "auth.mfa_challenges": "factor_id"
+        }
+      },
+      "auth.oauth_clients": {
+        "db": {
+          "schema": "auth"
         }
       },
       "storage.migrations": {
