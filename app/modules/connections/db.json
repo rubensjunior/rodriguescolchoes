@@ -5,10 +5,10 @@
   "options": {
     "client": "postgres",
     "connection": {
-      "host": "aws-0-sa-east-1.pooler.supabase.com",
+      "host": "aws-1-sa-east-1.pooler.supabase.com",
       "port": 5432,
-      "user": "postgres.eqyafrpnfuwgessstuzc",
-      "password": "@Baki025@",
+      "user": "postgres.cnbfqolhcadzrmroselp",
+      "password": "@Baki025@025#",
       "database": "postgres"
     }
   }
