@@ -37,7 +37,8 @@
       "db_port": "5432",
       "db_user": "postgres.eqyafrpnfuwgessstuzc",
       "db_password": "@Baki025@",
-      "db_database": "postgres"
+      "db_database": "postgres",
+      "usage": "production"
     },
     {
       "name": "Producao",
@@ -54,7 +55,7 @@
       "usage": "production",
       "ftpServer": "ftp.rubensbentes.com.br",
       "ftpUser": "master@sgi.rubensbentes.com.br",
-      "ftpPassword": "v2:37c917c3ab3fcfef807344dcb9ee26ad67878bfdc58531b1"
+      "ftpPassword": "v2:e3ff3bb674dbe4c722881dc854b2b7070de9c8e93c3ac1e4"
     },
     {
       "name": "Oficial",
@@ -71,7 +72,7 @@
       "usage": "production",
       "ftpServer": "ftp.rubensbentes.com.br",
       "ftpUser": "master@sgi.rodriguescolchoes.com.br",
-      "ftpPassword": "v2:f817dd6adaa96f6b9315225175c0b664001b84a577fa1a27"
+      "ftpPassword": "v2:ef9a8683aecedaba6334c63346f39c41632dcdf039f6eac0"
     }
   ],
   "activeTarget": "Development",
