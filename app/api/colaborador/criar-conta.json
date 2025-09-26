@@ -560,6 +560,10 @@
               "sub": [
                 {
                   "type": "text",
+                  "name": "connection"
+                },
+                {
+                  "type": "text",
                   "name": "content-length"
                 },
                 {
@@ -607,6 +611,10 @@
             "type": "object",
             "name": "headers",
             "sub": [
+              {
+                "type": "text",
+                "name": "connection"
+              },
               {
                 "type": "text",
                 "name": "content-length"
