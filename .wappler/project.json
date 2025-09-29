@@ -51,7 +51,22 @@
       "db_database": "postgres",
       "ftpServer": "ftp.rubensbentes.com.br",
       "ftpUser": "master@sgi.rodriguescolchoes.com.br",
-      "ftpPassword": "v2:1a720f1c03f77a79ad9f869281b7e85cf9a19f7b3ba3aa2b"
+      "ftpPassword": "v2:8b33283471ac5c757930b01d0abfbe929f65e277bce95825"
+    },
+    {
+      "name": "Teste",
+      "remoteURL": "https://teste.rodriguescolchoes.com.br/",
+      "databaseConnectionType": "custom",
+      "databaseType": "postgres",
+      "db_host": "aws-0-sa-east-1.pooler.supabase.com",
+      "db_port": "5432",
+      "db_user": "postgres.eqyafrpnfuwgessstuzc",
+      "db_password": "@Baki025@",
+      "db_database": "postgres",
+      "access": "ftp",
+      "ftpServer": "ftp.rubensbentes.com.br",
+      "ftpUser": "master@teste.rubensbentes.com.br",
+      "ftpPassword": "v2:3eedceab06fabd2b6c0ed49b5485b98dd9d0ebed66fbd14d"
     }
   ],
   "activeTarget": "Development",
