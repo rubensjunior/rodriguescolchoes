@@ -1,4 +1,4 @@
-<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="criarconta" appConnect="local" components="{dmxValidator:{},dmxPreloader:{},dmxFormatter:{},dmxBootstrap5Alert:{}}" -->
+<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="criarconta" appConnect="local" components="{dmxValidator:{},dmxPreloader:{},dmxFormatter:{},dmxBootstrap5Alert:{},dmxBrowser:{}}" -->
 
 <style>
     /* Camera Styles */
@@ -109,7 +109,7 @@
 <dmx-preloader id="carregando" color="#0930ff" spinner="wave"></dmx-preloader>
 <meta name="ac:route" content="/f/criar-conta">
 
-<!-- Controle de Step -->
+<!-- Controle de Step - App Connect Values -->
 <dmx-value id="current_step" dmx-bind:value="1"></dmx-value>
 <dmx-value id="total_steps" dmx-bind:value="4"></dmx-value>
 
@@ -214,7 +214,7 @@
                                     </div>
 
                                     <!-- Hidden File Input -->
-                                    <input type="file" id="foto" name="foto" accept="image/*" style="display: none;" required data-msg-required="Por favor, selecione ou tire uma foto">
+                                    <input type="file" id="foto" name="foto" accept="image/*" style="display: none;" required data-msg-required="Por favor, selecione ou tire uma foto" image-max-width="800" image-max-height="800" image-quality="85" image-type="jpeg">
 
                                     <!-- Hidden Canvas for Photo Data -->
                                     <canvas id="finalPhotoCanvas" style="display: none;"></canvas>
@@ -313,7 +313,7 @@
                                 <div class="col-12 col-md-6">
                                     <div class="form-group mb-2">
                                         <label for="ano_veiculo" class="form-label">Ano</label>
-                                        <input type="number" class="form-control" id="ano_veiculo" name="ano_veiculo" placeholder="2020">
+                                        <input type="number" class="form-control" id="ano_veiculo" name="ano_veiculo" placeholder="2020" min="1950" max="2030">
                                         <div class="form-text">Campo opcional</div>
                                     </div>
                                 </div>
@@ -326,6 +326,16 @@
                                         <div class="form-text">Campo opcional - ajuda na identificação</div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <!-- Debug: Verificar dados dos steps anteriores -->
+                            <div class="d-none" id="debug_step3">
+                                <small class="text-muted">Debug Step 3:</small>
+                                <div dmx-text="'Nome: ' + nome_completo.value"></div>
+                                <div dmx-text="'CPF: ' + cpf.value"></div>
+                                <div dmx-text="'Email: ' + email.value"></div>
+                                <div dmx-text="'Telefone: ' + telefone.value"></div>
+                                <div dmx-text="'Foto: ' + foto.value"></div>
                             </div>
                         </div>
 
@@ -386,6 +396,18 @@
                                 Política de Privacidade.
                             </div>
                         </div>
+
+                        <!-- Debug: Estado do formulário -->
+                        <div class="d-none" id="debug_form">
+                            <small class="text-muted">Debug Form State:</small>
+                            <div dmx-text="'Form executing: ' + criar_conta_form.state.executing"></div>
+                            <div dmx-text="'Form last error: ' + criar_conta_form.lastError.message"></div>
+                            <div dmx-text="'Current step: ' + current_step.value"></div>
+                        </div>
+
+                        <!-- Campo hidden para garantir que os dados sejam enviados -->
+                        <input type="hidden" id="step_data_check" name="step_data_check" dmx-bind:value="current_step.value">
+                        <input type="hidden" id="form_timestamp" name="form_timestamp" dmx-bind:value="'now'.toDate().formatDate('yyyy-MM-dd HH:mm:ss')">
 
                         <!-- Navigation Buttons -->
                         <div class="form-navigation mt-4">
@@ -608,6 +630,15 @@
     document.addEventListener('DOMContentLoaded', function() {
         aplicarMascaras(); // Garantir aplicação
         
+        // Verificar se App Connect está carregado
+        let checkAppConnect = setInterval(function() {
+            if (typeof dmx !== 'undefined' && dmx.app) {
+                console.log('App Connect carregado com sucesso');
+                clearInterval(checkAppConnect);
+            }
+        }, 100);
+        setTimeout(() => clearInterval(checkAppConnect), 5000);
+        
         console.log('Página carregada');
         console.log('Formulário:', document.getElementById('criar_conta_form'));
         console.log('App Connect:', typeof dmx !== 'undefined' ? 'Carregado' : 'Não carregado');
@@ -628,13 +659,16 @@
     setTimeout(aplicarMascaras, 500);
     setTimeout(aplicarMascaras, 1000);
 
-    // Debug para verificar se o current_step está funcionando
+    // Inicialização mais robusta do App Connect
     document.addEventListener('DOMContentLoaded', function() {
-        if (typeof dmx !== 'undefined') {
-            dmx.ready(function() {
-                console.log('App Connect carregado. current_step inicial:', dmx.parse('current_step.value'));
-            });
-        }
+        // Aguardar carregamento completo
+        setTimeout(function() {
+            if (typeof dmx !== 'undefined' && dmx.app) {
+                dmx.ready(function() {
+                    console.log('App Connect carregado. current_step inicial:', dmx.parse('current_step.value'));
+                });
+            }
+        }, 500);
     });
 
     // Camera Functionality
@@ -822,5 +856,31 @@
     });
 
     // Validação dos steps
+    
+    // Debug melhorado para servidor
+    function debugServidor() {
+        console.log('=== DEBUG SERVIDOR ===');
+        console.log('UserAgent:', navigator.userAgent);
+        console.log('URL atual:', window.location.href);
+        console.log('App Connect disponível:', typeof dmx !== 'undefined');
+        
+        if (typeof dmx !== 'undefined') {
+            setTimeout(function() {
+                try {
+                    console.log('Current Step:', dmx.parse('current_step.value'));
+                    console.log('Form State:', {
+                        executing: dmx.parse('criar_conta_form.state.executing'),
+                        hasError: dmx.parse('criar_conta_form.lastError') ? true : false
+                    });
+                } catch (e) {
+                    console.error('Erro no debug:', e);
+                }
+            }, 2000);
+        }
+    }
+    
+    // Executar debug
+    document.addEventListener('DOMContentLoaded', debugServidor);
+    setTimeout(debugServidor, 3000);
 
 </script>
