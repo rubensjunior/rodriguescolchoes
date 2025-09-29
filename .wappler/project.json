@@ -69,7 +69,7 @@
       "ftpPassword": "v2:58fe34f12be9adec28d421333bd65e2a2382af72bb34ff5e"
     }
   ],
-  "activeTarget": "WEB",
+  "activeTarget": "Development",
   "projectType": "web",
   "extensions": [],
   "userUploadsFolder": "/public/upload"
