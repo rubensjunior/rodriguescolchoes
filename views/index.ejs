@@ -3,23 +3,20 @@
 <style>
     /* Estilo para imagem de perfil no modal QR Code */
     .profile-image {
-        width: 280px !important;
-        height: 350px !important;
-        /* Proporção 4:5 (280x350) */
-        max-width: 280px !important;
-        max-height: 350px !important;
+        width: 100%;
+        max-width: 120px;
+        height: auto;
+        max-height: 150px;
         border-radius: 8px;
         object-fit: cover;
         border: 4px solid #fff;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         margin-bottom: 1rem;
-        display: block !important;
+        display: block;
         transition: all 0.3s ease;
         background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-        margin-left: auto !important;
-        margin-right: auto !important;
-        visibility: visible !important;
-        opacity: 1 !important;
+        margin-left: auto;
+        margin-right: auto;
         position: relative;
     }
 
@@ -29,108 +26,41 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 2rem;
+        font-size: 1rem;
         color: #1976d2;
         z-index: 1;
     }
 
-    .profile-image[src]:not([src=""]) {
+    .profile-image[src]:not([src=""]):not([src*="data:"]) {
         background: none;
     }
 
-    .profile-image[src]:not([src=""])::before {
+    .profile-image[src]:not([src=""]):not([src*="data:"])::before {
         display: none;
     }
 
-    .profile-image:hover {
-        transform: scale(1.02);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    /* Quando a imagem carrega com sucesso, remove o placeholder */
+    .profile-image.loaded {
+        background: none;
+    }
+
+    .profile-image.loaded::before {
+        display: none;
     }
 
     .qr-code-image {
-        width: 280px !important;
+        width: 100%;
+        max-width: 200px;
         height: auto;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        display: block !important;
-    }
-
-    /* Tablet */
-    @media (min-width: 768px) and (max-width: 991.98px) {
-        .profile-image {
-            width: 300px !important;
-            height: 375px !important;
-            max-width: 300px !important;
-            max-height: 375px !important;
-        }
-
-        .profile-image::before {
-            font-size: 2.2rem;
-        }
-
-        .qr-code-image {
-            width: 300px !important;
-        }
-    }
-
-    /* Desktop */
-    @media (min-width: 992px) {
-        .profile-image {
-            width: 320px !important;
-            height: 400px !important;
-            max-width: 320px !important;
-            max-height: 400px !important;
-        }
-
-        .profile-image::before {
-            font-size: 2.5rem;
-        }
-
-        .qr-code-image {
-            width: 320px !important;
-        }
-    }
-
-    /* Mobile */
-    @media (max-width: 767.98px) {
-        .profile-image {
-            width: 250px !important;
-            height: 312px !important;
-            max-width: 250px !important;
-            max-height: 312px !important;
-        }
-
-        .profile-image::before {
-            font-size: 1.8rem;
-        }
-
-        .qr-code-image {
-            width: 250px !important;
-        }
-    }
-
-    /* Mobile pequeno */
-    @media (max-width: 575.98px) {
-        .profile-image {
-            width: 220px !important;
-            height: 275px !important;
-            max-width: 220px !important;
-            max-height: 275px !important;
-        }
-
-        .profile-image::before {
-            font-size: 1.5rem;
-        }
-
-        .qr-code-image {
-            width: 220px !important;
-        }
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
     }
 </style>
 
 <dmx-serverconnect id="buscar_qrcode" url="/api/colaborador/indentificar-colaborador-cpf" noload="true"></dmx-serverconnect>
 <div class="modal" id="modal1" is="dmx-bs5-modal" tabindex="-1">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Meu QRCODE</h5>
@@ -143,9 +73,73 @@
                     </div>
                 </form>
                 <div dmx-show="!buscar_qrcode.data.query.isEmpty()">
-                    <h6 class="text-center">{{buscar_qrcode.data.query.nome_colaborador}}</h6><img dmx-bind:src="buscar_qrcode.data.query.imagem_perfil" alt="Foto do Colaborador" onerror="this.style.border='4px solid #f44336'; this.style.background='#ffebee';">
-                    <img dmx-bind:src="'data:image/png;base64,' + buscar_qrcode.data.query.base64" class="img-fluid  mb-3" alt="QR Code de Acesso">
+                    <h6 class="text-center mb-3">{{buscar_qrcode.data.query.nome_colaborador}}</h6>
 
+                    <!-- Debug: mostrar caminho original e processado -->
+                    <div class="alert alert-info small text-start mb-3">
+                        <strong>Debug - Caminhos testados:</strong><br>
+                        Original: {{buscar_qrcode.data.query.imagem_perfil}}<br>
+                        Teste 1: {{buscar_qrcode.data.query.imagem_perfil.replace('/public', '')}}<br>
+                        Teste 2: {{'./' + buscar_qrcode.data.query.imagem_perfil.replace('/public/', '')}}<br>
+                        Teste 3: {{'../' + buscar_qrcode.data.query.imagem_perfil.replace('/public/', '')}}<br>
+                        Teste 4: {{'https://sgi.rodriguescolchoes.com.br' + buscar_qrcode.data.query.imagem_perfil.replace('/public', '')}}<br>
+                        Teste 5: {{'https://sgi.rodriguescolchoes.com.br' + buscar_qrcode.data.query.imagem_perfil}}<br>
+                        Teste 6: {{buscar_qrcode.data.query.imagem_perfil.replace('/public/', '../public/')}}<br>
+                    </div>
+
+                    <!-- Primeira linha de testes -->
+                    <div class="row mb-3">
+                        <div class="col-2">
+                            <p class="small">Teste 1: Remove /public</p>
+                            <img dmx-bind:src="buscar_qrcode.data.query.imagem_perfil.replace('/public', '')" class="profile-image" alt="Teste 1" onload="console.log('✅ Teste 1 funcionou:', this.src);" onerror="console.log('❌ Teste 1 falhou:', this.src);">
+                        </div>
+                        <div class="col-2">
+                            <p class="small">Teste 2: ./</p>
+                            <img dmx-bind:src="'./' + buscar_qrcode.data.query.imagem_perfil.replace('/public/', '')" class="profile-image" alt="Teste 2" onload="console.log('✅ Teste 2 funcionou:', this.src);" onerror="console.log('❌ Teste 2 falhou:', this.src);">
+                        </div>
+                        <div class="col-2">
+                            <p class="small">Teste 3: ../</p>
+                            <img dmx-bind:src="'../' + buscar_qrcode.data.query.imagem_perfil.replace('/public/', '')" class="profile-image" alt="Teste 3" onload="console.log('✅ Teste 3 funcionou:', this.src);" onerror="console.log('❌ Teste 3 falhou:', this.src);">
+                        </div>
+                        <div class="col-3">
+                            <p class="small">Teste 4: Domínio + sem /public</p>
+                            <img dmx-bind:src="'https://sgi.rodriguescolchoes.com.br' + buscar_qrcode.data.query.imagem_perfil.replace('/public', '')" class="profile-image" alt="Teste 4" onload="console.log('✅ Teste 4 funcionou:', this.src);" onerror="console.log('❌ Teste 4 falhou:', this.src);">
+                        </div>
+                        <div class="col-3">
+                            <p class="small">Teste 5: Domínio + direto</p>
+                            <img dmx-bind:src="'https://sgi.rodriguescolchoes.com.br' + buscar_qrcode.data.query.imagem_perfil" class="profile-image" alt="Teste 5" onload="console.log('✅ Teste 5 funcionou:', this.src);" onerror="console.log('❌ Teste 5 falhou:', this.src);">
+                        </div>
+                    </div>
+
+                    <!-- Segunda linha de testes -->
+                    <div class="row mb-3">
+                        <div class="col-2">
+                            <p class="small">Teste 6: ../public/</p>
+                            <img dmx-bind:src="buscar_qrcode.data.query.imagem_perfil.replace('/public/', '../public/')" class="profile-image" alt="Teste 6" onload="console.log('✅ Teste 6 funcionou:', this.src);" onerror="console.log('❌ Teste 6 falhou:', this.src);">
+                        </div>
+                        <div class="col-2">
+                            <p class="small">Teste 7: Caminho direto</p>
+                            <img dmx-bind:src="buscar_qrcode.data.query.imagem_perfil" class="profile-image" alt="Teste 7" onload="console.log('✅ Teste 7 funcionou:', this.src);" onerror="console.log('❌ Teste 7 falhou:', this.src);">
+                        </div>
+                        <div class="col-2">
+                            <p class="small">Teste 8: Fixo ../</p>
+                            <img src="../upload/perfil/004.934.252-50._1.jpg" class="profile-image" alt="Teste 8" onload="console.log('✅ Teste 8 funcionou:', this.src);" onerror="console.log('❌ Teste 8 falhou:', this.src);">
+                        </div>
+                        <div class="col-3">
+                            <p class="small">Teste 9: Fixo domínio</p>
+                            <img src="https://sgi.rodriguescolchoes.com.br/upload/perfil/004.934.252-50._1.jpg" class="profile-image" alt="Teste 9" onload="console.log('✅ Teste 9 funcionou:', this.src);" onerror="console.log('❌ Teste 9 falhou:', this.src);">
+                        </div>
+                        <div class="col-3">
+                            <p class="small">Teste 10: Fixo domínio + /public</p>
+                            <img src="https://sgi.rodriguescolchoes.com.br/public/upload/perfil/004.934.252-50._1.jpg" class="profile-image" alt="Teste 10" onload="console.log('✅ Teste 10 funcionou:', this.src);" onerror="console.log('❌ Teste 10 falhou:', this.src);">
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <img dmx-bind:src="'data:image/png;base64,' + buscar_qrcode.data.query.base64" class="qr-code-image mb-3" alt="QR Code de Acesso" onload="this.style.display='block';" onerror="this.style.display='none';">
+
+                    <p class="text-muted small mt-2">Apresente este QR Code no acesso</p>
                 </div>
             </div>
             <div class="modal-footer">
