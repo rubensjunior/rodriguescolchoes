@@ -163,7 +163,7 @@
         <div class="col-12 col-md-10 col-lg-8 col-xl-6">
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-2 p-md-2">
-                    <form is="dmx-serverconnect-form" id="criar_conta_form" class="needs-validation" method="post" action="/api/colaborador/criar-conta" dmx-on:error="notificacoes.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response)" dmx-on:success="navegacao.goto('/f/login',true)">
+                    <form is="dmx-serverconnect-form" id="criar_conta_form" class="needs-validation" method="post" action="/api/colaborador/criar-conta" dmx-on:error="notificacoes.danger('Ocorreu um erro: '+criar_conta_form.lastError.status+' - '+criar_conta_form.lastError.message)" dmx-on:success="navegacao.goto('/f/login',true)">
 
                         <!-- STEP 1: Foto do Colaborador -->
                         <div dmx-show="current_step.value == 1" class="step-content">
@@ -280,8 +280,8 @@
                                 <!-- Tipo do Veículo -->
                                 <div class="col-12 col-md-6">
                                     <div class="form-group mb-2">
-                                        <label for="tipo_veiculo" class="form-label">Tipo do veículo</label>
-                                        <select id="tipo_veiculo" name="tipo_veiculo" class="form-select">
+                                        <label for="tipo_veiculo" class="form-label">Tipo do veículo *</label>
+                                        <select id="tipo_veiculo" name="tipo_veiculo" class="form-select" required data-msg-required="Por favor, selecione o tipo do veículo">
                                             <option value="" selected disabled>Selecione o tipo</option>
                                             <option value="carro">Carro</option>
                                             <option value="moto">Moto</option>
@@ -295,8 +295,8 @@
                                 <!-- Placa -->
                                 <div class="col-12 col-md-6">
                                     <div class="form-group mb-2">
-                                        <label for="placa" class="form-label">Placa do veículo</label>
-                                        <input type="text" class="form-control" id="placa" name="placa" placeholder="ABC1234" style="text-transform: uppercase;">
+                                        <label for="placa" class="form-label">Placa do veículo *</label>
+                                        <input type="text" class="form-control" id="placa" name="placa" placeholder="ABC1234" style="text-transform: uppercase;" required data-msg-required="Por favor, digite a placa do veículo">
                                     </div>
                                 </div>
 
@@ -356,10 +356,6 @@
                                             <span dmx-text="telefone.value || 'Não informado'"></span>
                                         </div>
                                         <div class="col-12 col-md-6">
-                                            <strong>Data de Nascimento:</strong><br>
-                                            <span dmx-text="data_nascimento.value || 'Não informado'"></span>
-                                        </div>
-                                        <div class="col-12 col-md-6">
                                             <strong>Veículo:</strong><br>
                                             <span dmx-text="tipo_veiculo.value || 'Não informado'"></span>
                                         </div>
@@ -410,7 +406,7 @@
                                     </button>
                                 </div>
                                 <div class="col-6">
-                                    <button type="button" class="btn btn-primary w-100" dmx-on:click="current_step.setValue(3)">
+                                    <button type="button" class="btn btn-primary w-100" dmx-class:btn-secondary="!nome_completo.value || !cpf.value || !email.value || !telefone.value" dmx-on:click="nome_completo.value && cpf.value && email.value && telefone.value ? current_step.setValue(3) : ''">
                                         <span class="d-none d-sm-inline">Próximo</span>
                                         <span class="d-sm-none">Avançar</span>
                                         <i class="fas fa-arrow-right ms-1"></i>
@@ -428,7 +424,7 @@
                                     </button>
                                 </div>
                                 <div class="col-6">
-                                    <button type="button" class="btn btn-primary w-100" dmx-on:click="current_step.setValue(4)">
+                                    <button type="button" class="btn btn-primary w-100" dmx-class:btn-secondary="!tipo_veiculo.value || !placa.value" dmx-on:click="tipo_veiculo.value && placa.value ? current_step.setValue(4) : ''">
                                         <span class="d-none d-sm-inline">Próximo</span>
                                         <span class="d-sm-none">Avançar</span>
                                         <i class="fas fa-arrow-right ms-1"></i>
@@ -448,7 +444,7 @@
                                 </div>
                                 <!-- Botão Finalizar -->
                                 <div class="col-6">
-                                    <button type="submit" class="btn btn-success w-100">
+                                    <button type="submit" class="btn btn-success w-100" dmx-bind:disabled="criar_conta_form.state.executing">
                                         <span dmx-hide="criar_conta_form.state.executing">
                                             <i class="fas fa-check me-1 d-none d-sm-inline"></i>
                                             <span class="d-none d-sm-inline">Criar Conta</span>
@@ -564,7 +560,6 @@
     function aplicarMascaras() {
         const cpfInput = document.getElementById('cpf');
         const telefoneInput = document.getElementById('telefone');
-        const dataInput = document.getElementById('data_nascimento');
         const placaInput = document.getElementById('placa');
         
         if (cpfInput && !cpfInput.hasAttribute('data-mask-applied')) {
@@ -581,12 +576,6 @@
             telefoneInput.setAttribute('data-mask-applied', 'true');
         }
         
-        if (dataInput && !dataInput.hasAttribute('data-mask-applied')) {
-            dataInput.addEventListener('input', function(e) {
-                e.target.value = formatData(e.target.value);
-            });
-            dataInput.setAttribute('data-mask-applied', 'true');
-        }
         
         if (placaInput && !placaInput.hasAttribute('data-mask-applied')) {
             placaInput.addEventListener('input', function(e) {
@@ -609,9 +598,6 @@
             if (!document.getElementById('telefone').hasAttribute('data-mask-applied')) {
                 $('#telefone').mask('(00) 00000-0000');
             }
-            if (!document.getElementById('data_nascimento').hasAttribute('data-mask-applied')) {
-                $('#data_nascimento').mask('00/00/0000');
-            }
             if (!document.getElementById('placa').hasAttribute('data-mask-applied')) {
                 $('#placa').mask('AAA0000', {'translation': {'A': {pattern: /[A-Za-z]/}, '0': {pattern: /[0-9]/}}});
             }
@@ -628,7 +614,6 @@
         console.log('Máscaras aplicadas:', {
             cpf: document.getElementById('cpf').hasAttribute('data-mask-applied'),
             telefone: document.getElementById('telefone').hasAttribute('data-mask-applied'),
-            data_nascimento: document.getElementById('data_nascimento').hasAttribute('data-mask-applied'),
             placa: document.getElementById('placa').hasAttribute('data-mask-applied')
         });
     });
@@ -642,6 +627,15 @@
     setTimeout(aplicarMascaras, 100);
     setTimeout(aplicarMascaras, 500);
     setTimeout(aplicarMascaras, 1000);
+
+    // Debug para verificar se o current_step está funcionando
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof dmx !== 'undefined') {
+            dmx.ready(function() {
+                console.log('App Connect carregado. current_step inicial:', dmx.parse('current_step.value'));
+            });
+        }
+    });
 
     // Camera Functionality
     let stream = null;
@@ -791,11 +785,17 @@
             dataTransfer.items.add(file);
             fileInput.files = dataTransfer.files;
             
+            // Trigger change event to ensure App Connect recognizes the file
+            const event = new Event('change', { bubbles: true });
+            fileInput.dispatchEvent(event);
+            
             // Stop camera
             stopCamera();
             
             // Show reset options
             showPhotoControls();
+            
+            console.log('Foto confirmada e arquivo processado:', fileInput.files[0]);
         }, 'image/jpeg', 0.8);
     });
 
@@ -820,4 +820,7 @@
     window.addEventListener('beforeunload', function() {
         stopCamera();
     });
+
+    // Validação dos steps
+
 </script>

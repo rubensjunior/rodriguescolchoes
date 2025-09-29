@@ -9,12 +9,7 @@
         "type": "text",
         "fieldName": "nome_completo",
         "options": {
-          "rules": {
-            "core:required": {
-              "param": "",
-              "message": "Por favor, digite seu nome completo"
-            }
-          }
+          "rules": {}
         },
         "name": "nome_completo"
       },
