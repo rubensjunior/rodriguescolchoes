@@ -165,7 +165,8 @@
           "password": "{{$_POST.cpf}}",
           "algo": "argon2id"
         },
-        "outputType": "text"
+        "outputType": "text",
+        "disabled": true
       },
       {
         "name": "upload",
@@ -298,7 +299,7 @@
                 "table": "colaboradores",
                 "column": "password",
                 "type": "text",
-                "value": "{{hash}}"
+                "value": "{{$_POST.cpf}}"
               },
               {
                 "table": "colaboradores",
@@ -338,7 +339,7 @@
               {
                 "name": ":P5",
                 "type": "expression",
-                "value": "{{hash}}",
+                "value": "{{$_POST.cpf}}",
                 "test": ""
               },
               {
