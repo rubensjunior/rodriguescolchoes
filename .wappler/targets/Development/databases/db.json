@@ -1,13 +1,13 @@
 {
-  "direct": true,
   "type": "postgres",
   "connection": {
-    "host": "aws-0-sa-east-1.pooler.supabase.com",
+    "host": "aws-1-sa-east-1.pooler.supabase.com",
     "port": 5432,
-    "user": "postgres.eqyafrpnfuwgessstuzc",
-    "password": "@Baki025@",
+    "user": "postgres.cnbfqolhcadzrmroselp",
+    "password": "@Baki025@025#",
     "database": "postgres"
   },
+  "direct": true,
   "schema": {
     "schemas": [
       "realtime",
@@ -21,6 +21,26 @@
       "storage"
     ],
     "tables": {
+      "realtime.messages": {
+        "db": {
+          "schema": "realtime"
+        }
+      },
+      "realtime.schema_migrations": {
+        "db": {
+          "schema": "realtime"
+        }
+      },
+      "realtime.subscription": {
+        "db": {
+          "schema": "realtime"
+        }
+      },
+      "logs_mkt_inauguracao": {
+        "db": {
+          "schema": "public"
+        }
+      },
       "colaboradores": {
         "db": {
           "schema": "public"
@@ -66,14 +86,6 @@
           "base64": {
             "db": {
               "type": "text",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "data_nascimento": {
-            "db": {
-              "type": "date",
               "primary": false,
               "unique": false,
               "nullable": true
@@ -132,175 +144,6 @@
               "unique": false,
               "nullable": true
             }
-          }
-        },
-        "refs": {
-          "inauguracao": "criado_por",
-          "veiculos_colaboradores": "colaborador",
-          "registro_portaria": "id_colaborador_registro",
-          "veiculos_motoristas": "id_motorista",
-          "logs_mkt_inauguracao": "usuario"
-        }
-      },
-      "regional": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_regional": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_regional": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "nome_regional": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "cod_regional": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
-        },
-        "refs": {
-          "inauguracao": "regional"
-        }
-      },
-      "clientes": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_cliente": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_cliente": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "nome_completo": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "cpf": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "whatsapp": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "email": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "lgpd": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "termo_participacap": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
-        },
-        "refs": {
-          "cadastro_participante": "id_cliente"
-        }
-      },
-      "inauguracao": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_inauguracao": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_inauguracao": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "nome_loja": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
           },
           "cidade": {
             "db": {
@@ -311,81 +154,10 @@
               "nullable": true
             }
           },
-          "uf": {
+          "estado": {
             "db": {
               "type": "string",
               "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "endereco_completo": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "complemento": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "cep": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "cod_filial": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "data_inicio": {
-            "db": {
-              "type": "timestamp",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "useTz": true
-            }
-          },
-          "status": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "data_fim": {
-            "db": {
-              "type": "timestamp",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "useTz": true
-            }
-          },
-          "total_senhas": {
-            "db": {
-              "type": "decimal",
               "primary": false,
               "unique": false,
               "nullable": true
@@ -393,27 +165,62 @@
           },
           "regional": {
             "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_regional",
-              "inTable": "regional",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "bairro": {
-            "db": {
               "type": "string",
               "maxLength": -5,
               "primary": false,
               "unique": false,
               "nullable": true
             }
+          }
+        },
+        "refs": {
+          "logs_mkt_inauguracao": "usuario",
+          "inauguracao": "criado_por",
+          "veiculos_motoristas": "id_motorista",
+          "veiculos_colaboradores": "colaborador",
+          "registro_portaria": "id_agente_portaria"
+        }
+      },
+      "inauguracao": {
+        "db": {
+          "schema": "public"
+        },
+        "sub": {
+          "inauguracao_produto": "inauguracao_id"
+        },
+        "refs": {
+          "cadastro_participante": "id_inauguracao"
+        }
+      },
+      "lojas": {
+        "db": {
+          "schema": "public"
+        }
+      },
+      "veiculos_motoristas": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_veiculos_motoristas": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
           },
-          "criado_por": {
+          "created_at_veiculos_motoristas": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "id_motorista": {
             "db": {
               "type": "reference",
               "primary": false,
@@ -422,16 +229,45 @@
               "references": "id_colaborador",
               "inTable": "colaboradores",
               "referenceType": "uuid",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
+              "onUpdate": "CASCADE",
+              "onDelete": "CASCADE"
+            }
+          },
+          "id_veiculo": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "id_responsavel_motorista": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_colaborador",
+              "inTable": "colaboradores",
+              "referenceType": "uuid",
+              "onUpdate": "CASCADE",
+              "onDelete": "CASCADE"
             }
           }
+        }
+      },
+      "inauguracao_produto": {
+        "db": {
+          "schema": "public"
         },
-        "sub": {
-          "inauguracao_produto": "inauguracao_id"
+        "parent": "inauguracao"
+      },
+      "produtos": {
+        "db": {
+          "schema": "public"
         },
         "refs": {
-          "cadastro_participante": "id_inauguracao"
+          "inauguracao_produto": "produto_inaug_id"
         }
       },
       "veiculos_colaboradores": {
@@ -528,521 +364,12 @@
           "registro_portaria": "id_veiculo_registrado"
         }
       },
-      "produtos": {
+      "clientes": {
         "db": {
           "schema": "public"
-        },
-        "columns": {
-          "id_produtos": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_produtos": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "nome_produto": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "descricao_produtos": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "cod_produto": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "url_imagens": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
         },
         "refs": {
-          "inauguracao_produto": "produto_inaug_id"
-        }
-      },
-      "inauguracao_produto": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_inaug_produto": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_inaug_produto": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "produto_inaug_id": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_produtos",
-              "inTable": "produtos",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "inauguracao_id": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_inauguracao",
-              "inTable": "inauguracao",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "unidades_disponiveis": {
-            "db": {
-              "type": "decimal",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "limite_por_pessoa": {
-            "db": {
-              "type": "decimal",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "quantidade_consumida": {
-            "db": {
-              "type": "decimal",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "status": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "valor": {
-            "db": {
-              "type": "decimal",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
-        },
-        "parent": "inauguracao"
-      },
-      "cadastro_participante": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_cad_cliente": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_cad_participante": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "id_inauguracao": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_inauguracao",
-              "inTable": "inauguracao",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "id_cliente": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_cliente",
-              "inTable": "clientes",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "senha": {
-            "db": {
-              "type": "decimal",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "status_atendimento": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
-        }
-      },
-      "registro_portaria": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_registro_portaria": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_registro_portaria": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "id_colaborador_registro": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_colaborador",
-              "inTable": "colaboradores",
-              "referenceType": "uuid",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "tipo_registro": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "data_hora": {
-            "db": {
-              "type": "timestamp",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "id_agente_portaria": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_colaborador",
-              "inTable": "colaboradores",
-              "referenceType": "uuid",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "id_veiculo_registrado": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_veiculo_colaborador",
-              "inTable": "veiculos_colaboradores",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          }
-        }
-      },
-      "veiculos_motoristas": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_veiculos_motoristas": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_veiculos_motoristas": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "id_motorista": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_colaborador",
-              "inTable": "colaboradores",
-              "referenceType": "uuid",
-              "onUpdate": "CASCADE",
-              "onDelete": "CASCADE"
-            }
-          },
-          "id_veiculo": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "referenceType": "bigInteger"
-            }
-          },
-          "id_responsavel_motorista": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_colaborador",
-              "inTable": "colaboradores",
-              "referenceType": "uuid",
-              "onUpdate": "CASCADE",
-              "onDelete": "CASCADE"
-            }
-          }
-        }
-      },
-      "logs_mkt_inauguracao": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_log_mkt": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_log_mkt": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "crud": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "tipo": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "item": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "usuario": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_colaborador",
-              "inTable": "colaboradores",
-              "referenceType": "uuid",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "conteudo": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
-        }
-      },
-      "Lojas": {
-        "db": {},
-        "columns": {
-          "id": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "endereco": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "complemento": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "cep": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "bairro": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "cidade": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "estado": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
+          "cadastro_participante": "id_cliente"
         }
       },
       "tab_prod_ia": {
@@ -1050,30 +377,62 @@
           "schema": "public"
         }
       },
-      "lojas": {
+      "cadastro_participante": {
         "db": {
           "schema": "public"
         }
       },
-      "realtime.schema_migrations": {
+      "registro_portaria": {
         "db": {
-          "schema": "realtime"
+          "schema": "public"
         }
       },
-      "realtime.subscription": {
+      "regional": {
         "db": {
-          "schema": "realtime"
-        }
-      },
-      "realtime.messages": {
-        "db": {
-          "schema": "realtime"
+          "schema": "public"
+        },
+        "refs": {
+          "inauguracao": "regional"
         }
       },
       "vault.secrets": {
         "db": {
           "schema": "vault",
           "comment": "Table with encrypted `secret` column for storing sensitive information on disk."
+        }
+      },
+      "storage.migrations": {
+        "db": {
+          "schema": "storage"
+        }
+      },
+      "storage.buckets": {
+        "db": {
+          "schema": "storage"
+        },
+        "refs": {
+          "storage.s3_multipart_uploads_parts": "bucket_id",
+          "storage.objects": "bucket_id",
+          "storage.s3_multipart_uploads": "bucket_id"
+        }
+      },
+      "storage.s3_multipart_uploads_parts": {
+        "db": {
+          "schema": "storage"
+        },
+        "parent": "s3_multipart_uploads"
+      },
+      "storage.objects": {
+        "db": {
+          "schema": "storage"
+        }
+      },
+      "storage.s3_multipart_uploads": {
+        "db": {
+          "schema": "storage"
+        },
+        "sub": {
+          "storage.s3_multipart_uploads_parts": "upload_id"
         }
       },
       "auth.sso_domains": {
@@ -1111,55 +470,48 @@
           "comment": "Auth: Manages updates to the auth system."
         }
       },
+      "auth.refresh_tokens": {
+        "db": {
+          "schema": "auth",
+          "comment": "Auth: Store of tokens used to refresh JWT tokens once they expire."
+        }
+      },
+      "auth.flow_state": {
+        "db": {
+          "schema": "auth",
+          "comment": "stores metadata for pkce logins"
+        },
+        "refs": {
+          "auth.saml_relay_states": "flow_state_id"
+        }
+      },
+      "auth.one_time_tokens": {
+        "db": {
+          "schema": "auth"
+        }
+      },
+      "auth.users": {
+        "db": {
+          "schema": "auth",
+          "comment": "Auth: Stores user login data within a secure schema."
+        },
+        "refs": {
+          "auth.one_time_tokens": "user_id",
+          "auth.sessions": "user_id",
+          "auth.identities": "user_id",
+          "auth.mfa_factors": "user_id"
+        }
+      },
       "auth.audit_log_entries": {
         "db": {
           "schema": "auth",
           "comment": "Auth: Audit trail for user actions."
-        },
-        "columns": {
-          "instance_id": {
-            "db": {
-              "type": "uuid",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "id": {
-            "db": {
-              "type": "uuid",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "payload": {
-            "db": {
-              "type": "json",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "created_at": {
-            "db": {
-              "type": "timestamp",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "ip_address": {
-            "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 64,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          }
+        }
+      },
+      "auth.saml_relay_states": {
+        "db": {
+          "schema": "auth",
+          "comment": "Auth: Contains SAML Relay State information for each Service Provider initiated login."
         }
       },
       "auth.sessions": {
@@ -1172,50 +524,6 @@
           "auth.mfa_amr_claims": "session_id"
         }
       },
-      "auth.refresh_tokens": {
-        "db": {
-          "schema": "auth",
-          "comment": "Auth: Store of tokens used to refresh JWT tokens once they expire."
-        }
-      },
-      "auth.saml_relay_states": {
-        "db": {
-          "schema": "auth",
-          "comment": "Auth: Contains SAML Relay State information for each Service Provider initiated login."
-        }
-      },
-      "auth.users": {
-        "db": {
-          "schema": "auth",
-          "comment": "Auth: Stores user login data within a secure schema."
-        },
-        "refs": {
-          "auth.sessions": "user_id",
-          "auth.identities": "user_id",
-          "auth.one_time_tokens": "user_id",
-          "auth.mfa_factors": "user_id"
-        }
-      },
-      "auth.flow_state": {
-        "db": {
-          "schema": "auth",
-          "comment": "stores metadata for pkce logins"
-        },
-        "refs": {
-          "auth.saml_relay_states": "flow_state_id"
-        }
-      },
-      "auth.identities": {
-        "db": {
-          "schema": "auth",
-          "comment": "Auth: Stores identities associated to a user."
-        }
-      },
-      "auth.one_time_tokens": {
-        "db": {
-          "schema": "auth"
-        }
-      },
       "auth.mfa_challenges": {
         "db": {
           "schema": "auth",
@@ -1226,6 +534,12 @@
         "db": {
           "schema": "auth",
           "comment": "auth: stores authenticator method reference claims for multi factor authentication"
+        }
+      },
+      "auth.identities": {
+        "db": {
+          "schema": "auth",
+          "comment": "Auth: Stores identities associated to a user."
         }
       },
       "auth.mfa_factors": {
@@ -1241,54 +555,14 @@
         "db": {
           "schema": "auth"
         }
-      },
-      "storage.migrations": {
-        "db": {
-          "schema": "storage"
-        }
-      },
-      "storage.buckets": {
-        "db": {
-          "schema": "storage"
-        },
-        "refs": {
-          "storage.objects": "bucket_id",
-          "storage.s3_multipart_uploads": "bucket_id",
-          "storage.s3_multipart_uploads_parts": "bucket_id",
-          "storage.prefixes": "bucket_id"
-        }
-      },
-      "storage.objects": {
-        "db": {
-          "schema": "storage"
-        }
-      },
-      "storage.s3_multipart_uploads": {
-        "db": {
-          "schema": "storage"
-        },
-        "sub": {
-          "storage.s3_multipart_uploads_parts": "upload_id"
-        }
-      },
-      "storage.s3_multipart_uploads_parts": {
-        "db": {
-          "schema": "storage"
-        },
-        "parent": "s3_multipart_uploads"
-      },
-      "storage.buckets_analytics": {
-        "db": {
-          "schema": "storage"
-        }
-      },
-      "storage.prefixes": {
-        "db": {
-          "schema": "storage"
-        }
       }
     },
     "views": {
+      "vault.decrypted_secrets": {
+        "db": {
+          "schema": "vault"
+        }
+      },
       "extensions.pg_stat_statements_info": {
         "db": {
           "schema": "extensions"
@@ -1297,358 +571,6 @@
       "extensions.pg_stat_statements": {
         "db": {
           "schema": "extensions"
-        },
-        "columns": {
-          "userid": {
-            "db": {
-              "type": "oid",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "dbid": {
-            "db": {
-              "type": "oid",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "toplevel": {
-            "db": {
-              "type": "boolean",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "queryid": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "query": {
-            "db": {
-              "type": "text",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "plans": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "total_plan_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "min_plan_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "max_plan_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "mean_plan_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "stddev_plan_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "calls": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "total_exec_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "min_exec_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "max_exec_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "mean_exec_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "stddev_exec_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "rows": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "shared_blks_hit": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "shared_blks_read": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "shared_blks_dirtied": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "shared_blks_written": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "local_blks_hit": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "local_blks_read": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "local_blks_dirtied": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "local_blks_written": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "temp_blks_read": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "temp_blks_written": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "shared_blk_read_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "shared_blk_write_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "local_blk_read_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "local_blk_write_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "temp_blk_read_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "temp_blk_write_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "wal_records": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "wal_fpi": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "wal_bytes": {
-            "db": {
-              "type": "decimal",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "jit_functions": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "jit_generation_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "jit_inlining_count": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "jit_inlining_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "jit_optimization_count": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "jit_optimization_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "jit_emission_count": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "jit_emission_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "jit_deform_count": {
-            "db": {
-              "type": "bigInteger",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "jit_deform_time": {
-            "db": {
-              "type": "float",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "stats_since": {
-            "db": {
-              "type": "timestamp",
-              "useTz": true,
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "minmax_stats_since": {
-            "db": {
-              "type": "timestamp",
-              "useTz": true,
-              "primary": false,
-              "nullable": true
-            }
-          }
-        }
-      },
-      "vault.decrypted_secrets": {
-        "db": {
-          "schema": "vault"
         }
       }
     }

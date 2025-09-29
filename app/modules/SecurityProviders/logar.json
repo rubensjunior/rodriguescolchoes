@@ -6,14 +6,14 @@
     "secret": "s1lYlf3zy5tCIV1",
     "provider": "Database",
     "connection": "db",
+    "passwordVerify": true,
     "users": {
       "table": "colaboradores",
       "identity": "id_colaborador",
       "username": "cpf_colaborador",
       "password": "password"
     },
-    "permissions": {},
-    "passwordVerify": true
+    "permissions": {}
   },
   "meta": [
     {

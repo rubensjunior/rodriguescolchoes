@@ -32,10 +32,10 @@
       "targetType": "wappler",
       "databaseConnectionType": "custom",
       "databaseType": "postgres",
-      "db_host": "aws-0-sa-east-1.pooler.supabase.com",
+      "db_host": "aws-1-sa-east-1.pooler.supabase.com",
       "db_port": "5432",
-      "db_user": "postgres.eqyafrpnfuwgessstuzc",
-      "db_password": "@Baki025@",
+      "db_user": "postgres.cnbfqolhcadzrmroselp",
+      "db_password": "@Baki025@025#",
       "db_database": "postgres"
     },
     {
@@ -44,29 +44,29 @@
       "access": "ftp",
       "databaseConnectionType": "custom",
       "databaseType": "postgres",
-      "db_host": "aws-0-sa-east-1.pooler.supabase.com",
+      "db_host": "aws-1-sa-east-1.pooler.supabase.com",
       "db_port": "5432",
-      "db_user": "postgres.eqyafrpnfuwgessstuzc",
-      "db_password": "@Baki025@",
+      "db_user": "postgres.cnbfqolhcadzrmroselp",
+      "db_password": "@Baki025@025#",
       "db_database": "postgres",
       "ftpServer": "ftp.rubensbentes.com.br",
       "ftpUser": "master@sgi.rodriguescolchoes.com.br",
-      "ftpPassword": "v2:8b33283471ac5c757930b01d0abfbe929f65e277bce95825"
+      "ftpPassword": "v2:42c762cd46f5f925e15d9ac6ab0cfd2fe2c20269d748cf05"
     },
     {
       "name": "Teste",
       "remoteURL": "https://teste.rodriguescolchoes.com.br/",
       "databaseConnectionType": "custom",
       "databaseType": "postgres",
-      "db_host": "aws-0-sa-east-1.pooler.supabase.com",
+      "db_host": "aws-1-sa-east-1.pooler.supabase.com",
       "db_port": "5432",
-      "db_user": "postgres.eqyafrpnfuwgessstuzc",
-      "db_password": "@Baki025@",
+      "db_user": "postgres.cnbfqolhcadzrmroselp",
+      "db_password": "@Baki025@025#",
       "db_database": "postgres",
       "access": "ftp",
       "ftpServer": "ftp.rubensbentes.com.br",
       "ftpUser": "master@teste.rubensbentes.com.br",
-      "ftpPassword": "v2:3eedceab06fabd2b6c0ed49b5485b98dd9d0ebed66fbd14d"
+      "ftpPassword": "v2:58fe34f12be9adec28d421333bd65e2a2382af72bb34ff5e"
     }
   ],
   "activeTarget": "Development",

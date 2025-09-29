@@ -50,11 +50,6 @@
               },
               {
                 "table": "colaboradores",
-                "column": "data_nascimento",
-                "aggregate": ""
-              },
-              {
-                "table": "colaboradores",
                 "column": "email"
               },
               {
@@ -116,7 +111,7 @@
               "conditional": null,
               "valid": true
             },
-            "query": "select \"id_colaborador\", \"nome_colaborador\", \"cpf_colaborador\", \"base64\", \"data_nascimento\", \"email\", \"telefone\", \"portaria\", \"imagem_perfil\", \"dashboard\" from \"colaboradores\" where \"colaboradores\".\"id_colaborador\" = ?"
+            "query": "select \"id_colaborador\", \"nome_colaborador\", \"cpf_colaborador\", \"base64\", \"email\", \"telefone\", \"portaria\", \"imagem_perfil\", \"dashboard\" from \"colaboradores\" where \"colaboradores\".\"id_colaborador\" = ?"
           }
         },
         "output": true,
@@ -136,10 +131,6 @@
           {
             "type": "text",
             "name": "base64"
-          },
-          {
-            "type": "date",
-            "name": "data_nascimento"
           },
           {
             "type": "text",
