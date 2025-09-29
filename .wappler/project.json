@@ -29,7 +29,6 @@
     {
       "name": "Development",
       "remoteURL": "http://localhost:3000",
-      "access": "local",
       "targetType": "wappler",
       "databaseConnectionType": "custom",
       "databaseType": "postgres",
@@ -40,10 +39,9 @@
       "db_database": "postgres"
     },
     {
-      "name": "Producao",
-      "remoteURL": "https://sgi.rubensbentes.com.br/",
+      "name": "WEB",
+      "remoteURL": "https://sgi.rodriguescolchoes.com.br",
       "access": "ftp",
-      "targetType": "wappler",
       "databaseConnectionType": "custom",
       "databaseType": "postgres",
       "db_host": "aws-0-sa-east-1.pooler.supabase.com",
@@ -51,27 +49,9 @@
       "db_user": "postgres.eqyafrpnfuwgessstuzc",
       "db_password": "@Baki025@",
       "db_database": "postgres",
-      "usage": "production",
-      "ftpServer": "ftp.rubensbentes.com.br",
-      "ftpUser": "master@sgi.rubensbentes.com.br",
-      "ftpPassword": "v2:37c917c3ab3fcfef807344dcb9ee26ad67878bfdc58531b1"
-    },
-    {
-      "name": "Oficial",
-      "remoteURL": "https://sgi.rodriguescolchoes.com.br",
-      "access": "ftp",
-      "targetType": "wappler",
-      "databaseConnectionType": "custom",
-      "databaseType": "postgres",
-      "db_host": "aws-1-sa-east-1.pooler.supabase.com",
-      "db_port": "5432",
-      "db_user": "postgres.cnbfqolhcadzrmroselp",
-      "db_password": "@Baki025@025#",
-      "db_database": "postgres",
-      "usage": "production",
-      "ftpServer": "ftp.rubensbentes.com.br",
+      "ftpServer": "ftp.rodriguescolchoes.com.br",
       "ftpUser": "master@sgi.rodriguescolchoes.com.br",
-      "ftpPassword": "v2:f817dd6adaa96f6b9315225175c0b664001b84a577fa1a27"
+      "ftpPassword": "v2:e93b8e36e9c19b303f43bcde1d06da7209f98dfbb723b686"
     }
   ],
   "activeTarget": "Development",
