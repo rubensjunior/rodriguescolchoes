@@ -6,6 +6,33 @@
     },
     "$_POST": [
       {
+        "type": "file",
+        "fieldName": "foto",
+        "options": {
+          "rules": {}
+        },
+        "name": "foto",
+        "sub": [
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "type",
+            "type": "text"
+          },
+          {
+            "name": "size",
+            "type": "number"
+          },
+          {
+            "name": "error",
+            "type": "text"
+          }
+        ],
+        "outputType": "file"
+      },
+      {
         "type": "text",
         "fieldName": "nome_completo",
         "options": {
@@ -20,14 +47,6 @@
           "rules": {}
         },
         "name": "cpf"
-      },
-      {
-        "type": "text",
-        "fieldName": "data_nascimento",
-        "options": {
-          "rules": {}
-        },
-        "name": "data_nascimento"
       },
       {
         "type": "text",
@@ -48,6 +67,9 @@
       {
         "type": "text",
         "fieldName": "placa",
+        "options": {
+          "rules": {}
+        },
         "name": "placa"
       },
       {
@@ -79,415 +101,101 @@
       {
         "type": "text",
         "fieldName": "tipo_veiculo",
+        "options": {
+          "rules": {}
+        },
         "name": "tipo_veiculo"
-      },
-      {
-        "type": "text",
-        "name": "placa_veiculo"
-      },
-      {
-        "type": "text",
-        "name": "colaborador"
       }
     ]
   },
   "exec": {
-    "steps": [
-      {
-        "name": "hash",
-        "module": "crypto",
-        "action": "passwordHash",
-        "options": {
-          "password": "{{$_POST.cpf}}",
-          "algo": "argon2id"
-        },
-        "outputType": "text"
-      },
-      {
-        "name": "colaborador",
-        "module": "dbupdater",
-        "action": "insert",
-        "options": {
-          "connection": "db",
-          "sql": {
-            "type": "insert",
-            "values": [
-              {
-                "table": "colaboradores",
-                "column": "nome_colaborador",
-                "type": "text",
-                "value": "{{$_POST.nome_completo}}"
-              },
-              {
-                "table": "colaboradores",
-                "column": "cpf_colaborador",
-                "type": "text",
-                "value": "{{$_POST.cpf}}"
-              },
-              {
-                "table": "colaboradores",
-                "column": "data_nascimento",
-                "type": "date",
-                "value": "{{$_POST.data_nascimento}}"
-              },
-              {
-                "table": "colaboradores",
-                "column": "email",
-                "type": "text",
-                "value": "{{$_POST.email}}"
-              },
-              {
-                "table": "colaboradores",
-                "column": "telefone",
-                "type": "text",
-                "value": "{{$_POST.telefone}}"
-              },
-              {
-                "table": "colaboradores",
-                "column": "password",
-                "type": "text",
-                "value": "{{hash}}"
-              }
-            ],
-            "table": "colaboradores",
-            "returning": "id_colaborador",
-            "query": "insert into \"colaboradores\" (\"cpf_colaborador\", \"data_nascimento\", \"email\", \"nome_colaborador\", \"password\", \"telefone\") values (?, ?, ?, ?, ?, ?)",
-            "params": [
-              {
-                "name": ":P1",
-                "type": "expression",
-                "value": "{{$_POST.nome_completo}}",
-                "test": ""
-              },
-              {
-                "name": ":P2",
-                "type": "expression",
-                "value": "{{$_POST.cpf}}",
-                "test": ""
-              },
-              {
-                "name": ":P3",
-                "type": "expression",
-                "value": "{{$_POST.data_nascimento}}",
-                "test": ""
-              },
-              {
-                "name": ":P4",
-                "type": "expression",
-                "value": "{{$_POST.email}}",
-                "test": ""
-              },
-              {
-                "name": ":P5",
-                "type": "expression",
-                "value": "{{$_POST.telefone}}",
-                "test": ""
-              },
-              {
-                "name": ":P6",
-                "type": "expression",
-                "value": "{{hash}}",
-                "test": ""
-              }
-            ]
-          }
-        },
-        "meta": [
-          {
-            "name": "identity",
-            "type": "text"
-          },
-          {
-            "name": "affected",
-            "type": "number"
-          }
-        ]
-      },
-      {
-        "name": "veiculo",
-        "module": "dbupdater",
-        "action": "insert",
-        "options": {
-          "connection": "db",
-          "sql": {
-            "type": "insert",
-            "values": [
-              {
-                "table": "veiculos_colaboradores",
-                "column": "tipo_veiculo",
-                "type": "text",
-                "value": "{{$_POST.tipo_veiculo}}"
-              },
-              {
-                "table": "veiculos_colaboradores",
-                "column": "placa_veiculo",
-                "type": "text",
-                "value": "{{$_POST.placa}}"
-              },
-              {
-                "table": "veiculos_colaboradores",
-                "column": "colaborador",
-                "type": "text",
-                "value": "{{colaborador.identity}}"
-              },
-              {
-                "table": "veiculos_colaboradores",
-                "column": "modelo_veiculo",
-                "type": "text",
-                "value": "{{$_POST.modelo_veiculo}}"
-              },
-              {
-                "table": "veiculos_colaboradores",
-                "column": "ano_veiculo",
-                "type": "text",
-                "value": "{{$_POST.ano_veiculo}}"
-              },
-              {
-                "table": "veiculos_colaboradores",
-                "column": "cor_veiculo",
-                "type": "text",
-                "value": "{{$_POST.cor_veiculo}}"
-              }
-            ],
-            "table": "veiculos_colaboradores",
-            "returning": "id_veiculo_colaborador",
-            "query": "insert into \"veiculos_colaboradores\" (\"ano_veiculo\", \"colaborador\", \"cor_veiculo\", \"modelo_veiculo\", \"placa_veiculo\", \"tipo_veiculo\") values (?, ?, ?, ?, ?, ?) returning \"id_veiculo_colaborador\"",
-            "params": [
-              {
-                "name": ":P1",
-                "type": "expression",
-                "value": "{{$_POST.tipo_veiculo}}",
-                "test": ""
-              },
-              {
-                "name": ":P2",
-                "type": "expression",
-                "value": "{{$_POST.placa}}",
-                "test": ""
-              },
-              {
-                "name": ":P3",
-                "type": "expression",
-                "value": "{{colaborador.identity}}",
-                "test": ""
-              },
-              {
-                "name": ":P4",
-                "type": "expression",
-                "value": "{{$_POST.modelo_veiculo}}",
-                "test": ""
-              },
-              {
-                "name": ":P5",
-                "type": "expression",
-                "value": "{{$_POST.ano_veiculo}}",
-                "test": ""
-              },
-              {
-                "name": ":P6",
-                "type": "expression",
-                "value": "{{$_POST.cor_veiculo}}",
-                "test": ""
-              }
-            ]
-          }
-        },
-        "meta": [
-          {
-            "name": "identity",
-            "type": "text"
-          },
-          {
-            "name": "affected",
-            "type": "number"
-          }
-        ]
-      },
-      {
-        "name": "motorista",
-        "module": "dbupdater",
-        "action": "insert",
-        "options": {
-          "connection": "db",
-          "sql": {
-            "type": "insert",
-            "values": [
-              {
-                "table": "veiculos_motoristas",
-                "column": "id_motorista",
-                "type": "text",
-                "value": "{{colaborador.identity}}"
-              },
-              {
-                "table": "veiculos_motoristas",
-                "column": "id_veiculo",
-                "type": "number",
-                "value": "{{veiculo.identity}}"
-              },
-              {
-                "table": "veiculos_motoristas",
-                "column": "id_responsavel_motorista",
-                "type": "text",
-                "value": "{{colaborador.identity}}"
-              }
-            ],
-            "table": "veiculos_motoristas",
-            "returning": "id_veiculos_motoristas",
-            "query": "insert into \"veiculos_motoristas\" (\"id_motorista\", \"id_responsavel_motorista\", \"id_veiculo\") values (?, ?, ?)",
-            "params": [
-              {
-                "name": ":P1",
-                "type": "expression",
-                "value": "{{colaborador.identity}}",
-                "test": ""
-              },
-              {
-                "name": ":P2",
-                "type": "expression",
-                "value": "{{veiculo.identity}}",
-                "test": ""
-              },
-              {
-                "name": ":P3",
-                "type": "expression",
-                "value": "{{colaborador.identity}}",
-                "test": ""
-              }
-            ]
-          }
-        },
-        "meta": [
-          {
-            "name": "identity",
-            "type": "text"
-          },
-          {
-            "name": "affected",
-            "type": "number"
-          }
-        ]
-      },
-      {
-        "name": "api",
-        "module": "api",
-        "action": "send",
-        "options": {
-          "url": "https://backend.spacefeed.app/api/qrcode",
-          "dataType": "json",
-          "schema": [
+    "steps": {
+      "name": "insert_colaborador",
+      "module": "dbupdater",
+      "action": "insert",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "insert",
+          "values": [
             {
-              "type": "object",
-              "name": "data",
-              "sub": [
-                {
-                  "type": "text",
-                  "name": "message"
-                }
-              ]
+              "table": "colaboradores",
+              "column": "nome_colaborador",
+              "type": "text",
+              "value": "{{$_POST.nome_completo}}"
             },
             {
-              "type": "object",
-              "name": "headers",
-              "sub": [
-                {
-                  "type": "text",
-                  "name": "connection"
-                },
-                {
-                  "type": "text",
-                  "name": "content-length"
-                },
-                {
-                  "type": "text",
-                  "name": "content-type"
-                },
-                {
-                  "type": "text",
-                  "name": "date"
-                },
-                {
-                  "type": "text",
-                  "name": "etag"
-                },
-                {
-                  "type": "text",
-                  "name": "server"
-                },
-                {
-                  "type": "text",
-                  "name": "vary"
-                },
-                {
-                  "type": "text",
-                  "name": "x-served-by"
-                }
-              ]
+              "table": "colaboradores",
+              "column": "cpf_colaborador",
+              "type": "text",
+              "value": "{{$_POST.cpf}}"
+            },
+            {
+              "table": "colaboradores",
+              "column": "email",
+              "type": "text",
+              "value": "{{$_POST.email}}"
+            },
+            {
+              "table": "colaboradores",
+              "column": "telefone",
+              "type": "text",
+              "value": "{{$_POST.telefone}}"
+            },
+            {
+              "table": "colaboradores",
+              "column": "password",
+              "type": "text",
+              "value": "{{$_POST.cpf}}"
             }
           ],
-          "params": {
-            "usuario": "{{$_POST.cpf}}",
-            "placa": "{{$_POST.placa}}",
-            "veiculo": "{{veiculo.identity}}",
-            "id_usuario": "{{colaborador.identity}}"
-          }
+          "table": "colaboradores",
+          "returning": "id_colaborador",
+          "query": "insert into \"colaboradores\" (\"cpf_colaborador\", \"email\", \"nome_colaborador\", \"password\", \"telefone\") values (?, ?, ?, ?, ?)",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.nome_completo}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.cpf}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.email}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.telefone}}",
+              "test": ""
+            },
+            {
+              "name": ":P5",
+              "type": "expression",
+              "value": "{{$_POST.cpf}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "identity",
+          "type": "text"
         },
-        "output": true,
-        "meta": [
-          {
-            "type": "object",
-            "name": "data",
-            "sub": [
-              {
-                "type": "text",
-                "name": "message"
-              }
-            ]
-          },
-          {
-            "type": "object",
-            "name": "headers",
-            "sub": [
-              {
-                "type": "text",
-                "name": "connection"
-              },
-              {
-                "type": "text",
-                "name": "content-length"
-              },
-              {
-                "type": "text",
-                "name": "content-type"
-              },
-              {
-                "type": "text",
-                "name": "date"
-              },
-              {
-                "type": "text",
-                "name": "etag"
-              },
-              {
-                "type": "text",
-                "name": "server"
-              },
-              {
-                "type": "text",
-                "name": "vary"
-              },
-              {
-                "type": "text",
-                "name": "x-served-by"
-              }
-            ]
-          }
-        ],
-        "outputType": "object",
-        "collapsed": true
-      }
-    ]
-  },
-  "usedModules": {
-    "argon2": "^0.30.2"
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
   }
 }

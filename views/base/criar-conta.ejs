@@ -163,7 +163,7 @@
         <div class="col-12 col-md-10 col-lg-8 col-xl-6">
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-2 p-md-2">
-                    <form is="dmx-serverconnect-form" id="criar_conta_form" class="needs-validation" method="post" action="/api/colaborador/criar-conta" dmx-on:error="notificacoes.danger('Ocorreu um erro: '+criar_conta_form.lastError.status+' - '+criar_conta_form.lastError.message)" dmx-on:success="navegacao.goto('/f/login',true)">
+                    <form is="dmx-serverconnect-form" id="criar_conta_form" class="needs-validation" method="post" action="/api/colaborador/nova-conta" dmx-on:error="notificacoes.danger('Ocorreu um erro: '+criar_conta_form.lastError.status+' - '+criar_conta_form.lastError.message)" dmx-on:success="navegacao.goto('/f/login',true)">
 
                         <!-- STEP 1: Foto do Colaborador -->
                         <div dmx-show="current_step.value == 1" class="step-content">
@@ -254,7 +254,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Data de Nascimento -->
 
                                 <!-- Email -->
                                 <div class="col-12">

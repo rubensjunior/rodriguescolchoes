@@ -6,5 +6,9 @@
   "login.ejs": {
     "layoutPage": "main",
     "description": ""
+  },
+  "nova-conta.ejs": {
+    "layoutPage": "backoffice",
+    "description": ""
   }
 }

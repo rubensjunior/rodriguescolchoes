@@ -70,6 +70,11 @@
       "path": "/colaborador/f/foto-colaborador",
       "page": "colaborador/foto-colaborador",
       "layout": "mobile-portaria"
+    },
+    {
+      "path": "/base/nova-conta",
+      "page": "base/nova-conta",
+      "layout": "backoffice"
     }
   ],
   "layouts": {
