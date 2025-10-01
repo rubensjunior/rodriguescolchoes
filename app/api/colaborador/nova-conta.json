@@ -14,20 +14,20 @@
         "name": "foto",
         "sub": [
           {
-            "name": "name",
-            "type": "text"
+            "type": "text",
+            "name": "name"
           },
           {
-            "name": "type",
-            "type": "text"
+            "type": "text",
+            "name": "type"
           },
           {
-            "name": "size",
-            "type": "number"
+            "type": "number",
+            "name": "size"
           },
           {
-            "name": "error",
-            "type": "text"
+            "type": "text",
+            "name": "error"
           }
         ],
         "outputType": "file"
@@ -228,7 +228,8 @@
             "type": "number"
           }
         ],
-        "output": true
+        "output": true,
+        "disabled": true
       },
       {
         "name": "",
@@ -241,7 +242,8 @@
           "width": 400,
           "height": 500
         },
-        "output": true
+        "output": true,
+        "disabled": true
       },
       {
         "name": "newImage",
@@ -253,7 +255,8 @@
           "quality": 50,
           "path": "/public/upload/perfil"
         },
-        "output": true
+        "output": true,
+        "disabled": true
       },
       {
         "name": "fileRemove",
