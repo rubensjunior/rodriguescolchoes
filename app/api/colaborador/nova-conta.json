@@ -253,8 +253,7 @@
           "quality": 50,
           "path": "/public/upload/perfil"
         },
-        "output": true,
-        "disabled": true
+        "output": true
       },
       {
         "name": "fileRemove",
@@ -263,8 +262,7 @@
         "options": {
           "path": "{{upload.path}}"
         },
-        "outputType": "boolean",
-        "disabled": true
+        "outputType": "boolean"
       },
       {
         "name": "insert_colaborador",
