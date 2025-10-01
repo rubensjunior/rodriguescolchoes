@@ -533,14 +533,7 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://backend.spacefeed.app/api-test/qrcode",
-          "params": {
-            "usuario": "{{$_POST.cpf}}",
-            "placa": "{{$_POST.placa}}",
-            "veiculo": "{{insert_veiculo.identity}}",
-            "id_usuario": "{{insert_colaborador.identity}}"
-          },
-          "dataType": "json",
+          "url": "https://backend.spacefeed.app/api/qrcode",
           "schema": [
             {
               "type": "object",
@@ -556,6 +549,10 @@
               "type": "object",
               "name": "headers",
               "sub": [
+                {
+                  "type": "text",
+                  "name": "connection"
+                },
                 {
                   "type": "text",
                   "name": "content-length"
@@ -586,7 +583,14 @@
                 }
               ]
             }
-          ]
+          ],
+          "params": {
+            "usuario": "004.934.252-10",
+            "placa": "ABC1010",
+            "veiculo": "228",
+            "id_usuario": "b3fa2643-0a40-4883-9967-41a2edb9f13a"
+          },
+          "dataType": "json"
         },
         "output": true,
         "collapsed": true,
@@ -605,6 +609,10 @@
             "type": "object",
             "name": "headers",
             "sub": [
+              {
+                "type": "text",
+                "name": "connection"
+              },
               {
                 "type": "text",
                 "name": "content-length"
