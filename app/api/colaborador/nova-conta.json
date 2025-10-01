@@ -241,8 +241,7 @@
           "width": 400,
           "height": 500
         },
-        "output": true,
-        "disabled": true
+        "output": true
       },
       {
         "name": "newImage",
