@@ -585,10 +585,10 @@
             }
           ],
           "params": {
-            "usuario": "004.934.252-10",
-            "placa": "ABC1010",
-            "veiculo": "228",
-            "id_usuario": "b3fa2643-0a40-4883-9967-41a2edb9f13a"
+            "usuario": "{{$_POST.cpf}}",
+            "placa": "{{$_POST.placa}}",
+            "veiculo": "{{insert_veiculo.identity}}",
+            "id_usuario": "{{insert_colaborador.identity}}"
           },
           "dataType": "json"
         },
