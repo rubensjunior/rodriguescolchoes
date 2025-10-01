@@ -214,7 +214,8 @@
         "module": "image",
         "action": "load",
         "options": {
-          "path": "{{upload.path}}"
+          "path": "{{upload.path}}",
+          "autoOrient": true
         },
         "outputType": "object",
         "meta": [
@@ -226,7 +227,8 @@
             "name": "height",
             "type": "number"
           }
-        ]
+        ],
+        "output": true
       },
       {
         "name": "",
@@ -238,7 +240,8 @@
           "y": "middle",
           "width": 400,
           "height": 500
-        }
+        },
+        "output": true
       },
       {
         "name": "newImage",
