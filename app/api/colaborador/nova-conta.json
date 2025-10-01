@@ -228,8 +228,7 @@
             "type": "number"
           }
         ],
-        "output": true,
-        "disabled": true
+        "output": true
       },
       {
         "name": "",
